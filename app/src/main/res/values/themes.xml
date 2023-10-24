@@ -6,8 +6,12 @@
         <item name="colorSecondary">@color/secondary</item>
 
         <!-- Status bar color -->
-        <item name="android:statusBarColor">@color/primary</item>
-    </style>
+        <item name="android:statusBarColor">#1C75DE</item>
 
+    </style>
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
     <style name="Theme.EAirQA" parent="Base.Theme.EAirQA" />
 </resources>

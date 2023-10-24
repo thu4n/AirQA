@@ -4,41 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     tools:context=".LoginActivity">
 
     <!-- Logo and App name-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="@color/primary" >
-
+        android:background="@drawable/gradient_bg" >
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="28dp"
-        tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="149dp"
-            android:src="@drawable/logo"
-            android:contentDescription="logo"
-            tools:ignore="HardcodedText" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AirQA"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="32sp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/white"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="logo"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/alice"
+        android:text="AirQA"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        tools:ignore="HardcodedText" />
+
 
     <!-- Bottom Card-->
     <androidx.cardview.widget.CardView
@@ -61,13 +55,16 @@
                 android:text="Welcome"
                 android:textSize="32sp"
                 android:textColor="@color/primary"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Please login with your information"
                 android:alpha="0.8"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
                 android:layout_marginBottom="8dp"
                 tools:ignore="HardcodedText" />
 
@@ -88,7 +85,10 @@
                     android:id="@+id/usernameInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
                     android:textSize="18sp"
+                    android:maxLines="1"
                     android:maxLength="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -99,8 +99,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 app:endIconMode="password_toggle"
-                app:helperText="*Password nên dài ít nhất 8 kí tự"
-                app:helperTextTextColor="@color/red"
                 app:startIconDrawable="@drawable/baseline_lock_24"
                 tools:ignore="HardcodedText"
                 >
@@ -111,6 +109,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
                     android:maxLength="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -123,6 +125,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Remember me"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -131,6 +135,9 @@
                     android:text="I forgot my password"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
+                    android:alpha="0.8"
                     tools:ignore="HardcodedText" />
             </RelativeLayout>
             <!--Button Login-->
@@ -140,6 +147,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="LOGIN"
+                android:background="@drawable/gradient"
+                app:backgroundTint="@null"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 tools:ignore="HardcodedText"/>
 
             <!--OAUTH LOGIN-->
@@ -150,6 +162,8 @@
                 android:gravity="center"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,7 +181,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="8dp"
-                    android:background="@drawable/email"
+                    android:background="@drawable/gmail"
                     android:contentDescription="Gmail"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
@@ -180,6 +194,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Don't have an account"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
                 <TextView
                     android:id="@+id/change_to_signup"
@@ -188,6 +204,8 @@
                     android:text="Create new account"
                     android:paddingHorizontal="6dp"
                     android:textColor="@color/primary"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>
