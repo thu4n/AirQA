@@ -4,41 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    tools:context=".LoginActivity">
+    tools:context=".SignUpActivity">
 
     <!-- Logo and App name-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="@color/primary" >
-
+        android:background="@drawable/gradient_bg" >
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="28dp"
-        tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="149dp"
-            android:src="@drawable/logo"
-            android:contentDescription="logo"
-            tools:ignore="HardcodedText" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AirQA"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="32sp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/white"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="logo"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/alice"
+        android:text="AirQA"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        tools:ignore="HardcodedText" />
 
     <!-- Bottom Card-->
     <androidx.cardview.widget.CardView
@@ -61,7 +54,8 @@
                 android:text="Sign Up"
                 android:textSize="32sp"
                 android:textColor="@color/primary"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
             <TextView
                 android:layout_width="match_parent"
@@ -69,7 +63,34 @@
                 android:text="Create your new account"
                 android:alpha="0.8"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
+
+            <!-- Gmail input-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/gmailInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email address"
+                app:counterMaxLength="20"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/baseline_email_24"
+                tools:ignore="HardcodedText"
+                >
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gmailInputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:maxLength="20" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Username input-->
             <com.google.android.material.textfield.TextInputLayout
@@ -89,6 +110,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
+                    android:maxLines="1"
                     android:maxLength="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -100,6 +124,7 @@
                 android:hint="Password"
                 app:endIconMode="password_toggle"
                 app:helperTextTextColor="@color/red"
+                app:helperText="* Use 8 characters or more for your password"
                 app:startIconDrawable="@drawable/baseline_lock_24"
                 tools:ignore="HardcodedText"
                 >
@@ -110,6 +135,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
                     android:maxLength="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -119,7 +148,7 @@
                 android:id="@+id/repasswordInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Re-Password"
+                android:hint="Re-enter Password"
                 app:endIconMode="password_toggle"
                 app:helperTextTextColor="@color/red"
                 app:startIconDrawable="@drawable/baseline_lock_24"
@@ -132,6 +161,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
                     android:maxLength="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +176,11 @@
                 android:layout_height="wrap_content"
                 android:text="SIGN UP"
                 android:layout_marginVertical="8dp"
+                android:background="@drawable/gradient"
+                app:backgroundTint="@null"
+                android:fontFamily="@font/inter"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 tools:ignore="HardcodedText"/>
 
 
@@ -155,6 +193,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Already have an account?"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
                 <TextView
                     android:id="@+id/change_to_login"
@@ -163,6 +203,8 @@
                     android:text="Login"
                     android:paddingHorizontal="6dp"
                     android:textColor="@color/primary"
+                    android:fontFamily="@font/inter"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>
