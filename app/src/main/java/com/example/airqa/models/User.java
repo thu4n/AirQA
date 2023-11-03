@@ -1,19 +1,21 @@
 package com.example.airqa.models;
 
 public class User {
-    private String client_id;
+    private final String client_id = "open_remote";
     private String email;
     private String username;
     private String passwrod;
     private final String grant_type = "password";
 
+    public User(String username, String passwrod) {
+        this.username = username;
+        this.passwrod = passwrod;
+    }
+
     public String getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
-    }
 
     public String getEmail() {
         return email;

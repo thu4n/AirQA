@@ -38,7 +38,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);*/
         });
-
+    }
+    private void logIn(){
 
     }
 

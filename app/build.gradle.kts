@@ -7,7 +7,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.airqa"
+        applicationId = "com.example.'airqa"
         minSdk = 28
         targetSdk = 33
         versionCode = 1
