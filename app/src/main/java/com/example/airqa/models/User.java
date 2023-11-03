@@ -1,7 +1,7 @@
 package com.example.airqa.models;
 
 public class User {
-    private final String client_id = "open_remote";
+    private final String client_id = "openremote";
     private String email;
     private String username;
     private String passwrod;

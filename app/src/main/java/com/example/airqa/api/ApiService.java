@@ -18,10 +18,11 @@ public interface ApiService {
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             .create();
 
-    Retrofit apiService = new Retrofit.Builder()
+    ApiService apiService = new Retrofit.Builder()
             .baseUrl("https://uiot.ixxc.dev/auth/realms/master/protocol/")
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
+            .build()
+            .create(ApiService.class);
 
     @FormUrlEncoded
     @POST("openid-connect/token")
