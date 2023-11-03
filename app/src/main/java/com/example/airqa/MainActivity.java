@@ -1,8 +1,6 @@
-package com.example.eairqa;
-import android.content.Intent;
+package com.example.airqa;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.eairqa;
+package com.example.airqa;
 
 import org.junit.Test;
 

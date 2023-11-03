@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.EAirQA" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.AirQA" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorSecondary">@color/secondary</item>
@@ -13,5 +13,5 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-    <style name="Theme.EAirQA" parent="Base.Theme.EAirQA" />
+    <style name="Theme.AirQA" parent="Base.Theme.AirQA" />
 </resources>

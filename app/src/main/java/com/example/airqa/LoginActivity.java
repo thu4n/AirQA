@@ -1,9 +1,7 @@
-package com.example.eairqa;
+package com.example.airqa;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,10 +32,11 @@ public class LoginActivity extends AppCompatActivity {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
         login_button.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+            /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             // start the activity connect to the specified class
             startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);*/
         });
 
 

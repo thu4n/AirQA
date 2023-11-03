@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.eairqa"
+    namespace = "com.example.airqa"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.eairqa"
+        applicationId = "com.example.airqa"
         minSdk = 28
         targetSdk = 33
         versionCode = 1
@@ -37,4 +37,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.github.hadibtf:SemiCircleArcProgressBar:1.1.1")
+    implementation ("com.google.code.gson:gson:2.8.7")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }

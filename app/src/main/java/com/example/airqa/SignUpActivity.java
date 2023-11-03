@@ -1,8 +1,7 @@
-package com.example.eairqa;
+package com.example.airqa;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
