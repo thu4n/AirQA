@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                                         if(response.isSuccessful()) {
-                                            Toast.makeText(SignUpActivity.this, "Sign in successfully!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignUpActivity.this, "Sign up successfully, now signing in", Toast.LENGTH_SHORT).show();
 
                                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                             startActivity(intent);
@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             Log.e("ok", response.body().getAccess_token() + "");
                                         }
                                         else{
-                                            Toast.makeText(SignUpActivity.this, "Wrong username or password.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignUpActivity.this, "Something went wrong, please try later.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
