@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
-
     <!-- Logo and App name-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,7 +39,12 @@
         app:cardCornerRadius="28dp"
         android:layout_marginBottom="-20dp"
         android:layout_alignParentBottom="true" >
-
+        <WebView
+            android:id="@+id/signup_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -69,7 +73,7 @@
 
             <!-- Gmail input-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/gmailInputLayout"
+                android:id="@+id/emailInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email address"
@@ -81,7 +85,7 @@
 
                 <!--this is the actual edit text which takes the input-->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/gmailInputText"
+                    android:id="@+id/emailInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"

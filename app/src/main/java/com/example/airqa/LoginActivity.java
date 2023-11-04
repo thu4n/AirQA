@@ -10,9 +10,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.airqa.api.ApiService;
+import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,17 +61,18 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void logIn(String username, String password){
         User user = new User(username, password);
-        Call<User> call = ApiService.apiService.userLogin(user.getClient_id(), user.getUsername(), user.getPasswrod(), user.getGrant_type());
-        call.enqueue(new Callback<User>() {
+        Call<AuthResponse> call = ApiService.apiService.userLogin(user.getClient_id(), user.getUsername(), user.getPasswrod(), user.getGrant_type());
+        call.enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if(response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    // start the activity connect to the specified class
                     startActivity(intent);
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    Log.e("ok",response.message() + ", status:200, dang nhap dc roi nhe");
+
+                    Log.e("ok", response.body().getAccess_token() + "");
                 }
                 else{
                     Toast.makeText(LoginActivity.this, "Wrong username or password.", Toast.LENGTH_SHORT).show();
@@ -75,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "An error has occured, please try again.", Toast.LENGTH_SHORT).show();
             }
         });

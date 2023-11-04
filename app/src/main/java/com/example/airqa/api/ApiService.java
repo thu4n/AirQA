@@ -1,5 +1,6 @@
 package com.example.airqa.api;
 
+import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -25,9 +27,10 @@ public interface ApiService {
             .create(ApiService.class);
 
     @FormUrlEncoded
+    @Headers({"Accept: application/json"})
     @POST("openid-connect/token")
-    Call<User> userLogin(@Field("client_id") String client_id,
-                         @Field("username") String username,
-                         @Field("password") String password,
-                         @Field("grant_type") String grant_type);
+    Call<AuthResponse> userLogin(@Field("client_id") String client_id,
+                                 @Field("username") String username,
+                                 @Field("password") String password,
+                                 @Field("grant_type") String grant_type);
 }
