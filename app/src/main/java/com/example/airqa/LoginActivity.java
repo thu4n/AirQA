@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context; //
+import android.content.SharedPreferences; //
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,10 +31,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView change_to_signup_button;
     MaterialButton login_button;
     // Add button Move to next Activity and previous Activity
-
     TextInputEditText username;
     TextInputEditText password;
-
+    CheckBox rememberMe;
+    // create data to storage username and password
+    public static final String PREFS_NAME = "preferences";
+    private static final String PREF_UNAME = "Username";
+    private static final String PREF_PASSWORD = "Password";
+    private final String DefaultUnameValue = "";
+    private String UnameValue;
+    private final String DefaultPasswordValue = "";
+    private String PasswordValue; //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,15 +59,17 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
-
         username = (TextInputEditText)findViewById(R.id.usernameInputText);
         password = (TextInputEditText)findViewById(R.id.passwordInputText);
+        rememberMe = (CheckBox)findViewById(R.id.remember_me);
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logIn(username.getText().toString(),password.getText().toString());
             }
         });
+        checkBox();
     }
     private void logIn(String username, String password){
         User user = new User(username, password);
@@ -67,7 +79,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
-
+                    //
+                    SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("check","true");
+                    editor.apply();
+                    //
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -85,5 +102,48 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void savePreferences() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
 
+        // Edit and commit
+        UnameValue = username.getText().toString();
+        PasswordValue = password.getText().toString();
+        editor.putString(PREF_UNAME, UnameValue);
+        editor.putString(PREF_PASSWORD, PasswordValue);
+        editor.commit();
+    }
+    private void loadPreferences() {
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME,
+                Context.MODE_PRIVATE);
+
+        // Get value
+
+        UnameValue = settings.getString(PREF_UNAME, DefaultUnameValue);
+        PasswordValue = settings.getString(PREF_PASSWORD, DefaultPasswordValue);
+        username.setText(UnameValue);
+        password.setText(PasswordValue);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(rememberMe.isChecked())
+        {savePreferences();}
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadPreferences();
+    }
+    private void checkBox(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        String check = sharedPreferences.getString("check","");
+        if(check.equals("true")) {
+            loadPreferences();
+            logIn(username.getText().toString(),password.getText().toString());
+            //  login_button.performClick();
+        }
+    }
 }
