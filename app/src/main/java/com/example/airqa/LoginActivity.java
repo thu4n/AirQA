@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         checkBox();
     }
     private void logIn(String username, String password){
-        User user = new User(username, password);
-        Call<AuthResponse> call = ApiService.apiService.userLogin(user.getClient_id(), user.getUsername(), user.getPasswrod(), user.getGrant_type());
+        User user = new User(username);
+        Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username, password, "password");
         call.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {

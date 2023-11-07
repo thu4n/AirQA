@@ -99,8 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view, String url) {
                             if (url.startsWith("https://uiot.ixxc.dev/auth/realms/master/account/")) {
-                                User user = new User(username.getText().toString(), password.getText().toString());
-                                Call<AuthResponse> call = ApiService.apiService.userLogin(user.getClient_id(), user.getUsername(), user.getPasswrod(), user.getGrant_type());
+                                User user = new User(username.getText().toString());
+                                Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username.getText().toString(), password.getText().toString(), "password");
                                 call.enqueue(new Callback<AuthResponse>() {
                                     @Override
                                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
