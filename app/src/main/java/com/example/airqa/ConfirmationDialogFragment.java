@@ -1,8 +1,18 @@
 package com.example.airqa;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.example.airqa.LoginActivity.PREF_PASSWORD;
+import static com.example.airqa.LoginActivity.PREF_REF_TOKEN;
+import static com.example.airqa.LoginActivity.PREF_TOKEN;
+import static com.example.airqa.LoginActivity.PREF_UNAME;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -70,7 +80,19 @@ public class ConfirmationDialogFragment extends DialogFragment {
     }
 
     private void performAction() {
-        // Put your code here to perform the desired action
-        Toast.makeText(requireContext(), "Action performed", Toast.LENGTH_SHORT).show();
+        String token;
+        String ref_token;
+        SharedPreferences settings = getActivity().getSharedPreferences(LoginActivity.PREFS_NAME,MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(PREF_TOKEN, "");
+        editor.putString(PREF_REF_TOKEN, "");
+        editor.putString(PREF_UNAME,"");
+        editor.putString(PREF_PASSWORD,"");
+        editor.commit();
+        Toast.makeText(requireContext(),  "Logging out...", Toast.LENGTH_SHORT).show();
+        // move to splash screen
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

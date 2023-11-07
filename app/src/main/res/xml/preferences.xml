@@ -15,7 +15,7 @@
     </PreferenceCategory>
     <!--General category-->
     <PreferenceCategory android:title="General"
-        android:icon="@drawable/baseline_person_24">
+        android:icon="@drawable/baseline_home_24">
 
         <Preference
             android:title="@string/logout_pref"

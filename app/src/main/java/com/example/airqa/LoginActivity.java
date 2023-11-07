@@ -36,20 +36,20 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox rememberMe;
     // create data to storage username and password
     public static final String PREFS_NAME = "preferences";
-    private static final String PREF_UNAME = "Username";
-    private static final String PREF_PASSWORD = "Password";
-    private static final String PREF_TOKEN = "";
-    private static final String PREF_REF_TOKEN = "";
-    private final String DefaultUnameValue = "";
+    public static final String PREF_UNAME = "Username";
+    public static final String PREF_PASSWORD = "Password";
+    public static String PREF_TOKEN = "";
+    public static final String PREF_REF_TOKEN = "";
+    private  String DefaultUnameValue = "";
     private String UnameValue;
-    private final String DefaultPasswordValue = "";
+    private  String DefaultPasswordValue = "";
     private String PasswordValue; //
 
     private String access_token;
     private String refresh_token;
 
-    private final String default_token = "";
-    private final String default_ref_token = "";
+    private  String default_token = "";
+    private  String default_ref_token = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,9 +208,6 @@ public class LoginActivity extends AppCompatActivity {
         String check = sharedPreferences.getString("check","");
         if(check.equals("true")) {
             loadPreferences();
-
-            //logIn(username.getText().toString(),password.getText().toString());
-            //  login_button.performClick();
         }
     }
 }
