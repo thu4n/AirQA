@@ -1,10 +1,13 @@
 package com.example.airqa.api;
 
+import androidx.webkit.internal.ApiFeature;
+
 import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -45,4 +49,8 @@ public interface ApiService {
     Call<AuthResponse> refreshToken(@Field("client_id") String client_id,
                                  @Field("refresh_token") String refresh_token,
                                  @Field("grant_type") String grant_type);
+
+    @FormUrlEncoded
+    @PUT("api/master/user/master/reset-password/")
+    Call<Void> resetPassword(@Header("Authorization") String token,@Body RequestBody body);
 }

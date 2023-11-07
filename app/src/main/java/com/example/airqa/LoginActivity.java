@@ -50,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private  String default_token = "";
     private  String default_ref_token = "";
+
+    public static User activeUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Logged in with " + response.body().getEmail(), Toast.LENGTH_SHORT).show();
                     Log.e("ok", response.body().getEmail() + "");
+                    activeUser = response.body();
                   // move to splash screen
                     Intent intent = new Intent(LoginActivity.this, SplashScreen.class);
                     startActivity(intent);

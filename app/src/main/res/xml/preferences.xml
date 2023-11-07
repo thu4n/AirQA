@@ -5,10 +5,10 @@
     <!--Account category-->
     <PreferenceCategory android:title="Account"
         android:icon="@drawable/baseline_person_24">
-    <EditTextPreference
+        <Preference
         android:title="@string/change_username_pref"
         android:key="username"/>
-    <EditTextPreference
+        <Preference
         android:title="@string/change_password_pref"
         android:key="password"/>
 
