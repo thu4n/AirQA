@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -68,10 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
 
         signup_button.setOnClickListener(v ->
                 {
+
+                    Intent intent = new Intent(SignUpActivity.this, LoadingScreen.class);
+                    startActivity(intent);
                     myWebView.setWebViewClient(new WebViewClient(){
                         boolean buttonClicked = false;
                         @Override
                         public void onPageFinished(WebView view, String url) {
+
+
 
                             if(!buttonClicked){
                                 myWebView.loadUrl("javascript:document.querySelector('a[class=\\\"btn waves-effect waves-light\\\"]').click()");
@@ -89,7 +95,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     "   email.value = '" + email.getText().toString() + "';" +
                                     "   password.value = '" + password.getText().toString() + "';" +
                                     "   password_conf.value = '" + password_conf.getText().toString() + "';" +
-                                    "   form.submit();" +
                                     "}" +
                                     "})()";
                             myWebView.loadUrl(fillFormJS);

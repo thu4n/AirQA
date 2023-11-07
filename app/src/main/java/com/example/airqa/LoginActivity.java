@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 logIn(username.getText().toString(),password.getText().toString());
             }
         });
-        checkBox();
+        //checkBox();
     }
     private void logIn(String username, String password){
         User user = new User(username, password);
