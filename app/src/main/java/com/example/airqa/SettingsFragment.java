@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -25,6 +26,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(confirmationMessage);
                     Context context = getContext();
                     dialog.show(requireActivity().getSupportFragmentManager(), "confirmation_dialog");
+                    return true; // Consume the initial click event
+                }
+                else if (preference.getKey().equals("password")) {
+
+                    return true; // Consume the initial click event
+                }
+                return false;
+            }
+
+        };
+        Preference.OnPreferenceChangeListener preferenceChangeListener = new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (preference.getKey().equals("password")) {
+                    String newPassword = (String)newValue;
+                    
                     return true; // Consume the initial click event
                 }
                 return false;
