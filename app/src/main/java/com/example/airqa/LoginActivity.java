@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 logIn(username.getText().toString(),password.getText().toString());
             }
         });
-        checkBox();
+        //checkBox();
     }
     private void logIn(String username, String password){
         User user = new User(username, password);
@@ -78,17 +78,18 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                    //
+                    // shared pref
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("check","true");
                     editor.apply();
-                    //
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    // move to splash screen
+                    Intent intent = new Intent(LoginActivity.this, SplashScreen.class);
                     startActivity(intent);
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
+                    // toast success
+                    Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                    // log
                     Log.e("ok", response.body().getAccess_token() + "");
                 }
                 else{
