@@ -38,4 +38,11 @@ public interface ApiService {
 
     @GET("api/master/user/user")
     Call<User> getUserInfo(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @Headers({"Accept: application/json"})
+    @POST("auth/realms/master/protocol/openid-connect/token")
+    Call<AuthResponse> refreshToken(@Field("client_id") String client_id,
+                                 @Field("refresh_token") String refresh_token,
+                                 @Field("grant_type") String grant_type);
 }
