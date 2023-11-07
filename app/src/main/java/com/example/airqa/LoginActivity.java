@@ -77,8 +77,10 @@ public class LoginActivity extends AppCompatActivity {
                 logIn(username.getText().toString(),password.getText().toString());
             }
         });
+
         checkBox();
         getUserInfo(access_token);
+
     }
 
     private void logIn(String username, String password){
@@ -91,12 +93,12 @@ public class LoginActivity extends AppCompatActivity {
                     refresh_token = response.body().getRefresh_token();
                     getUserInfo(response.body().getAccess_token());
                     //
+                    // shared pref
+
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("check","true");
                     editor.apply();
-                    //
-
 
                     Log.e("ok", response.body().getAccess_token() + "");
                 }
@@ -121,7 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Logged in with " + response.body().getEmail(), Toast.LENGTH_SHORT).show();
                     Log.e("ok", response.body().getEmail() + "");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                  // move to splash screen
+                    Intent intent = new Intent(LoginActivity.this, SplashScreen.class);
                     startActivity(intent);
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }

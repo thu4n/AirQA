@@ -35,5 +35,10 @@ public class MainActivity extends BaseActivity  {
         RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
         RadioButton rb=(RadioButton)findViewById(R.id.home);
 
+        // Change the corresponding icon and text color on nav button click.
+
+        rb.setTextColor(Color.parseColor("#1E9CE1"));
+        rb.setCompoundDrawableTintList(ColorStateList.valueOf(getColor(R.color.primary)));
+
     }
 }
