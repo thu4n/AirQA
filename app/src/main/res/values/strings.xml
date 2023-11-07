@@ -4,7 +4,8 @@
     <string name="previous">Previous</string>
     <string name="change_username_pref">Change Username</string>
     <string name="change_password_pref">Change Password</string>
-    <string name="logout_pref">Logout</string>
-    <string name="logout_summary">Logout from your account</string>
+    <string name="logout_pref">Log out</string>
+    <string name="logout_summary">Log out of your account</string>
+    <string name="email_pref">Hello blank fragment</string>
 
 </resources>

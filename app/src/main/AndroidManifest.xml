@@ -15,6 +15,12 @@
         android:theme="@style/Theme.AirQA"
         tools:targetApi="31">
         <activity
+            android:name=".LoadingScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity

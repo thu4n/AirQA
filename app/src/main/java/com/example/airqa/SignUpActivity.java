@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -68,10 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
 
         signup_button.setOnClickListener(v ->
                 {
+
+                    Intent intent = new Intent(SignUpActivity.this, LoadingScreen.class);
+                    startActivity(intent);
                     myWebView.setWebViewClient(new WebViewClient(){
                         boolean buttonClicked = false;
                         @Override
                         public void onPageFinished(WebView view, String url) {
+
+
 
                             if(!buttonClicked){
                                 myWebView.loadUrl("javascript:document.querySelector('a[class=\\\"btn waves-effect waves-light\\\"]').click()");
@@ -89,7 +95,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     "   email.value = '" + email.getText().toString() + "';" +
                                     "   password.value = '" + password.getText().toString() + "';" +
                                     "   password_conf.value = '" + password_conf.getText().toString() + "';" +
-                                    "   form.submit();" +
                                     "}" +
                                     "})()";
                             myWebView.loadUrl(fillFormJS);
@@ -99,8 +104,8 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view, String url) {
                             if (url.startsWith("https://uiot.ixxc.dev/auth/realms/master/account/")) {
-                                User user = new User(username.getText().toString(), password.getText().toString());
-                                Call<AuthResponse> call = ApiService.apiService.userLogin(user.getClient_id(), user.getUsername(), user.getPasswrod(), user.getGrant_type());
+                                User user = new User(username.getText().toString());
+                                Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username.getText().toString(), password.getText().toString(), "password");
                                 call.enqueue(new Callback<AuthResponse>() {
                                     @Override
                                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
