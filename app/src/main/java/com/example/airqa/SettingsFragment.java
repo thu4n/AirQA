@@ -52,7 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
         };
-        
+
         Preference preference = findPreference("logout");
         if (preference != null) {
             preference.setOnPreferenceClickListener(preferenceClickListener);

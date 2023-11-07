@@ -1,10 +1,14 @@
 package com.example.airqa;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context; //
@@ -61,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         // file use findViewById() to get the both Button and textview
         MaterialButton login_button = (MaterialButton) findViewById(R.id.login_button);
         TextView change_to_signup_button = (TextView) findViewById(R.id.change_to_signup);
+        TextView forgot_password = (TextView) findViewById(R.id.forgot_password);
 
         // Change to sign up button add click-listener
         change_to_signup_button.setOnClickListener(v -> {
@@ -78,6 +83,40 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 logIn(username.getText().toString(),password.getText().toString());
             }
+        });
+
+        forgot_password.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            builder.setTitle("Fill all information below");
+            LinearLayout layout = new LinearLayout(LoginActivity.this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+
+            final EditText input1 = new EditText(LoginActivity.this);
+            input1.setHint("Your email address");
+            layout.addView(input1);
+
+            final EditText input2 = new EditText(LoginActivity.this);
+            input2.setHint("Your user ID");
+            layout.addView(input2);
+            builder.setView(layout);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String userInput1 = input1.getText().toString();
+                    String userInput2 = input2.getText().toString();
+                    Toast.makeText(LoginActivity.this, "Email sent! " + userInput1, Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         checkBox();
