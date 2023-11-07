@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.preference.PreferenceFragment;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -54,6 +56,9 @@ public class SettingsActivity extends BaseActivity {
                     .setReorderingAllowed(true)
                     .commit();
         }
+        rb.setOnClickListener(v -> {
+            Toast.makeText(SettingsActivity.this, "Ok!" + "ok", Toast.LENGTH_SHORT).show();
+        });
 
     }
 
