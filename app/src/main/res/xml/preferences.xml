@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Account category-->
+    <PreferenceCategory android:title="Account"
+        android:icon="@drawable/baseline_person_24">
+
+    <EditTextPreference
+        android:title="@string/change_username_pref"
+        android:key="username"/>
+    <EditTextPreference
+        android:title="@string/change_password_pref"
+        android:key="password"/>
+
+    </PreferenceCategory>
+    <!--General category-->
+    <PreferenceCategory android:title="General"
+        android:icon="@drawable/baseline_person_24">
+
+        <Preference
+            android:title="@string/logout_pref"
+            android:key="logout"
+            android:summary="@string/logout_summary" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

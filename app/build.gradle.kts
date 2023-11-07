@@ -41,4 +41,5 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("androidx.webkit:webkit:1.7.0")
+    implementation ("androidx.preference:preference:1.1.1")
 }
