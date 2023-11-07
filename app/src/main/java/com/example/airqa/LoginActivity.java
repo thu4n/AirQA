@@ -72,13 +72,13 @@ public class LoginActivity extends AppCompatActivity {
         checkBox();
     }
     private void logIn(String username, String password){
-        User user = new User(username);
         Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username, password, "password");
         call.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                    getUserInfo(response.body().getAccess_token());
                     //
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -99,6 +99,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "An error has occured, please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void getUserInfo(String access_token){
+        Call<User> call = ApiService.apiService.getUserInfo(access_token);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
             }
         });
     }
