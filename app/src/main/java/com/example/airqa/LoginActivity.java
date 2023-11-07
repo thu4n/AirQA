@@ -39,14 +39,17 @@ public class LoginActivity extends AppCompatActivity {
     private static final String PREF_UNAME = "Username";
     private static final String PREF_PASSWORD = "Password";
     private static final String PREF_TOKEN = "";
+    private static final String PREF_REF_TOKEN = "";
     private final String DefaultUnameValue = "";
     private String UnameValue;
     private final String DefaultPasswordValue = "";
     private String PasswordValue; //
 
     private String access_token;
+    private String refresh_token;
 
     private final String default_token = "";
+    private final String default_ref_token = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         checkBox();
+        getUserInfo(access_token);
     }
 
     private void logIn(String username, String password){
@@ -84,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if(response.isSuccessful()) {
                     access_token = response.body().getAccess_token();
+                    refresh_token = response.body().getRefresh_token();
                     getUserInfo(response.body().getAccess_token());
                     //
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
@@ -102,7 +107,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "An error has occured, please try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "An error has occurred, please try again.", Toast.LENGTH_SHORT).show();
+                Log.e("fail", t.getMessage() + "");
             }
         });
     }
@@ -122,17 +128,38 @@ public class LoginActivity extends AppCompatActivity {
                 else if(response.code() == 401){
 
                     Log.e("not_ok", response.message() + "");
+                    refreshToken(refresh_token);
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.e("ok2", t.getMessage() + "");
+                Log.e("fail", t.getMessage() + "");
             }
         });
     }
-    private void refreshToken(){
-        
+    private void refreshToken(String refresh_token){
+        Toast.makeText(LoginActivity.this, "Requesting new token...", Toast.LENGTH_SHORT).show();
+        Call<AuthResponse> call = ApiService.apiService.refreshToken("openremote",refresh_token,"refresh_token");
+        call.enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if(response.isSuccessful()){
+                    Log.e("ok",  "New token: " + response.body().getAccess_token());
+                    getUserInfo(response.body().getAccess_token());
+                }
+                else if(response.code() == 401){
+
+                    Log.e("not_ok",  "Token expired");
+                    Toast.makeText(LoginActivity.this, "Token expired, please log in manually", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Log.e("fail", t.getMessage() + "");
+            }
+        });
     }
     private void savePreferences() {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME,
@@ -145,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(PREF_UNAME, UnameValue);
         editor.putString(PREF_PASSWORD, PasswordValue);
         editor.putString(PREF_TOKEN, access_token);
+        editor.putString(PREF_REF_TOKEN, refresh_token);
         editor.commit();
     }
     private void loadPreferences() {
@@ -157,9 +185,9 @@ public class LoginActivity extends AppCompatActivity {
         UnameValue = settings.getString(PREF_UNAME, DefaultUnameValue);
         PasswordValue = settings.getString(PREF_PASSWORD, DefaultPasswordValue);
         access_token = settings.getString(PREF_TOKEN,default_token);
+        refresh_token = settings.getString(PREF_REF_TOKEN, default_ref_token);
         username.setText(UnameValue);
         password.setText(PasswordValue);
-        getUserInfo(access_token);
     }
     @Override
     public void onPause() {
