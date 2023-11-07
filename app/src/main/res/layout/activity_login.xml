@@ -148,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="LOGIN"
-                android:background="@drawable/gradient"
+                android:background="@drawable/gradient_round"
                 app:backgroundTint="@null"
                 android:fontFamily="@font/inter"
                 android:textStyle="bold"
