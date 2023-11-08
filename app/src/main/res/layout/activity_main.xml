@@ -65,15 +65,6 @@
                         android:textSize="18dp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/border_round_white"
-                        android:contentDescription="room_image"
-                        android:src="@drawable/baseline_swap_horiz_24"
-                        app:tint="@color/primary"
-                        tools:ignore="HardcodedText" />
                 </LinearLayout>
                 <!-- Room Name-->
                 <RelativeLayout

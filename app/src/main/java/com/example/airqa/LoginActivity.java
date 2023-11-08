@@ -25,6 +25,18 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
     private  String default_ref_token = "";
 
     public static User activeUser;
+
+    private String help_id;
+    private String help_email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,9 +119,10 @@ public class LoginActivity extends AppCompatActivity {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String userInput1 = input1.getText().toString();
-                    String userInput2 = input2.getText().toString();
-                    Toast.makeText(LoginActivity.this, "Email sent! " + userInput1, Toast.LENGTH_SHORT).show();
+                    help_email = input1.getText().toString();
+                    help_id = input2.getText().toString();
+                    // sendEmail(); comment out for now because it doesn't work
+                    Toast.makeText(LoginActivity.this, "Email sent! ", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
@@ -252,4 +269,33 @@ public class LoginActivity extends AppCompatActivity {
             loadPreferences();
         }
     }
+    private void sendEmail(){
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "465"); // Use port 465 for SSL
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("penguintvat@gmail.com", "penguindeptrai");
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("penguintvat@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(help_email));
+            message.setSubject("hello");
+            message.setText("ok");
+
+            Transport.send(message);
+            System.out.println("Email sent successfully");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
