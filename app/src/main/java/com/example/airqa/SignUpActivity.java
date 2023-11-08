@@ -69,21 +69,16 @@ public class SignUpActivity extends AppCompatActivity {
 
         signup_button.setOnClickListener(v ->
                 {
-
                     Intent intent = new Intent(SignUpActivity.this, LoadingScreen.class);
                     startActivity(intent);
                     myWebView.setWebViewClient(new WebViewClient(){
                         boolean buttonClicked = false;
                         @Override
                         public void onPageFinished(WebView view, String url) {
-
-
-
                             if(!buttonClicked){
                                 myWebView.loadUrl("javascript:document.querySelector('a[class=\\\"btn waves-effect waves-light\\\"]').click()");
                                 buttonClicked = true;
                             }
-
                             String fillFormJS = "javascript:(function() {" +
                                     "var form = document.getElementById('kc-register-form');" +
                                     "var username = form.elements['username'];" +
@@ -103,6 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                            // Catch web redirect event after signing up successfully to call POST for logging in
                             if (url.startsWith("https://uiot.ixxc.dev/auth/realms/master/account/")) {
                                 User user = new User(username.getText().toString());
                                 Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username.getText().toString(), password.getText().toString(), "password");
@@ -111,7 +107,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                                         if(response.isSuccessful()) {
                                             Toast.makeText(SignUpActivity.this, "Sign up successfully, now signing in", Toast.LENGTH_SHORT).show();
-
                                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                             startActivity(intent);
                                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

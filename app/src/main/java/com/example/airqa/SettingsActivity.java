@@ -26,7 +26,6 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_matching);
 
 
         //dynamically include the  current activity layout into baseActivity layout.now all the view of baseactivity is   accessible in current activity.
@@ -56,9 +55,6 @@ public class SettingsActivity extends BaseActivity {
                     .setReorderingAllowed(true)
                     .commit();
         }
-        rb.setOnClickListener(v -> {
-            Toast.makeText(SettingsActivity.this, "Ok!" + "ok", Toast.LENGTH_SHORT).show();
-        });
 
     }
 

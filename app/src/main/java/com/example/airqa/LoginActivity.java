@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context; //
-import android.content.SharedPreferences; //
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -94,12 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (TextInputEditText)findViewById(R.id.passwordInputText);
         rememberMe = (CheckBox)findViewById(R.id.remember_me);
 
-        login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logIn(username.getText().toString(),password.getText().toString());
-            }
-        });
+        login_button.setOnClickListener(view -> logIn(username.getText().toString(),password.getText().toString()));
 
         forgot_password.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
@@ -107,21 +102,21 @@ public class LoginActivity extends AppCompatActivity {
             LinearLayout layout = new LinearLayout(LoginActivity.this);
             layout.setOrientation(LinearLayout.VERTICAL);
 
-            final EditText input1 = new EditText(LoginActivity.this);
-            input1.setHint("Your email address");
-            layout.addView(input1);
+            final EditText emailInput = new EditText(LoginActivity.this);
+            emailInput.setHint("Your email address");
+            layout.addView(emailInput);
 
-            final EditText input2 = new EditText(LoginActivity.this);
-            input2.setHint("Your user ID");
-            layout.addView(input2);
+            final EditText idInput = new EditText(LoginActivity.this);
+            idInput.setHint("Your user ID");
+            layout.addView(idInput);
             builder.setView(layout);
 
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    help_email = input1.getText().toString();
-                    help_id = input2.getText().toString();
-                    // sendEmail(); comment out for now because it doesn't work
+                    help_email = emailInput.getText().toString();
+                    help_id = idInput.getText().toString();
+                    //do something here
                     Toast.makeText(LoginActivity.this, "Email sent! ", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
@@ -188,10 +183,10 @@ public class LoginActivity extends AppCompatActivity {
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
                 else if(response.code() == 401){
-
                     Log.e("not_ok", response.message() + "");
                     refreshToken(refresh_token);
                 }
+                // add more conditions here later
             }
 
             @Override
@@ -211,7 +206,6 @@ public class LoginActivity extends AppCompatActivity {
                     getUserInfo(response.body().getAccess_token());
                 }
                 else if(response.code() == 401){
-
                     Log.e("not_ok",  "Token expired");
                     Toast.makeText(LoginActivity.this, "Token expired, please log in manually", Toast.LENGTH_SHORT).show();
                 }
@@ -267,34 +261,6 @@ public class LoginActivity extends AppCompatActivity {
         String check = sharedPreferences.getString("check","");
         if(check.equals("true")) {
             loadPreferences();
-        }
-    }
-    private void sendEmail(){
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "465"); // Use port 465 for SSL
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("penguintvat@gmail.com", "penguindeptrai");
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("penguintvat@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(help_email));
-            message.setSubject("hello");
-            message.setText("ok");
-
-            Transport.send(message);
-            System.out.println("Email sent successfully");
-        } catch (MessagingException e) {
-            e.printStackTrace();
         }
     }
 
