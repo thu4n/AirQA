@@ -90,43 +90,32 @@ public class SignUpActivity extends AppCompatActivity {
                                     "   email.value = '" + email.getText().toString() + "';" +
                                     "   password.value = '" + password.getText().toString() + "';" +
                                     "   password_conf.value = '" + password_conf.getText().toString() + "';" +
+                                    " form.submit();" +
                                     "}" +
                                     "})()";
                             myWebView.loadUrl(fillFormJS);
                             view.clearCache(true);
+                            //cookieManager.removeAllCookies(null);
                         }
 
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view, String url) {
                             // Catch web redirect event after signing up successfully to call POST for logging in
                             if (url.startsWith("https://uiot.ixxc.dev/auth/realms/master/account/")) {
-                                User user = new User(username.getText().toString());
-                                Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username.getText().toString(), password.getText().toString(), "password");
-                                call.enqueue(new Callback<AuthResponse>() {
-                                    @Override
-                                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                                        if(response.isSuccessful()) {
-                                            Toast.makeText(SignUpActivity.this, "Sign up successfully, now signing in", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-                                            Log.e("ok", response.body().getAccess_token() + "");
-                                        }
-                                        else{
-                                            Toast.makeText(SignUpActivity.this, "Something went wrong, please try later.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<AuthResponse> call, Throwable t) {
-                                        Toast.makeText(SignUpActivity.this, "An error has occured, please try again.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                // Switch to log in with the new username and password
+                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                intent.putExtra("username", username.getText().toString() + "");
+                                intent.putExtra("password", password.getText().toString() + "");
+                                startActivity(intent);
                                 view.clearCache(true);
+                                // Remove cookies to clear the web session
+                                cookieManager.removeAllCookies(null);
                                 return true;
                             }
-
+                            else{
+                                Toast.makeText(SignUpActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+                                // Code for catching sign up errors event here.
+                            }
                             // If you want the WebView to load the URL, return false
                             return false;
                         }

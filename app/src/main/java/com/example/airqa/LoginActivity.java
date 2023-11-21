@@ -94,6 +94,18 @@ public class LoginActivity extends AppCompatActivity {
         password = (TextInputEditText)findViewById(R.id.passwordInputText);
         rememberMe = (CheckBox)findViewById(R.id.remember_me);
 
+        // Get credentials after successfully signed up
+        Intent get_intent = getIntent();
+        String get_username = get_intent.getStringExtra("username");
+        String get_password = get_intent.getStringExtra("password");
+        boolean after_signup = false;
+        if(get_username != null && get_password != null){
+            username.setText(get_username);
+            password.setText(get_password);
+            after_signup = true;
+            Toast.makeText(LoginActivity.this, "Sign up successful, now you can log in!", Toast.LENGTH_SHORT).show();
+        }
+
         login_button.setOnClickListener(view -> logIn(username.getText().toString(),password.getText().toString()));
 
         forgot_password.setOnClickListener(v -> {
@@ -130,13 +142,13 @@ public class LoginActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
-
-        checkBox();
-        getUserInfo(access_token);
-
+        if(!after_signup){
+            checkBox();
+            getUserInfo(access_token);
+        }
     }
 
-    private void logIn(String username, String password){
+    public void logIn(String username, String password){
         Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username, password, "password");
         call.enqueue(new Callback<AuthResponse>() {
             @Override
@@ -167,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void getUserInfo(String access_token){
+    public  void getUserInfo(String access_token){
         Call<User> call = ApiService.apiService.getUserInfo("Bearer " + access_token);
         Log.e("ok2", access_token + "");
         call.enqueue(new Callback<User>() {
@@ -195,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void refreshToken(String refresh_token){
+    public void refreshToken(String refresh_token){
         Toast.makeText(LoginActivity.this, "Requesting new token...", Toast.LENGTH_SHORT).show();
         Call<AuthResponse> call = ApiService.apiService.refreshToken("openremote",refresh_token,"refresh_token");
         call.enqueue(new Callback<AuthResponse>() {
@@ -254,7 +266,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        loadPreferences();
+        //loadPreferences();
+        // Why the fuck do you load here??
     }
     private void checkBox(){
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
