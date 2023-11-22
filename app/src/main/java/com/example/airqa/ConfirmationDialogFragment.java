@@ -65,7 +65,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // User confirmed, perform the action
-                        performAction();
+                        performLogout();
                         dialog.dismiss();
                     }
                 })
@@ -79,9 +79,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    private void performAction() {
-        String token;
-        String ref_token;
+    private void performLogout() {
         SharedPreferences settings = getActivity().getSharedPreferences(LoginActivity.PREFS_NAME,MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(PREF_TOKEN, "");

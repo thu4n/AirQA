@@ -22,6 +22,9 @@ import com.example.airqa.models.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,79 +72,63 @@ public class SignUpActivity extends AppCompatActivity {
 
         signup_button.setOnClickListener(v ->
                 {
-
                     Intent intent = new Intent(SignUpActivity.this, LoadingScreen.class);
                     startActivity(intent);
                     myWebView.setWebViewClient(new WebViewClient(){
                         boolean buttonClicked = false;
                         @Override
                         public void onPageFinished(WebView view, String url) {
-
-
-
                             if(!buttonClicked){
                                 myWebView.loadUrl("javascript:document.querySelector('a[class=\\\"btn waves-effect waves-light\\\"]').click()");
                                 buttonClicked = true;
+                                String fillFormJS = "javascript:(function() {" +
+                                        "var form = document.getElementById('kc-register-form');" +
+                                        "var username = form.elements['username'];" +
+                                        "var email = form.elements['email'];" +
+                                        "var password = form.elements['password'];" +
+                                        "var password_conf = form.elements['password-confirm'];" +
+                                        "if (form) {" +
+                                        "   username.value = '" + username.getText().toString() + "';" +
+                                        "   email.value = '" + email.getText().toString() + "';" +
+                                        "   password.value = '" + password.getText().toString() + "';" +
+                                        "   password_conf.value = '" + password_conf.getText().toString() + "';" +
+                                        " form.submit();" +
+                                        "}" +
+                                        "})()";
+                                myWebView.loadUrl(fillFormJS);
                             }
-
-                            String fillFormJS = "javascript:(function() {" +
-                                    "var form = document.getElementById('kc-register-form');" +
-                                    "var username = form.elements['username'];" +
-                                    "var email = form.elements['email'];" +
-                                    "var password = form.elements['password'];" +
-                                    "var password_conf = form.elements['password-confirm'];" +
-                                    "if (form) {" +
-                                    "   username.value = '" + username.getText().toString() + "';" +
-                                    "   email.value = '" + email.getText().toString() + "';" +
-                                    "   password.value = '" + password.getText().toString() + "';" +
-                                    "   password_conf.value = '" + password_conf.getText().toString() + "';" +
-                                    "}" +
-                                    "})()";
-                            myWebView.loadUrl(fillFormJS);
                             view.clearCache(true);
                         }
 
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                            // Catch web redirect event after signing up successfully to call POST for logging in
                             if (url.startsWith("https://uiot.ixxc.dev/auth/realms/master/account/")) {
-                                User user = new User(username.getText().toString());
-                                Call<AuthResponse> call = ApiService.apiService.userLogin("openremote", username.getText().toString(), password.getText().toString(), "password");
-                                call.enqueue(new Callback<AuthResponse>() {
-                                    @Override
-                                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                                        if(response.isSuccessful()) {
-                                            Toast.makeText(SignUpActivity.this, "Sign up successfully, now signing in", Toast.LENGTH_SHORT).show();
-
-                                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-                                            Log.e("ok", response.body().getAccess_token() + "");
-                                        }
-                                        else{
-                                            Toast.makeText(SignUpActivity.this, "Something went wrong, please try later.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<AuthResponse> call, Throwable t) {
-                                        Toast.makeText(SignUpActivity.this, "An error has occured, please try again.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                // Switch to log in with the new username and password
+                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                intent.putExtra("username", username.getText().toString() + "");
+                                intent.putExtra("password", password.getText().toString() + "");
+                                startActivity(intent);
                                 view.clearCache(true);
+                                // Remove cookies to clear the web session
+                                cookieManager.removeAllCookies(null);
                                 return true;
                             }
+                            else if(url.startsWith("https://uiot.ixxc.dev/auth/realms/master/login-actions/registration")){
+                                //Toast.makeText(SignUpActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+                                // Catching sign up errors event like invalid username or email,etc..
+                                Toast.makeText(SignUpActivity.this,  "invalid email or username", Toast.LENGTH_SHORT).show();
 
+                            }
                             // If you want the WebView to load the URL, return false
                             return false;
                         }
                     });
                     myWebView.loadUrl("https://uiot.ixxc.dev/auth/realms/master/account");
                     myWebView.bringToFront();
-                    myWebView.setVisibility(View.VISIBLE);
+                    //myWebView.setVisibility(View.VISIBLE);
                 }
         );
-
 
     }
 }
