@@ -99,448 +99,294 @@
     </RelativeLayout>
 
     <!-- Information-->
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/profile_container"
-        android:paddingHorizontal="20dp"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <!-- Row of a Stat -->
+        android:layout_height="wrap_content"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="12dp">
-            <!-- Humid -->
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <!-- Row of a Stat -->
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="175dp"
-                android:background="@drawable/stat_container"
-                android:layout_weight="1.0"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                >
-                <!-- Icon -->
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+                <!-- Humid -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/humid_icon"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Humidity"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="8dp"
-                        tools:ignore="HardcodedText"
-                        />
-                </LinearLayout>
-                <!-- Number -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="82%"
-                    android:textColor="@color/white"
-                    android:textSize="54dp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-                <!-- Avg -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Avg of today: 84%"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-            <!-- Pollution -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="175dp"
-                android:background="@drawable/stat_container"
-                android:layout_weight="1.0"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                >
-                <!-- Icon -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="4dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/pollu_icon"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Pollutants"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="8dp"
-                        tools:ignore="HardcodedText"
-                        />
-                </LinearLayout>
-                <!-- Stats -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:background="@drawable/stat_container"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
                     >
-
+                    <!-- Icon -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/humid_icon"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Humidity"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            tools:ignore="HardcodedText"
+                            />
+                    </LinearLayout>
+                    <!-- Number -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="Co2"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:text="82%"
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="54sp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="No2"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="H20"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="O2"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <!-- Unit -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Unit: μg/m3"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-        </LinearLayout>
-        <!--Row of a stat-->
-        </ScrollView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- Air Quality Index -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="175dp"
-                android:background="@drawable/stat_container"
-                android:layout_weight="1.0"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                >
-                <!-- Icon -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/logo"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="AQI"
-                        android:textColor="@color/white"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="8dp"
-                        tools:ignore="HardcodedText"
-                        />
-                </LinearLayout>
-                <!-- Number -->
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
-                        android:id="@+id/progress_bar"
-                        android:layout_width="130dp"
-                        android:layout_height="65dp"
-                        android:layout_centerInParent="true"
-                        app:percent="70"
-                        app:progressBarColor="@color/white"
-                        app:progressBarWidth="10"
-                        app:progressPlaceHolderColor="#e5e7eb"
-                        app:progressPlaceHolderWidth="10" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="true"
-                        android:fontFamily="@font/inter"
-                        android:text="1"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:fontFamily="@font/inter"
-                        android:text="500"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
                     <!-- Avg -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="300"
+                        android:text="Avg of today: 84%"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        tools:ignore="HardcodedText"
-                        android:layout_below="@+id/progress_bar"
-                        android:layout_centerHorizontal="true"
-                        />
-                </RelativeLayout>
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
 
             </LinearLayout>
-            <!-- Pollution -->
+            <!-- Row of a Stat -->
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="175dp"
-                android:background="@drawable/stat_container"
-                android:layout_weight="1.0"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                >
-                <!-- Icon -->
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="4dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/pollu_icon"/>
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:background="@drawable/stat_container"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    >
+                    <!-- Icon -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/pollu_icon"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Pollutants"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            tools:ignore="HardcodedText"
+                            />
+                    </LinearLayout>
+                    <!-- Stats -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="1dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="Co2"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="82%"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="1dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="No2"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="82%"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="1dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="O2"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="82%"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </RelativeLayout>
+                    <!-- Unit -->
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Pollutants"
+                        android:layout_height="wrap_content"
+                        android:text="Unit: μg/m3"
                         android:textColor="@color/white"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginLeft="8dp"
-                        tools:ignore="HardcodedText"
-                        />
+                        android:layout_marginTop="4dp"
+                        tools:ignore="HardcodedText" />
+
                 </LinearLayout>
-                <!-- Stats -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="1dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="82%"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-                </RelativeLayout>
-                <!-- Unit -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Unit: μg/m3"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp"
-                    tools:ignore="HardcodedText" />
+
             </LinearLayout>
+            <!-- Row of a Stat -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <!-- Air Quality Index -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:background="@drawable/stat_container"
+                    android:layout_weight="1.0"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    >
+                    <!-- Icon -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/logo"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="AQI"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="8dp"
+                            tools:ignore="HardcodedText"
+                            />
+                    </LinearLayout>
+                    <!-- Number -->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
+                            android:id="@+id/progress_bar"
+                            android:layout_width="150dp"
+                            android:layout_height="75dp"
+                            android:layout_centerInParent="true"
+                            app:percent="70"
+                            app:progressBarColor="@color/white"
+                            app:progressBarWidth="10"
+                            app:progressPlaceHolderColor="#e5e7eb"
+                            app:progressPlaceHolderWidth="10" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:fontFamily="@font/inter"
+                            android:text="1"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:fontFamily="@font/inter"
+                            android:text="500"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <!-- Avg -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="300"
+                            android:textColor="@color/white"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText"
+                            android:layout_below="@+id/progress_bar"
+                            android:layout_centerHorizontal="true"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
