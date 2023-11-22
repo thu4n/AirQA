@@ -12,6 +12,15 @@
         android:title="@string/change_password_pref"
         android:key="user_id"/>
 
+        <Preference
+            android:title="Username"
+            android:key="username"/>
+        <Preference
+            android:title="Created On"
+            android:key="createdOn"/>
+        <Preference
+            android:title="Realm Id"
+            android:key="realmId"/>
     </PreferenceCategory>
     <!--General category-->
     <PreferenceCategory android:title="General"
