@@ -19,6 +19,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.example.airqa.api.ApiService;
 import com.example.airqa.models.AuthResponse;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +34,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.preferences, rootKey);
         findPreference("email").setSummary(activeUser.getEmail());
         findPreference("user_id").setSummary(activeUser.getId());
+        findPreference("username").setSummary(activeUser.getUsername());
+        Date date = new Date(activeUser.getCreatedOn());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate  = formatter.format(date);
+        findPreference("createdOn").setSummary(formattedDate);
+        findPreference("realmId").setSummary(activeUser.getRealmId());
         Preference.OnPreferenceClickListener preferenceClickListener = preference -> {
             if (preference.getKey().equals("logout")) {
                 String confirmationMessage = "Are you sure you want to log out?";

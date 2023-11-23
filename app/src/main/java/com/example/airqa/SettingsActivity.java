@@ -27,7 +27,6 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         //dynamically include the  current activity layout into baseActivity layout.now all the view of baseactivity is   accessible in current activity.
         dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
         bottomNavBar= (LinearLayout) findViewById(R.id.bottomNavBar);
@@ -51,7 +50,7 @@ public class SettingsActivity extends BaseActivity {
             }
             // below line is to inflate our fragment.
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.idFrameLayout, new SettingsFragment())
+                    .replace(R.id.idFrameLayout, new SettingsFragment())
                     .setReorderingAllowed(true)
                     .commit();
         }

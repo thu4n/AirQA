@@ -1,18 +1,17 @@
 package com.example.airqa;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,21 +20,6 @@ import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -162,6 +146,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("access_token",access_token);
+                    editor.putString("refresh_token",refresh_token);
                     editor.putString("check","true");
                     editor.apply();
 
