@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <!--Account category-->
-    <PreferenceCategory android:title="Account"
-        android:icon="@drawable/baseline_person_24">
+    <PreferenceCategory
+        android:title="ACCOUNT"
+        >
         <Preference
-        android:title="@string/change_username_pref"
-        android:key="email"/>
+            android:icon="@drawable/baseline_email_24"
+            android:title="@string/change_username_pref"
+            android:key="email"/>
         <Preference
-        android:title="@string/change_password_pref"
-        android:key="user_id"/>
+            android:icon="@drawable/baseline_content_copy_24"
+            android:title="@string/change_password_pref"
+            android:key="user_id"/>
 
+        <Preference
+            android:icon="@drawable/baseline_person_24"
+            android:title="Username"
+            android:key="username"/>
+        <Preference
+            android:icon="@drawable/baseline_calendar_month_24"
+            android:title="Created On"
+            android:key="createdOn"/>
+        <Preference
+            android:icon="@drawable/baseline_broken_image_24"
+            android:title="Realm ID"
+            android:key="realmId"/>
     </PreferenceCategory>
     <!--General category-->
-    <PreferenceCategory android:title="General"
-        android:icon="@drawable/baseline_home_24">
+    <PreferenceCategory
+        android:title="GENERAL">
 
         <Preference
+            android:icon="@drawable/logout_icon"
             android:title="@string/logout_pref"
             android:key="logout"
             android:summary="@string/logout_summary" />

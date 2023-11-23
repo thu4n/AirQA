@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
-
     RadioGroup bottomNav;
     RadioButton home, settings;
 
