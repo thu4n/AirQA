@@ -4,6 +4,7 @@ import androidx.webkit.internal.ApiFeature;
 
 import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
+import com.example.airqa.models.weatherAsset;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,6 +43,9 @@ public interface ApiService {
 
     @GET("api/master/user/user")
     Call<User> getUserInfo(@Header("Authorization") String token);
+
+    @GET("api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf")
+    Call<weatherAsset> getAssetInfo(@Header("Authorization") String token);
 
     @FormUrlEncoded
     @Headers({"Accept: application/json"})
