@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+import java.util.Calendar;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.example.airqa.api.ApiService;
 import com.example.airqa.models.weatherAsset;
@@ -27,9 +31,10 @@ import retrofit2.Response;
 public class MainActivity extends BaseActivity  {
 
     public static final String PREFS_NAME = "preferences";
+    MyDatabaseHelper dbHelper;
     Button button;
     LinearLayout dynamicContent,bottomNavBar;
-    TextView Humidity,Temp;
+    TextView Humidity,Temp,test;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class MainActivity extends BaseActivity  {
         Humidity = (TextView) findViewById(R.id.humidity);
         Temp = (TextView) findViewById(R.id.temp_number);
         //get the reference of RadioGroup.
+        button = (Button) findViewById(R.id.button);
+        test = (TextView) findViewById(R.id.test);
+
 
         RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
         RadioButton rb=(RadioButton)findViewById(R.id.home);
@@ -55,6 +63,67 @@ public class MainActivity extends BaseActivity  {
         String check = sharedPreferences.getString("access_token","");
         // get asset info
         getAssetInfo(check);
+
+        // loading database
+        // Lấy dữ liệu từ cơ sở dữ liệu
+        dbHelper = new MyDatabaseHelper(MainActivity.this);
+        Cursor cursor = dbHelper.readAllASSETData();
+        StringBuilder data = new StringBuilder();
+        StringBuilder data1 = new StringBuilder();
+        // Lấy toàn bộ dữ liệu của ASSET
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String rainfall = cursor.getString(cursor.getColumnIndex("RAINFALL"));
+                @SuppressLint("Range") String temperature = cursor.getString(cursor.getColumnIndex("TEMPERATURE"));
+                @SuppressLint("Range") String ID = cursor.getString(cursor.getColumnIndex("ID"));
+
+                // Lấy thông tin từ các cột khác...
+
+                // Thêm dữ liệu vào StringBuilder
+                data.append("ID: ").append(ID).append("Rainfall: ").append(rainfall).append(", Temperature: ").append(temperature).append("\n");
+                // Lấy giá trị cuôối cùng
+
+            } while (cursor.moveToNext());
+        }
+        // Lấy giá trị cuối cùng trong database (giá trị gần nhất được thêm vào)
+        if (cursor.moveToLast()) {
+            @SuppressLint("Range") String rainfall = cursor.getString(cursor.getColumnIndex("RAINFALL"));
+            @SuppressLint("Range") String temperature = cursor.getString(cursor.getColumnIndex("TEMPERATURE"));
+            @SuppressLint("Range") String ID = cursor.getString(cursor.getColumnIndex("ID"));
+
+            // Sử dụng giá trị cuối cùng ở đây...
+            data1.append("ID: ").append(ID).append(" Rainfall: ").append(rainfall).append(", Temperature: ").append(temperature).append("\n");
+        }
+        cursor.close();
+
+        // Hiển thị dữ liệu trong TextView
+       // TextView dataTextView = findViewById(R.id.dataTextView);
+       // dataTextView.setText(data.toString());
+        test.setText(data1.toString());
+        button.setOnClickListener(v -> {
+            insertSampleData();
+            test.setText(data1.toString());
+        });
+        // Lấy ngày
+        Calendar calendar = Calendar.getInstance();
+        //test.setText( calendar.getTime().toString());
+    }
+
+    private void insertSampleData() {
+        String sampleRainfall = "11";
+        String sampleTemperature = "65";
+        String sampleHumidity = "70";
+        String sampleWindSpeed = "10";
+        String sampleWindDirection = "North";
+        String samplePlace = "Sample Place";
+
+        Calendar calendar = Calendar.getInstance();
+        String sampleDaytime = calendar.getTime().toString();
+
+        dbHelper.insertAssetData(sampleRainfall, sampleTemperature, sampleHumidity,
+                sampleWindSpeed, sampleWindDirection, samplePlace,sampleDaytime);
+
+        //Toast.makeText(MainActivity.this, "Data inserted!", Toast.LENGTH_SHORT).show();
     }
     //get data in asset
     public  void getAssetInfo(String access_token){
@@ -72,7 +141,6 @@ public class MainActivity extends BaseActivity  {
                 else {
 
                 }
-                // add more conditions here later
             }
             @Override
             public void onFailure(Call<weatherAsset> call, Throwable t) {
