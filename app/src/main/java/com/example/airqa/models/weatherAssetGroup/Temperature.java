@@ -1,13 +1,13 @@
 package com.example.airqa.models.weatherAssetGroup;
 
 public class Temperature extends BaseInfo{
-    private int value;
+    private double value;
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 

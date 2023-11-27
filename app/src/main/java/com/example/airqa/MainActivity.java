@@ -26,6 +26,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.airqa.api.ApiService;
 import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAsset;
+import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.android.material.textfield.TextInputEditText;
 
 import okhttp3.MediaType;
@@ -64,8 +65,7 @@ public class MainActivity extends BaseActivity  {
         // get access token
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         String check = sharedPreferences.getString("access_token","");
-        // get asset info
-        getAssetInfo(check);
+        // get all asset info
         getAllAsset(check);
 
         // loading database
@@ -122,23 +122,25 @@ public class MainActivity extends BaseActivity  {
         //Toast.makeText(MainActivity.this, "Data inserted!", Toast.LENGTH_SHORT).show();
     }
     //get data in asset
-    public  void getAssetInfo(String access_token){
-        Call<weatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token);
+    public  void getAssetInfo(String access_token, String id){
+        Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, id);
         Log.e("ok2", access_token + "");
-        call.enqueue(new Callback<weatherAsset>() {
+        call.enqueue(new Callback<WeatherAsset>() {
             @Override
-            public void onResponse(Call<weatherAsset> call, Response<weatherAsset> response) {
+            public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
                 if(response.isSuccessful()){
-                    Humidity.setText(response.body().getAttributes().get("humidity").getValue().toString());
-                    Temp.setText(response.body().getAttributes().get("temperature").getValue().toString());
-
+                    assert response.body() != null; // make sure the body isn't null
+                    int humid = response.body().getAttributes().getHumidity().getValue();
+                    Humidity.setText(String.valueOf(humid));
+                    double temp = response.body().getAttributes().getTemperature().getValue();
+                    Temp.setText(String.valueOf(temp));
                 }
                 else {
 
                 }
             }
             @Override
-            public void onFailure(Call<weatherAsset> call, Throwable t) {
+            public void onFailure(Call<WeatherAsset> call, Throwable t) {
 
                 Log.e("ok1",t.toString());
             }
@@ -203,6 +205,7 @@ public class MainActivity extends BaseActivity  {
                             Log.e("ok",id);
                         }
                     }
+                    getAssetInfo(access_token, assetIds.get(0));
 
                 }
                 else {

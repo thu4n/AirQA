@@ -6,6 +6,7 @@ import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
 import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAsset;
+import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,6 +25,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -49,8 +51,8 @@ public interface ApiService {
     @GET("api/master/user/user")
     Call<User> getUserInfo(@Header("Authorization") String token);
 
-    @GET("api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf")
-    Call<weatherAsset> getAssetInfo(@Header("Authorization") String token);
+    @GET("api/master/asset/{dynamicPath}")
+    Call<WeatherAsset> getAssetInfo(@Header("Authorization") String token, @Path("dynamicPath") String dynamicPath);
 
     @FormUrlEncoded
     @Headers({"Accept: application/json"})
