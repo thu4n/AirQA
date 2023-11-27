@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -64,6 +66,7 @@ public class MainActivity extends BaseActivity  {
         String check = sharedPreferences.getString("access_token","");
         // get asset info
         getAssetInfo(check);
+        getAllAsset(check);
 
         // loading database
         // Lấy dữ liệu từ cơ sở dữ liệu
@@ -192,9 +195,12 @@ public class MainActivity extends BaseActivity  {
             public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
                 if(response.isSuccessful()){
                     List<Asset> assets = response.body();
+                    List<String> assetIds = new ArrayList<>();
                     for(Asset asset : assets){
                         if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
                             String id = asset.getId();
+                            assetIds.add(id);
+                            Log.e("ok",id);
                         }
                     }
 
