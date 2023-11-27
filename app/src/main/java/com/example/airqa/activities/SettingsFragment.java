@@ -1,30 +1,20 @@
-package com.example.airqa;
+package com.example.airqa.activities;
 
-import static com.example.airqa.LoginActivity.activeUser;
+import static com.example.airqa.activities.LoginActivity.activeUser;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.example.airqa.api.ApiService;
-import com.example.airqa.models.AuthResponse;
+import com.example.airqa.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

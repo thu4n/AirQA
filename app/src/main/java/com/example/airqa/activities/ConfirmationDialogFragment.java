@@ -1,15 +1,14 @@
-package com.example.airqa;
+package com.example.airqa.activities;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import static com.example.airqa.LoginActivity.PREF_PASSWORD;
-import static com.example.airqa.LoginActivity.PREF_REF_TOKEN;
-import static com.example.airqa.LoginActivity.PREF_TOKEN;
-import static com.example.airqa.LoginActivity.PREF_UNAME;
+import static com.example.airqa.activities.LoginActivity.PREF_PASSWORD;
+import static com.example.airqa.activities.LoginActivity.PREF_REF_TOKEN;
+import static com.example.airqa.activities.LoginActivity.PREF_TOKEN;
+import static com.example.airqa.activities.LoginActivity.PREF_UNAME;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.airqa.R;
 
 /**
  * A simple {@link Fragment} subclass.

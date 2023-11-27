@@ -1,10 +1,12 @@
-package com.example.airqa;
+package com.example.airqa.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.airqa.R;
 
 public class BaseActivity extends AppCompatActivity {
 

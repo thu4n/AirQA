@@ -1,8 +1,8 @@
-package com.example.airqa.models;
-import java.util.List;
-import java.util.Map;
+package com.example.airqa.models.weatherAssetGroup;
 
-public class weatherAsset {
+import java.util.List;
+
+public class WeatherAsset {
     private String id;
     private int version;
     private long createdOn;
@@ -12,58 +12,8 @@ public class weatherAsset {
     private String realm;
     private String type;
     private List<String> path;
-    private Map<String, Attribute> attributes;
+    private Attributes attributes;
 
-    public static class Attribute {
-        private String type;
-        private Object value;
-        private String name;
-        private Map<String, Object> meta;
-        private long timestamp;
-
-        // Getters and setters for Attribute fields
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public void setValue(Object value) {
-            this.value = value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Map<String, Object> getMeta() {
-            return meta;
-        }
-
-        public void setMeta(Map<String, Object> meta) {
-            this.meta = meta;
-        }
-
-        public long getTimestamp() {
-            return timestamp;
-        }
-
-        public void setTimestamp(long timestamp) {
-            this.timestamp = timestamp;
-        }
-    }
-
-    // Getters and setters for WeatherAsset fields
     public String getId() {
         return id;
     }
@@ -136,11 +86,11 @@ public class weatherAsset {
         this.path = path;
     }
 
-    public Map<String, Attribute> getAttributes() {
+    public Attributes getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Map<String, Attribute> attributes) {
+    public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
 }

@@ -1,12 +1,13 @@
 package com.example.airqa.api;
 
-import androidx.webkit.internal.ApiFeature;
-
 import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
-import com.example.airqa.models.weatherAsset;
+import com.example.airqa.models.assetGroup.Asset;
+import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -20,7 +21,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface ApiService {
     Gson gson = new GsonBuilder()
@@ -33,6 +34,7 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
+
     @FormUrlEncoded
     @Headers({"Accept: application/json"})
     @POST("auth/realms/master/protocol/openid-connect/token")
@@ -44,8 +46,8 @@ public interface ApiService {
     @GET("api/master/user/user")
     Call<User> getUserInfo(@Header("Authorization") String token);
 
-    @GET("api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf")
-    Call<weatherAsset> getAssetInfo(@Header("Authorization") String token);
+    @GET("api/master/asset/{dynamicPath}")
+    Call<WeatherAsset> getAssetInfo(@Header("Authorization") String token, @Path("dynamicPath") String dynamicPath);
 
     @FormUrlEncoded
     @Headers({"Accept: application/json"})
@@ -57,4 +59,7 @@ public interface ApiService {
     @FormUrlEncoded
     @PUT("api/master/user/master/reset-password/")
     Call<Void> resetPassword(@Header("Authorization") String token,@Body RequestBody body);
+
+    @POST("api/master/asset/query")
+    Call<List<Asset>> getAllAsset(@Header("Authorization") String token, @Body RequestBody rawJsonBody);
 }
