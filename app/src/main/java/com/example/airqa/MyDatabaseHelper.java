@@ -80,7 +80,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         return db.query("ASSET", null, null, null, null, null, null);
     }
-    Cursor readAllASSETData(){
+    public Cursor readAllASSETData(){
         String query = "SELECT * FROM ASSET";
         SQLiteDatabase db = this.getReadableDatabase();
 

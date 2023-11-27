@@ -1,6 +1,5 @@
-package com.example.airqa;
+package com.example.airqa.activities;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -14,20 +13,17 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
+import com.example.airqa.MyDatabaseHelper;
+import com.example.airqa.R;
 import com.example.airqa.api.ApiService;
 import com.example.airqa.models.assetGroup.Asset;
-import com.example.airqa.models.weatherAsset;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
-import com.google.android.material.textfield.TextInputEditText;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

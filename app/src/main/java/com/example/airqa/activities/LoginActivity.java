@@ -1,4 +1,4 @@
-package com.example.airqa;
+package com.example.airqa.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.airqa.R;
 import com.example.airqa.api.ApiService;
 import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
