@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import java.util.Calendar;
+import java.util.List;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,9 +22,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.airqa.api.ApiService;
+import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAsset;
 import com.google.android.material.textfield.TextInputEditText;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -117,7 +121,6 @@ public class MainActivity extends BaseActivity  {
     //get data in asset
     public  void getAssetInfo(String access_token){
         Call<weatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token);
-        //Log.e("ok2", access_token + "");
         Log.e("ok2", access_token + "");
         call.enqueue(new Callback<weatherAsset>() {
             @Override
@@ -135,6 +138,75 @@ public class MainActivity extends BaseActivity  {
             public void onFailure(Call<weatherAsset> call, Throwable t) {
 
                 Log.e("ok1",t.toString());
+            }
+        });
+    }
+
+    public void getAllAsset(String access_token){
+        // Default value for the body, do not change this query
+        String rawJsonQuery = "{\n" +
+                "    \"realm\": {\n" +
+                "        \"name\": \"master\"\n" +
+                "    },\n" +
+                "    \"select\": {\n" +
+                "        \"attributes\": [\n" +
+                "            \"location\",\n" +
+                "            \"direction\"\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    \"attributes\": {\n" +
+                "        \"items\": [\n" +
+                "            {\n" +
+                "                \"name\": {\n" +
+                "                    \"predicateType\": \"string\",\n" +
+                "                    \"value\": \"location\"\n" +
+                "                },\n" +
+                "                \"meta\": [\n" +
+                "                    {\n" +
+                "                        \"name\": {\n" +
+                "                            \"predicateType\": \"string\",\n" +
+                "                            \"value\": \"showOnDashboard\"\n" +
+                "                        },\n" +
+                "                        \"negated\": true\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                        \"name\": {\n" +
+                "                            \"predicateType\": \"string\",\n" +
+                "                            \"value\": \"showOnDashboard\"\n" +
+                "                        },\n" +
+                "                        \"value\": {\n" +
+                "                            \"predicateType\": \"boolean\",\n" +
+                "                            \"value\": true\n" +
+                "                        }\n" +
+                "                    }\n" +
+                "                ]\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "}";
+        RequestBody rawJsonBody = RequestBody.create(MediaType.parse("application/json"), rawJsonQuery);
+        Call<List<Asset>> call = ApiService.apiService.getAllAsset("Bearer " + access_token, rawJsonBody);
+
+        call.enqueue(new Callback<List<Asset>>() {
+            @Override
+            public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
+                if(response.isSuccessful()){
+                    List<Asset> assets = response.body();
+                    for(Asset asset : assets){
+                        if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
+                            String id = asset.getId();
+                        }
+                    }
+
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "You do not have permission!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Asset>> call, Throwable t) {
+                Log.e("failedCall",t.toString());
             }
         });
     }

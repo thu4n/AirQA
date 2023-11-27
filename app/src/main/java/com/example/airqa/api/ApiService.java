@@ -4,10 +4,14 @@ import androidx.webkit.internal.ApiFeature;
 
 import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
+import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAsset;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -32,6 +36,7 @@ public interface ApiService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
+
 
     @FormUrlEncoded
     @Headers({"Accept: application/json"})
@@ -58,5 +63,6 @@ public interface ApiService {
     @PUT("api/master/user/master/reset-password/")
     Call<Void> resetPassword(@Header("Authorization") String token,@Body RequestBody body);
 
-    //@POST("api/master/asset/query")
+    @POST("api/master/asset/query")
+    Call<List<Asset>> getAllAsset(@Header("Authorization") String token, @Body RequestBody rawJsonBody);
 }
