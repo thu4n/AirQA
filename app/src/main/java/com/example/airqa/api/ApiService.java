@@ -57,4 +57,6 @@ public interface ApiService {
     @FormUrlEncoded
     @PUT("api/master/user/master/reset-password/")
     Call<Void> resetPassword(@Header("Authorization") String token,@Body RequestBody body);
+
+    //@POST("api/master/asset/query")
 }

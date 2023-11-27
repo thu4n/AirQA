@@ -46,9 +46,6 @@ public class MainActivity extends BaseActivity  {
         Humidity = (TextView) findViewById(R.id.humidity);
         Temp = (TextView) findViewById(R.id.temp_number);
         //get the reference of RadioGroup.
-        button = (Button) findViewById(R.id.button);
-        test = (TextView) findViewById(R.id.test);
-
 
         RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
         RadioButton rb=(RadioButton)findViewById(R.id.home);
@@ -96,14 +93,6 @@ public class MainActivity extends BaseActivity  {
         }
         cursor.close();
 
-        // Hiển thị dữ liệu trong TextView
-       // TextView dataTextView = findViewById(R.id.dataTextView);
-       // dataTextView.setText(data.toString());
-        test.setText(data1.toString());
-        button.setOnClickListener(v -> {
-            insertSampleData();
-            test.setText(data1.toString());
-        });
         // Lấy ngày
         Calendar calendar = Calendar.getInstance();
         //test.setText( calendar.getTime().toString());
