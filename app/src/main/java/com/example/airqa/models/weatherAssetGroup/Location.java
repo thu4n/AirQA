@@ -1,4 +1,16 @@
 package com.example.airqa.models.weatherAssetGroup;
 
-public class Location {
+import com.example.airqa.models.assetGroup.Value;
+
+public class Location extends BaseInfo{
+    private Value value;
+
+    public Value getValue() {
+        return value;
+    }
+
+    public void setValue(Value value) {
+        this.value = value;
+    }
+
 }

@@ -1,7 +1,8 @@
 package com.example.airqa.models.weatherAssetGroup;
 
-public class Humidity extends BaseInfo {
+public class CO2 {
     private int value;
+
     public int getValue() {
         return value;
     }
@@ -9,6 +10,4 @@ public class Humidity extends BaseInfo {
     public void setValue(int value) {
         this.value = value;
     }
-
-
 }

@@ -1,7 +1,8 @@
 package com.example.airqa.models.weatherAssetGroup;
 
-public class Rainfall extends BaseInfo {
+public class PM10 extends BaseInfo {
     private double value;
+
     public double getValue() {
         return value;
     }
