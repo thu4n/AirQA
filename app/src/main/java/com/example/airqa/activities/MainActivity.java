@@ -46,6 +46,8 @@ public class MainActivity extends BaseActivity  {
         bottomNavBar= (LinearLayout) findViewById(R.id.bottomNavBar);
         View wizard = getLayoutInflater().inflate(R.layout.activity_main, null);
         dynamicContent.addView(wizard);
+
+
         Humidity = (TextView) findViewById(R.id.humidity);
         Temp = (TextView) findViewById(R.id.temp_number);
         //get the reference of RadioGroup.
