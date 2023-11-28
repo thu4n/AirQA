@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
@@ -33,6 +34,7 @@ public class MapActivity extends BaseActivity {
 
     private MapView map = null;
     private FrameLayout fragmentContainer;
+    MarkerInfoFragment markerInfoFragment;
     LinearLayout dynamicContent,bottomNavBar;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
@@ -61,7 +63,7 @@ public class MapActivity extends BaseActivity {
         map = (MapView) findViewById(R.id.map);
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.MAPNIK);
-        map.getController().setZoom(20.0);
+        map.getController().setZoom(21.0);
 
         requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.INTERNET
@@ -75,17 +77,16 @@ public class MapActivity extends BaseActivity {
         map.getOverlays().add(compassOverlay);
 
         GeoPoint point = new GeoPoint(10.87, 106.80324);
+        Configuration.getInstance().setUserAgentValue(getPackageName());
 
         Marker startMarker = new Marker(map);
         startMarker.setPosition(point);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+        startMarker.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_TOP);
         map.getOverlays().add(startMarker);
         startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView) {
                 // Show the fragment container when the marker is clicked
-                fragmentContainer.setVisibility(View.VISIBLE);
-
                 // Replace the fragment container with your desired fragment
                 Log.d("click marker", "clicked marker");
                 showBottomSheetDialog(marker);
@@ -95,9 +96,10 @@ public class MapActivity extends BaseActivity {
         map.getController().setCenter(point);
     }
     private void showBottomSheetDialog(Marker marker) {
-        MarkerInfoFragment markerInfoFragment = MarkerInfoFragment.newInstance(marker);
+        markerInfoFragment = MarkerInfoFragment.newInstance(marker);
         markerInfoFragment.show(getSupportFragmentManager(), "show marker info");
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         ArrayList<String> permissionsToRequest = new ArrayList<>();
@@ -126,5 +128,16 @@ public class MapActivity extends BaseActivity {
                     permissionsToRequest.toArray(new String[0]),
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 }
