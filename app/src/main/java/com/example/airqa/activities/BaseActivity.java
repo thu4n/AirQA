@@ -28,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
                 Intent intent;
                 if (checkedId == R.id.home) {
                     Log.i("change bottom nav", "move to Home" +  checkedId);
-                    intent=new Intent(getBaseContext(),MainActivity.class);
+                    intent=new Intent(getBaseContext(),MapActivity.class);
                     startActivity(intent);
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 } else if (checkedId == R.id.settings) {
