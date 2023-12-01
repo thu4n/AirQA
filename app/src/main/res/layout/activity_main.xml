@@ -328,7 +328,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="AQI"
+                            android:text="Air Quality Index"
                             android:textColor="@color/white"
                             android:textSize="24sp"
                             android:textStyle="bold"
@@ -343,8 +343,8 @@
 
                         <me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar
                             android:id="@+id/progress_bar"
-                            android:layout_width="150dp"
-                            android:layout_height="75dp"
+                            android:layout_width="160dp"
+                            android:layout_height="80dp"
                             android:layout_centerInParent="true"
                             app:percent="70"
                             app:progressBarColor="@color/white"
@@ -352,34 +352,13 @@
                             app:progressPlaceHolderColor="#e5e7eb"
                             app:progressPlaceHolderWidth="10" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:fontFamily="@font/inter"
-                            android:text="1"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:fontFamily="@font/inter"
-                            android:text="500"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
                         <!-- Avg -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="300"
+                            android:text="300/500"
                             android:textColor="@color/white"
-                            android:textSize="28sp"
+                            android:textSize="24sp"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText"
                             android:layout_below="@+id/progress_bar"
