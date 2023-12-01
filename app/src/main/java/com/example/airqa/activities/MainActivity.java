@@ -1,6 +1,7 @@
 package com.example.airqa.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -8,6 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import android.graphics.Color;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,6 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.database.Cursor;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.airqa.MyDatabaseHelper;
 import com.example.airqa.R;
 import com.example.airqa.api.ApiService;
 import com.example.airqa.models.assetGroup.Asset;
@@ -30,36 +42,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "preferences";
     MyDatabaseHelper dbHelper;
     Button button;
-    LinearLayout dynamicContent, bottomNavBar;
-    TextView Humidity, Temp;
-
+    TextView Humidity,Temp,test;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dynamicContent = (LinearLayout) findViewById(R.id.dynamicContent);
-        bottomNavBar = (LinearLayout) findViewById(R.id.bottomNavBar);
-        View wizard = getLayoutInflater().inflate(R.layout.activity_main, null);
-        dynamicContent.addView(wizard);
+        setContentView(R.layout.activity_main);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                // Add your logic for the Home item
+                return true;
+            } else if (item.getItemId() == R.id.bottom_features) {
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                finish(); // Assuming you want to finish the current activity after starting FeaturesActivity
+                return true;
+            } else if (item.getItemId() == R.id.bottom_chart) {
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                finish(); // Assuming you want to finish the current activity after starting ChartActivity
+                return true;
+            } else if (item.getItemId() == R.id.bottom_settings) {
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                finish(); // Assuming you want to finish the current activity after starting SettingsActivity
+                return true;
+            } else {
+                return false;
+            }
 
 
         Humidity = (TextView) findViewById(R.id.humidity);
         Temp = (TextView) findViewById(R.id.temp_number);
-        //get the reference of RadioGroup.
-
-        RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
-        RadioButton rb = (RadioButton) findViewById(R.id.home);
-
-        // Change the corresponding icon and text color on nav button click.
-
-        rb.setTextColor(Color.parseColor("#1E9CE1"));
-        rb.setCompoundDrawableTintList(ColorStateList.valueOf(getColor(R.color.primary)));
-
         // get access token
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String check = sharedPreferences.getString("access_token", "");
