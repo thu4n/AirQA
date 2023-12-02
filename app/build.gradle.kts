@@ -26,12 +26,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -44,5 +46,6 @@ dependencies {
     implementation ("androidx.preference:preference:1.1.1")
     implementation ("com.sun.mail:android-mail:1.6.2")
     implementation ("com.sun.mail:android-activation:1.6.2")
+    implementation ("com.google.android.material:material:1.9.0")
     implementation ("org.osmdroid:osmdroid-android:6.1.6")
 }
