@@ -1,5 +1,6 @@
 package com.example.airqa.activities;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,32 +9,37 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.airqa.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsActivity extends BaseActivity {
-    LinearLayout dynamicContent,bottomNavBar;
-
+public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //dynamically include the  current activity layout into baseActivity layout.now all the view of baseactivity is   accessible in current activity.
-        dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
-        bottomNavBar= (LinearLayout) findViewById(R.id.bottomNavBar);
-        View wizard = getLayoutInflater().inflate(R.layout.activity_settings, null);
-        dynamicContent.addView(wizard);
-
-        //get the reference of RadioGroup.
-
-        RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
-        RadioButton rb=(RadioButton)findViewById(R.id.settings);
-
-        // Change the corresponding icon and text color on nav button click.
-
-        rb.setTextColor(Color.parseColor("#1E9CE1"));
-        rb.setCompoundDrawableTintList(ColorStateList.valueOf(getColor(R.color.primary)));
-
-
+        setContentView(R.layout.activity_settings);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_settings);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                return true;
+            } else if (item.getItemId() == R.id.bottom_features) {
+//                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+//                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_chart) {
+//                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+//                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_settings) {
+                return true;
+            } else {
+                return false;
+            }
+        });
         if (findViewById(R.id.idFrameLayout) != null) {
             if (savedInstanceState != null) {
                 return;
