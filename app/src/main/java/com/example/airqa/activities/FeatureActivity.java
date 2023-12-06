@@ -1,37 +1,29 @@
 package com.example.airqa.activities;
 
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
 
 import com.example.airqa.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class FeatureActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_feature);
 
         // Handle navbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_settings);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_features);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
                 startActivity(new Intent(getApplicationContext(), MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
                 startActivity(new Intent(getApplicationContext(), ChartActivity.class));
@@ -39,23 +31,13 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 return true;
             } else {
                 return false;
             }
         });
-        if (findViewById(R.id.idFrameLayout) != null) {
-            if (savedInstanceState != null) {
-                return;
-            }
-            // below line is to inflate our fragment.
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.idFrameLayout, new SettingsFragment())
-                    .setReorderingAllowed(true)
-                    .commit();
-        }
-
     }
-
-
 }

@@ -17,7 +17,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -53,19 +53,21 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        // Handle navbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                // Add your logic for the Home item
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-//                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-//                finish();
+                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-//                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-//                finish();
+                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
@@ -77,14 +79,14 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
-
         Context ctx = this.getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
         map = (MapView) findViewById(R.id.map);
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
-        map.getController().setZoom(20.0);
+        map.getController().setZoom(19.0);
+        map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
         requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.INTERNET
@@ -174,7 +176,6 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
     }
 
     @Override

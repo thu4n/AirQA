@@ -48,4 +48,5 @@ dependencies {
     implementation ("com.sun.mail:android-activation:1.6.2")
     implementation ("com.google.android.material:material:1.9.0")
     implementation ("org.osmdroid:osmdroid-android:6.1.6")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
