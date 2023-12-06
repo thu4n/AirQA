@@ -81,22 +81,25 @@ public class ChartActivity extends AppCompatActivity {
 
         LineData lineData = new LineData(dataSet);
 
-        xValues = Arrays.asList("21-12", "22-12", "23-12", "24-12", "25-12", "26-12", "27-12");
+        xValues = Arrays.asList("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN");
 
         lineChart.setData(lineData);
-        lineChart.getDescription().setText("Chart Description");
-        lineChart.getDescription().setPosition(150f, 15f);
+        lineChart.setScaleEnabled(false);
+        lineChart.getDescription().setEnabled(false);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
-        xAxis.setLabelCount(8);
+        xAxis.setLabelCount(9);
+        xAxis.setGranularity(1);
         xAxis.setDrawGridLines(false);
 
 
         YAxis leftYAxis = lineChart.getAxisLeft();
+        //Y Value
         leftYAxis.setAxisMinimum(0);
         leftYAxis.setAxisMaximum(100);
+
         leftYAxis.setLabelCount(5);
         leftYAxis.setDrawAxisLine(false);
         leftYAxis.setDrawLabels(true);
@@ -115,7 +118,13 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 // Show a Toast message with the selected entry's value
-                Toast.makeText(getApplicationContext(), "Value: " + e.getY(), Toast.LENGTH_SHORT).show();
+                InfoChartFragment fragment = InfoChartFragment.newInstance(Float.toString(e.getY()));
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_pmi, fragment)
+                        .addToBackStack(null) // Optional: Add fragment to back stack
+                        .commit();
                 }
 
             @Override
@@ -123,5 +132,7 @@ public class ChartActivity extends AppCompatActivity {
                 // Do something when nothing is selected (optional)
             }
         });
+
+
     }
 }
