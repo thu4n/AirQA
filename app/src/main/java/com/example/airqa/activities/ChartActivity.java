@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.airqa.R;
 import com.github.mikephil.charting.charts.LineChart;
@@ -14,6 +15,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChartActivity extends AppCompatActivity {
-    private LineChart lineChart, lineChart_2;
+    private LineChart lineChart;
     private List<String> xValues;
 
     @Override
@@ -55,8 +58,7 @@ public class ChartActivity extends AppCompatActivity {
         });
 
         // DRAW CHART
-        lineChart = findViewById(R.id.line_chart);
-        lineChart_2 = findViewById(R.id.line_chart_2);
+        lineChart = findViewById(R.id.line_chart_pmi);
         // Create sample data for the chart
         ArrayList<Entry> entries = new ArrayList<Entry>();
         entries.add(new Entry(0, 10));
@@ -64,13 +66,18 @@ public class ChartActivity extends AppCompatActivity {
         entries.add(new Entry(2, 15));
         entries.add(new Entry(3, 25));
         entries.add(new Entry(4, 15));
-        entries.add(new Entry(5, 0));
+        entries.add(new Entry(5, 5));
         entries.add(new Entry(6, 40));
         // Add more entries as needed
 
         LineDataSet dataSet = new LineDataSet(entries, "PM10");
-        dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.RED);
+        dataSet.setDrawFilled(true);
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataSet.setDrawValues(false);
+        dataSet.setFillColor(R.color.primary);
+        dataSet.setColor(R.color.primary);
+        dataSet.setFillAlpha(255);
+        dataSet.setDrawCircles(false);
 
         LineData lineData = new LineData(dataSet);
 
@@ -79,23 +86,42 @@ public class ChartActivity extends AppCompatActivity {
         lineChart.setData(lineData);
         lineChart.getDescription().setText("Chart Description");
         lineChart.getDescription().setPosition(150f, 15f);
-        lineChart.getAxisLeft().setDrawLabels(false);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues)); // xValues is assumed to be your list of x-axis labels or values
-        xAxis.setLabelCount(5); // Set the number of labels to be displayed on the x-axis
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
+        xAxis.setLabelCount(8);
+        xAxis.setDrawGridLines(false);
 
 
-        YAxis yAxis = lineChart.getAxisLeft();
-        yAxis.setAxisMinimum(0); // Set the minimum value for the y-axis
-        yAxis.setAxisMaximum(100); // Set the maximum value for the y-axis
-        yAxis.setAxisLineColor(Color.BLACK); // Set the color of the y-axis line
-        yAxis.setYOffset(5f); // Set the offset from the y-axis
-        yAxis.setLabelCount(5); // Set the number of labels to be displayed on the y-axis
+        YAxis leftYAxis = lineChart.getAxisLeft();
+        leftYAxis.setAxisMinimum(0);
+        leftYAxis.setAxisMaximum(100);
+        leftYAxis.setLabelCount(5);
+        leftYAxis.setDrawAxisLine(false);
+        leftYAxis.setDrawLabels(true);
+        leftYAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+
+
+        YAxis rightYAxis = lineChart.getAxisRight();
+        rightYAxis.setEnabled(false);
+        rightYAxis.setDrawLabels(false);
 
 
         lineChart.animateXY(2000, 2000); // Animation duration
-        lineChart.invalidate(); // Refreshes the chart
+        lineChart.invalidate(); // Refreshes the
+
+        lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                // Show a Toast message with the selected entry's value
+                Toast.makeText(getApplicationContext(), "Value: " + e.getY(), Toast.LENGTH_SHORT).show();
+                }
+
+            @Override
+            public void onNothingSelected() {
+                // Do something when nothing is selected (optional)
+            }
+        });
     }
 }
