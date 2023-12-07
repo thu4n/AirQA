@@ -21,14 +21,16 @@
             android:padding="20dp">
 
             <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/line_chart"
+                android:id="@+id/line_chart_pmi"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/line_chart_2"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
+            <FrameLayout
+                android:id="@+id/frameLayout_pmi"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="120dp"
+                />
         </LinearLayout>
     </ScrollView>
 
