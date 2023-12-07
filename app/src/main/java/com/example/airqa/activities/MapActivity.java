@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
@@ -54,6 +55,8 @@ public class MapActivity extends AppCompatActivity {
     private FrameLayout fragmentContainer;
     LinearLayout dynamicContent,bottomNavBar;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+
+    public WeatherAsset weatherAsset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +106,8 @@ public class MapActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.PREFS_NAME,MODE_PRIVATE);
         String access_token = sharedPreferences.getString("access_token","");
         Log.d("access",access_token);
+        Context context = this;
+        List<String> assetIDs = ApiHandler.getAllAssetIDs(context,access_token);
         getAllAsset(access_token);
 
     }
@@ -111,7 +116,20 @@ public class MapActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheetlayout);
+        TextView assetName = dialog.findViewById(R.id.assetName);
+        TextView tempVal = dialog.findViewById(R.id.assetIdTempValue);
+        TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue);
+        TextView rainfallVal = dialog.findViewById(R.id.assetIdRainfallValue);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        assetName.setText(weatherAsset.getName());
+        double temp = weatherAsset.getAttributes().getTemperature().getValue();
+        Log.d("temp", String.valueOf(temp));
+        tempVal.setText( String.valueOf(temp));
+        double humid = weatherAsset.getAttributes().getHumidity().getValue();
+        humidVal.setText(String.valueOf(humid));
+        double rainfall = weatherAsset.getAttributes().getRainfall().getValue();
+        rainfallVal.setText(String.valueOf(rainfall));
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +210,7 @@ public class MapActivity extends AppCompatActivity {
                     Double x = asset.getAttributes().getLocation().getValue().getCoordinates().get(0);
                     Double y = asset.getAttributes().getLocation().getValue().getCoordinates().get(1);
                     Log.e("coor", x.toString() + " " + y.toString());
+                    weatherAsset = response.body();
                     setMap(x,y);
                 }
                 else {
