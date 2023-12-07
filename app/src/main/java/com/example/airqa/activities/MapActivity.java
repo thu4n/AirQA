@@ -1,19 +1,18 @@
 package com.example.airqa.activities;
 import com.example.airqa.R;
+import com.example.airqa.api.ApiHandler;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,17 +26,16 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapActivity extends AppCompatActivity {
@@ -93,7 +91,15 @@ public class MapActivity extends AppCompatActivity {
         });
         map.setMultiTouchControls(true);
 
-        GeoPoint point = new GeoPoint(10.87, 106.80324);
+        // Get all asset and then show the only one that has coordinates
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.PREFS_NAME,MODE_PRIVATE);
+        String access_token = sharedPreferences.getString("access_token","");
+        Context context = this;
+        List<String> assetIds = ApiHandler.getAllAssetIDs(context, access_token);
+
+        //asset
+
+        GeoPoint point = new GeoPoint(20.87, 106.80324);
         map.getController().setCenter(point);
 
         Marker startMarker = new Marker(map);

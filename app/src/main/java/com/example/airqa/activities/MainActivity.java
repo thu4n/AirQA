@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
         Humidity = (TextView) findViewById(R.id.humidity);
         Temp = (TextView) findViewById(R.id.temp_number);
         // get access token
