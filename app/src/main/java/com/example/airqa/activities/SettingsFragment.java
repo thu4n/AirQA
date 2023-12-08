@@ -6,6 +6,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.preference.Preference;
@@ -56,6 +57,5 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (preference2 != null) {
             preference2.setOnPreferenceClickListener(preferenceClickListener);
         }
-
     }
 }

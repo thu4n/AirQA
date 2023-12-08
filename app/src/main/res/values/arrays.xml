@@ -6,4 +6,42 @@
         <item>Option 3</item>
         <item>Option 4</item>
     </string-array>
+
+    <string-array name="option_entries">
+        <item>Option 1</item>
+        <item>Option 2</item>
+        <item>Option 3</item>
+        <item>Option 4</item>
+        <item>Option 5</item>
+        <item>Option 6</item>
+        <item>Option 7</item>
+        <item>Option 8</item>
+        <item>Option 9</item>
+        <item>Option 10</item>
+        <item>Option 11</item>
+        <item>Option 12</item>
+        <item>Option 13</item>
+        <item>Option 14</item>
+
+        <!-- Add more options if needed -->
+    </string-array>
+
+    <string-array name="option_values">
+        <item>option1_value</item>
+        <item>option2_value</item>
+        <item>option3_value</item>
+        <item>option4_value</item>
+        <item>option5_value</item>
+        <item>option6_value</item>
+        <item>option7_value</item>
+        <item>option8_value</item>
+        <item>option9_value</item>
+        <item>option10_value</item>
+        <item>option11_value</item>
+        <item>option12_value</item>
+        <item>option13_value</item>
+        <item>option14_value</item>
+        <!-- Add more options as needed -->
+    </string-array>
+
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--Account category-->
     <PreferenceCategory
@@ -40,4 +39,14 @@
             android:summary="@string/logout_summary" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Notification">
+        <ListPreference
+            android:key="number_preference"
+            android:title="Warning temperature"
+            android:summary="Current value: none"
+            android:defaultValue="0"
+            android:entries="@array/option_entries"
+            android:entryValues="@array/option_values" />
+    </PreferenceCategory>
 </PreferenceScreen>
