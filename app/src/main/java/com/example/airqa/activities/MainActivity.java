@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     int humid = response.body().getAttributes().getHumidity().getValue();
                     Humidity.setText(String.valueOf(humid));
                     double temp = response.body().getAttributes().getTemperature().getValue();
-                    Temp.setText(String.valueOf(temp));
+                    Temp.setText(String.valueOf(Math.round(temp)));
                 }
                 else {
 
