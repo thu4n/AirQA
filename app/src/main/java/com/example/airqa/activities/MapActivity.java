@@ -1,19 +1,21 @@
 package com.example.airqa.activities;
 import com.example.airqa.R;
+import com.example.airqa.api.ApiHandler;
+import com.example.airqa.api.ApiService;
+import com.example.airqa.models.assetGroup.Asset;
+import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,26 +29,34 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MapActivity extends AppCompatActivity {
 
     private MapView map = null;
     private FrameLayout fragmentContainer;
-//    MarkerInfoFragment markerInfoFragment;
     LinearLayout dynamicContent,bottomNavBar;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+
+    public WeatherAsset weatherAsset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,31 +102,34 @@ public class MapActivity extends AppCompatActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.INTERNET
         });
         map.setMultiTouchControls(true);
+        // Get the access token and then from it, set the map center point
+        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.PREFS_NAME,MODE_PRIVATE);
+        String access_token = sharedPreferences.getString("access_token","");
+        Log.d("access",access_token);
+        Context context = this;
+        List<String> assetIDs = ApiHandler.getAllAssetIDs(context,access_token);
+        getAllAsset(access_token);
 
-        GeoPoint point = new GeoPoint(10.87, 106.80324);
-        map.getController().setCenter(point);
-
-        Marker startMarker = new Marker(map);
-        startMarker.setPosition(point);
-        startMarker.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_TOP);
-        map.getOverlays().add(startMarker);
-        startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker, MapView mapView) {
-                // Show the fragment container when the marker is clicked
-                // Replace the fragment container with your desired fragment
-                Log.d("click marker", "clicked marker");
-                showBottomDialog();
-                return true; // To consume the event and prevent other actions (like showing the InfoWindow)
-            }
-        });
     }
     private void showBottomDialog() {
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheetlayout);
+        TextView assetName = dialog.findViewById(R.id.assetName);
+        TextView tempVal = dialog.findViewById(R.id.assetIdTempValue);
+        TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue);
+        TextView rainfallVal = dialog.findViewById(R.id.assetIdRainfallValue);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        assetName.setText(weatherAsset.getName());
+        double temp = weatherAsset.getAttributes().getTemperature().getValue();
+        Log.d("temp", String.valueOf(temp));
+        tempVal.setText( String.valueOf(temp));
+        double humid = weatherAsset.getAttributes().getHumidity().getValue();
+        humidVal.setText(String.valueOf(humid));
+        double rainfall = weatherAsset.getAttributes().getRainfall().getValue();
+        rainfallVal.setText(String.valueOf(rainfall));
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,5 +195,124 @@ public class MapActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+    }
+
+    //get data in asset
+    public void getAssetInfo(String access_token, String id){
+        Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, id);
+        Log.e("ok2", access_token + "");
+        call.enqueue(new Callback<WeatherAsset>() {
+            @Override
+            public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
+                if(response.isSuccessful()){
+                    assert response.body() != null; // make sure the body isn't null
+                    WeatherAsset asset = response.body();
+                    Double x = asset.getAttributes().getLocation().getValue().getCoordinates().get(0);
+                    Double y = asset.getAttributes().getLocation().getValue().getCoordinates().get(1);
+                    Log.e("coor", x.toString() + " " + y.toString());
+                    weatherAsset = response.body();
+                    setMap(x,y);
+                }
+                else {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<WeatherAsset> call, Throwable t) {
+
+                Log.e("ok1",t.toString());
+            }
+        });
+    }
+
+    public void getAllAsset(String access_token){
+        // Default value for the body, do not change this query
+        String rawJsonQuery = "{\n" +
+                "    \"realm\": {\n" +
+                "        \"name\": \"master\"\n" +
+                "    },\n" +
+                "    \"select\": {\n" +
+                "        \"attributes\": [\n" +
+                "            \"location\",\n" +
+                "            \"direction\"\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    \"attributes\": {\n" +
+                "        \"items\": [\n" +
+                "            {\n" +
+                "                \"name\": {\n" +
+                "                    \"predicateType\": \"string\",\n" +
+                "                    \"value\": \"location\"\n" +
+                "                },\n" +
+                "                \"meta\": [\n" +
+                "                    {\n" +
+                "                        \"name\": {\n" +
+                "                            \"predicateType\": \"string\",\n" +
+                "                            \"value\": \"showOnDashboard\"\n" +
+                "                        },\n" +
+                "                        \"negated\": true\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                        \"name\": {\n" +
+                "                            \"predicateType\": \"string\",\n" +
+                "                            \"value\": \"showOnDashboard\"\n" +
+                "                        },\n" +
+                "                        \"value\": {\n" +
+                "                            \"predicateType\": \"boolean\",\n" +
+                "                            \"value\": true\n" +
+                "                        }\n" +
+                "                    }\n" +
+                "                ]\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "}";
+        RequestBody rawJsonBody = RequestBody.create(MediaType.parse("application/json"), rawJsonQuery);
+        Call<List<Asset>> call = ApiService.apiService.getAllAsset("Bearer " + access_token, rawJsonBody);
+
+        call.enqueue(new Callback<List<Asset>>() {
+            @Override
+            public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
+                if(response.isSuccessful()){
+                    List<Asset> assets = response.body();
+                    List<String> assetIds = new ArrayList<>();
+                    for(Asset asset : assets){
+                        if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
+                            String id = asset.getId();
+                            assetIds.add(id);
+                        }
+                    }
+                    getAssetInfo(access_token, assetIds.get(0));
+                    Log.e("id0",assetIds.get(0));
+
+                }
+                else {
+                    Toast.makeText(MapActivity.this, "You do not have permission!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Asset>> call, Throwable t) {
+                Log.e("failedCall",t.toString());
+            }
+        });
+    }
+    private void setMap(double x, double y){
+        GeoPoint point = new GeoPoint(y , x);
+        map.getController().setCenter(point);
+        Marker startMarker = new Marker(map);
+        startMarker.setPosition(point);
+        startMarker.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_TOP);
+        map.getOverlays().add(startMarker);
+        startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                // Show the fragment container when the marker is clicked
+                // Replace the fragment container with your desired fragment
+                Log.d("click marker", "clicked marker");
+                showBottomDialog();
+                return true; // To consume the event and prevent other actions (like showing the InfoWindow)
+            }
+        });
     }
 }
