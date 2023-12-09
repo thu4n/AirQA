@@ -215,6 +215,7 @@ public class MapActivity extends AppCompatActivity {
                     Double y = asset.getAttributes().getLocation().getValue().getCoordinates().get(1);
                     Log.e("coor", x.toString() + " " + y.toString());
                     weatherAsset = response.body();
+                    weatherAsset.setId(id);
                     setMap(x,y);
                 }
                 else {

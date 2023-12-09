@@ -147,23 +147,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setInformation(WeatherAsset weatherAsset, int id){
-        TextView temperature, humidity, rainfall, windspeed;
+        TextView temperature, humidity, rainfall, windspeed,assetName,assetId;
+        assetName = (TextView) findViewById(R.id.assetNameInfo);
+        assetId = (TextView) findViewById(R.id.assetId);
         humidity = (TextView) findViewById(R.id.humidityVal);
         temperature = (TextView) findViewById(R.id.temp_number);
         rainfall = (TextView) findViewById(R.id.rainfallValue);
         windspeed = (TextView) findViewById(R.id.windspeedVal);
 
-        double tempValue = weatherAsset.getAttributes().getTemperature().getValue();
-        double humidValue = weatherAsset.getAttributes().getHumidity().getValue();
-        double rainfallValue = weatherAsset.getAttributes().getRainfall().getValue();
-        double windspeedValue = weatherAsset.getAttributes().getWindSpeed().getValue();
+        LinearLayout aqiRow = findViewById(R.id.aqiRow);
+        LinearLayout pollutantRow = findViewById(R.id.pollutantRow);
+        LinearLayout humidRow = findViewById(R.id.humidityRow);
+        LinearLayout rainfallRow = findViewById(R.id.rainfallRow);
+        LinearLayout windspeedRow = findViewById(R.id.windspeedRow);
 
-        setTextViewValue(temperature, tempValue , "°C");
-        setTextViewValue(humidity,humidValue, "%");
-        setTextViewValue(rainfall,rainfallValue, "mm");
-        setTextViewValue(windspeed,windspeedValue, "km/h");
+        switch (id){
+            case 0:{
+                aqiRow.setVisibility(View.INVISIBLE);
+                pollutantRow.setVisibility(View.INVISIBLE);
 
-        LinearLayout layout1 = findViewById(R.id.aqiRow);
-        layout1.setVisibility(View.INVISIBLE);
+                double tempValue = weatherAsset.getAttributes().getTemperature().getValue();
+                double humidValue = weatherAsset.getAttributes().getHumidity().getValue();
+                double rainfallValue = weatherAsset.getAttributes().getRainfall().getValue();
+                double windspeedValue = weatherAsset.getAttributes().getWindSpeed().getValue();
+
+                setTextViewValue(temperature, tempValue , "°C");
+                setTextViewValue(humidity,humidValue, "%");
+                setTextViewValue(rainfall,rainfallValue, "mm");
+                setTextViewValue(windspeed,windspeedValue, "km/h");
+                assetName.setText(weatherAsset.getName());
+                assetId.setText(weatherAsset.getId());
+                break;
+            }
+            case 1:
+            {
+
+            }
+        }
     }
 }
