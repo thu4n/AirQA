@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Receive weather asset from the map activity
         WeatherAsset weatherAsset = getIntent().getParcelableExtra("weatherAsset");
-        setInformation(weatherAsset);
+        setInformation(weatherAsset,0);
 
         // loading database
         // Lấy dữ liệu từ cơ sở dữ liệu
@@ -132,12 +132,38 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(MainActivity.this, "Data inserted!", Toast.LENGTH_SHORT).show();
     }
 
-    private void setInformation(WeatherAsset weatherAsset){
+    private void setTextViewValue(TextView textView, double value, String unit){
+        String content;
+        if(value < 1)
+        {
+            content = value +  unit;
+        }
+        else
+        {
+            int roundedValue = (int) value;
+            content = roundedValue +  unit;
+        }
+        textView.setText(content);
+    }
+
+    private void setInformation(WeatherAsset weatherAsset, int id){
         TextView temperature, humidity, rainfall, windspeed;
-        humidity = (TextView) findViewById(R.id.humidity);
+        humidity = (TextView) findViewById(R.id.humidityVal);
         temperature = (TextView) findViewById(R.id.temp_number);
+        rainfall = (TextView) findViewById(R.id.rainfallValue);
+        windspeed = (TextView) findViewById(R.id.windspeedVal);
+
         double tempValue = weatherAsset.getAttributes().getTemperature().getValue();
-        int tempNiceValue = (int) tempValue;
-        temperature.setText(String.valueOf(tempNiceValue));
+        double humidValue = weatherAsset.getAttributes().getHumidity().getValue();
+        double rainfallValue = weatherAsset.getAttributes().getRainfall().getValue();
+        double windspeedValue = weatherAsset.getAttributes().getWindSpeed().getValue();
+
+        setTextViewValue(temperature, tempValue , "°C");
+        setTextViewValue(humidity,humidValue, "%");
+        setTextViewValue(rainfall,rainfallValue, "mm");
+        setTextViewValue(windspeed,windspeedValue, "km/h");
+
+        LinearLayout layout1 = findViewById(R.id.aqiRow);
+        layout1.setVisibility(View.INVISIBLE);
     }
 }

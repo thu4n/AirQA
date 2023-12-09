@@ -26,6 +26,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
             android:paddingHorizontal="20dp">
 
             <LinearLayout
@@ -97,7 +98,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp"
-                            android:text="Room location"
+                            android:text="Temperature"
                             android:textColor="@color/white"
                             android:textSize="18dp"
                             android:textStyle="bold"
@@ -178,6 +179,7 @@
                                 android:src="@drawable/humid_icon"
                                 />
                             <TextView
+                                android:id="@+id/humidity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="Humidity"
@@ -190,7 +192,7 @@
                         </LinearLayout>
                         <!-- Number -->
                         <TextView
-                            android:id="@+id/humidity"
+                            android:id="@+id/humidityVal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="82%"
@@ -214,6 +216,71 @@
                 <!-- Rainfall Row -->
                 <LinearLayout
                     android:id="@+id/rainfallRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <!-- Rainfall -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="175dp"
+                        android:background="@drawable/stat_container"
+                        android:layout_weight="1.0"
+                        android:gravity="center"
+                        >
+                        <!-- Icon -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="6dp"
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/humid_icon"
+                                />
+                            <TextView
+                                android:id="@+id/rainfall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Rainfall"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp"
+                                tools:ignore="HardcodedText"
+                                />
+                        </LinearLayout>
+                        <!-- Number -->
+                        <TextView
+                            android:id="@+id/rainfallValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="82%"
+                            android:textColor="@color/white"
+                            android:textSize="54sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <!-- Avg -->
+                        <TextView
+                            android:id="@+id/rainfallAvg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avg of today: 84%"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Windspeed Row -->
+                <LinearLayout
+                    android:id="@+id/windspeedRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -243,7 +310,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Humidity"
+                                android:text="Wind Speed"
                                 android:textColor="@color/white"
                                 android:textSize="24sp"
                                 android:textStyle="bold"
@@ -253,7 +320,7 @@
                         </LinearLayout>
                         <!-- Number -->
                         <TextView
-                            android:id="@+id/rainfall"
+                            android:id="@+id/windspeedVal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="82%"
@@ -402,6 +469,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <!-- AQI Row -->
                 <LinearLayout
                     android:id="@+id/aqiRow"
