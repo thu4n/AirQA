@@ -1,6 +1,11 @@
 package com.example.airqa.models.weatherAssetGroup;
 
-public class Humidity extends BaseInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Humidity extends BaseInfo implements Parcelable {
     private int value;
     public int getValue() {
         return value;
@@ -11,4 +16,13 @@ public class Humidity extends BaseInfo {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+
+    }
 }

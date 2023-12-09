@@ -1,6 +1,11 @@
 package com.example.airqa.models.weatherAssetGroup;
 
-public class Attributes {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Attributes implements Parcelable {
     private AQI aqi;
     private CO2 co2;
     private PM10 pm10;
@@ -10,6 +15,29 @@ public class Attributes {
     private Humidity humidity;
     private Location location;
     private WindSpeed windSpeed;
+
+    protected Attributes(Parcel in) {
+        co2 = in.readParcelable(CO2.class.getClassLoader());
+        pm10 = in.readParcelable(PM10.class.getClassLoader());
+        pm25 = in.readParcelable(PM25.class.getClassLoader());
+        rainfall = in.readParcelable(Rainfall.class.getClassLoader());
+        temperature = in.readParcelable(Temperature.class.getClassLoader());
+        humidity = in.readParcelable(Humidity.class.getClassLoader());
+        location = in.readParcelable(Location.class.getClassLoader());
+        windSpeed = in.readParcelable(WindSpeed.class.getClassLoader());
+    }
+
+    public static final Creator<Attributes> CREATOR = new Creator<Attributes>() {
+        @Override
+        public Attributes createFromParcel(Parcel in) {
+            return new Attributes(in);
+        }
+
+        @Override
+        public Attributes[] newArray(int size) {
+            return new Attributes[size];
+        }
+    };
 
     public AQI getAqi() {
         return aqi;
@@ -81,5 +109,22 @@ public class Attributes {
 
     public void setWindSpeed(WindSpeed windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeParcelable(co2, i);
+        parcel.writeParcelable(pm10, i);
+        parcel.writeParcelable(pm25, i);
+        parcel.writeParcelable(rainfall, i);
+        parcel.writeParcelable(temperature, i);
+        parcel.writeParcelable(humidity, i);
+        parcel.writeParcelable(location, i);
+        parcel.writeParcelable(windSpeed, i);
     }
 }
