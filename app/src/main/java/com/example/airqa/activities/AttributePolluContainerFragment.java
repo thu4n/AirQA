@@ -12,22 +12,16 @@ import com.example.airqa.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CustomStatContainerFragment2#newInstance} factory method to
+ * Use the {@link AttributePolluContainerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import com.example.airqa.R;
 
-public class CustomStatContainerFragment2 extends Fragment {
+public class AttributePolluContainerFragment extends Fragment {
     private Drawable icon;
     private String title;
     private String stat1;
@@ -40,11 +34,11 @@ public class CustomStatContainerFragment2 extends Fragment {
     private String value3;
     private String unit3;
 
-    public static CustomStatContainerFragment2 newInstance(Drawable icon, String title,
-                                                           String stat1, String value1, String unit1,
-                                                           String stat2, String value2, String unit2,
-                                                           String stat3, String value3, String unit3) {
-        CustomStatContainerFragment2 fragment = new CustomStatContainerFragment2();
+    public static AttributePolluContainerFragment newInstance(Drawable icon, String title,
+                                                              String stat1, String value1, String unit1,
+                                                              String stat2, String value2, String unit2,
+                                                              String stat3, String value3, String unit3) {
+        AttributePolluContainerFragment fragment = new AttributePolluContainerFragment();
         fragment.icon = icon;
         fragment.title = title;
         fragment.stat1 = stat1;

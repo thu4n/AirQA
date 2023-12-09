@@ -13,15 +13,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.airqa.R;
 
-public class CustomStatContainerFragment extends Fragment {
+public class AttributeContainerFragment extends Fragment {
     private Drawable icon;
     private String title;
     private String value;
     private String unit;
     private String description;
     private String avgValue;
-    public static CustomStatContainerFragment newInstance(Drawable icon, String title, String value, String unit, String description, String avgValue) {
-        CustomStatContainerFragment fragment = new CustomStatContainerFragment();
+    public static AttributeContainerFragment newInstance(Drawable icon, String title, String value, String unit, String description, String avgValue) {
+        AttributeContainerFragment fragment = new AttributeContainerFragment();
         fragment.icon = icon;
         fragment.title = title;
         fragment.value = value;

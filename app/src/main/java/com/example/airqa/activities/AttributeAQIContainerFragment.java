@@ -12,13 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.airqa.R; // Replace with your actual package name
 
-public class CustomStatContainerFragment3 extends Fragment {
+public class AttributeAQIContainerFragment extends Fragment {
     private Drawable icon;
     private String title;
     private String currentValue;
 
-    public static CustomStatContainerFragment3 newInstance(Drawable icon, String title, String currentValue) {
-        CustomStatContainerFragment3 fragment = new CustomStatContainerFragment3();
+    public static AttributeAQIContainerFragment newInstance(Drawable icon, String title, String currentValue) {
+        AttributeAQIContainerFragment fragment = new AttributeAQIContainerFragment();
         fragment.icon = icon;
         fragment.title = title;
         fragment.currentValue = currentValue;

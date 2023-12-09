@@ -1,30 +1,13 @@
 package com.example.airqa.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import com.example.airqa.models.weatherAssetGroup.Humidity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-import android.graphics.Color;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.database.Cursor;
 
@@ -33,15 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.airqa.MyDatabaseHelper;
 import com.example.airqa.R;
-import com.example.airqa.api.ApiService;
-import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -127,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         String unit = "kg";
         String description = "Description";
         String avgValue = "100";
-        CustomStatContainerFragment fragment = CustomStatContainerFragment.newInstance(
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
                 "Title",
                 "123",
@@ -135,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 "Description",
                 "100"
         );
-        CustomStatContainerFragment2 fragment2 = CustomStatContainerFragment2.newInstance(
+        AttributePolluContainerFragment fragment2 = AttributePolluContainerFragment.newInstance(
                 icon,
                 "Title",
                 "123",
@@ -148,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 "123",
                 "123"
         );
-        CustomStatContainerFragment3 fragment3 = CustomStatContainerFragment3.newInstance(
+        AttributeAQIContainerFragment fragment3 = AttributeAQIContainerFragment.newInstance(
                 icon,
                 "Title",
                 "123"
