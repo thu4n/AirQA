@@ -113,7 +113,6 @@ public class SignUpActivity extends AppCompatActivity {
                     });
                     myWebView.loadUrl("https://uiot.ixxc.dev/auth/realms/master/account");
                     myWebView.bringToFront();
-                    //myWebView.setVisibility(View.VISIBLE);
                 }
         );
 

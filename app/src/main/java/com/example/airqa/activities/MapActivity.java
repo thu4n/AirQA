@@ -58,6 +58,8 @@ public class MapActivity extends AppCompatActivity {
 
     public WeatherAsset weatherAsset;
 
+    //public static List<String> weatherAssetIds;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +145,8 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //intent.putExtra("weatherAsset", (CharSequence) weatherAsset);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
