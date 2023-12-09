@@ -12,8 +12,10 @@ import android.widget.Toast;
 import com.example.airqa.models.weatherAssetGroup.Humidity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.graphics.Color;
@@ -154,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         temperature = (TextView) findViewById(R.id.temp_number);
         rainfall = (TextView) findViewById(R.id.rainfallValue);
         windspeed = (TextView) findViewById(R.id.windspeedVal);
+        TextView timestamp = findViewById(R.id.timestampVal);
 
         LinearLayout aqiRow = findViewById(R.id.aqiRow);
         LinearLayout pollutantRow = findViewById(R.id.pollutantRow);
@@ -170,12 +173,16 @@ public class MainActivity extends AppCompatActivity {
                 double humidValue = weatherAsset.getAttributes().getHumidity().getValue();
                 double rainfallValue = weatherAsset.getAttributes().getRainfall().getValue();
                 double windspeedValue = weatherAsset.getAttributes().getWindSpeed().getValue();
+                long timestampVal = weatherAsset.getAttributes().getHumidity().getTimestamp();
+                Instant instant = Instant.ofEpochMilli(timestampVal);
+                Log.d("timestamp",timestampVal + "");
 
                 setTextViewValue(temperature, tempValue , "°C");
                 setTextViewValue(humidity,humidValue, "%");
                 setTextViewValue(rainfall,rainfallValue, "mm");
                 setTextViewValue(windspeed,windspeedValue, "km/h");
                 assetName.setText(weatherAsset.getName());
+                timestamp.setText(instant.toString());
                 Log.d("idE", weatherAsset.getId());
                 assetId.setText(weatherAsset.getId());
                 break;
