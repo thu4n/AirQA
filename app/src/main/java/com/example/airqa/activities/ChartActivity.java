@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.airqa.R;
+import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -26,9 +27,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ChartActivity extends AppCompatActivity {
@@ -68,20 +73,19 @@ public class ChartActivity extends AppCompatActivity {
             }
         });
 
-        // info chart
-
         TextInputLayout inputAssetNameLayout = findViewById(R.id.inputAssetNameLayout);
-        MaterialAutoCompleteTextView inputAssetName = findViewById(R.id.inputAssetName);
+        inputAssetName = findViewById(R.id.inputAssetName);
+
         TextInputLayout inputAssetTypeLayout = findViewById(R.id.inputAssetTypeLayout);
-        MaterialAutoCompleteTextView inputAssetType = findViewById(R.id.inputAssetType);
+        inputAssetType = findViewById(R.id.inputAssetType);
         TextInputLayout inputStartDateLayout = findViewById(R.id.inputStartDateLayout);
         MaterialAutoCompleteTextView inputStartDate = findViewById(R.id.inputStartDate);
         TextInputLayout inputEndDateLayout = findViewById(R.id.inputEndDateLayout);
-        MaterialAutoCompleteTextView inputEndDate = findViewById(R.id.inputEndDate);
+        inputEndDate = findViewById(R.id.inputEndDate);
         inputStartDate.setOnClickListener(v -> showDatePicker(inputStartDate));
         inputEndDate.setOnClickListener(v -> showDatePicker(inputEndDate));
-
-
+        setAssetName();
+        setAttributeName();
         // DRAW CHART
         lineChart = findViewById(R.id.line_chart);
         // Create sample data for the chart
@@ -173,8 +177,31 @@ public class ChartActivity extends AppCompatActivity {
             String selectedDate = selectedDayOfMonth + "/" + (selectedMonth + 1) + "/" + selectedYear;
             inputTV.setText(selectedDate);
         }, year, month, dayOfMonth);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
         datePickerDialog.show();
     }
 
+    private void setAssetName(){
+        List<String> names = new ArrayList<>();
+        // info chart
+        for(WeatherAsset asset : MapActivity.weatherAssets){
+            names.add(asset.getName());
+        }
+        String[] nameArray = names.toArray(new String[0]);
+        inputAssetName.setSimpleItems(nameArray);
+    }
+    private void setAttributeName(){
+        /*List<String> names = new ArrayList<>();
+        // info chart
+        for(WeatherAsset asset : MapActivity.weatherAssets){
+            names.add(asset.g);
+        }*/
+        String[] nameArray = {"Temperature", "Humidity", "Rainfall", "Windspeed"};
+        inputAssetType.setSimpleItems(nameArray);
+    }
+    private void setEndDate(){
+        Date currentDate = (Date) Date.from(Instant.now());
+        inputEndDate.setText(currentDate.toString());
+    }
 }

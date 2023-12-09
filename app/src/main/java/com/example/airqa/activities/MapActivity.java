@@ -56,6 +56,8 @@ public class MapActivity extends AppCompatActivity {
     LinearLayout dynamicContent,bottomNavBar;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
+    public List<String> assetIds = new ArrayList<>();
+    public static List<WeatherAsset> weatherAssets = new ArrayList<>();
     public WeatherAsset weatherAsset;
 
     //public static List<String> weatherAssetIds;
@@ -109,7 +111,6 @@ public class MapActivity extends AppCompatActivity {
         String access_token = sharedPreferences.getString("access_token","");
         Log.d("access",access_token);
         Context context = this;
-        List<String> assetIDs = ApiHandler.getAllAssetIDs(context,access_token);
         getAllAsset(access_token);
 
     }
@@ -215,6 +216,7 @@ public class MapActivity extends AppCompatActivity {
                     Double y = asset.getAttributes().getLocation().getValue().getCoordinates().get(1);
                     Log.e("coor", x.toString() + " " + y.toString());
                     weatherAsset = response.body();
+                    Log.d("timestamp", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
                     setMap(x,y);
                 }
                 else {
@@ -228,7 +230,32 @@ public class MapActivity extends AppCompatActivity {
             }
         });
     }
+    public void getAllWeatherAsset(List<String> assetIDs,String access_token){
+        if(weatherAssets.size() < 4){
+            for(String assetId : assetIDs){
+                Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, assetId);
+                call.enqueue(new Callback<WeatherAsset>() {
+                    @Override
+                    public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
+                        if(response.isSuccessful()){
+                            assert response.body() != null; // make sure the body isn't null
+                            weatherAssets.add(response.body());
+                        }
+                        else {
 
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<WeatherAsset> call, Throwable t) {
+
+                        Log.e("ok1",t.toString());
+                    }
+                });
+            }
+        }
+        else return;
+
+    }
     public void getAllAsset(String access_token){
         // Default value for the body, do not change this query
         String rawJsonQuery = "{\n" +
@@ -279,14 +306,15 @@ public class MapActivity extends AppCompatActivity {
             public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
                 if(response.isSuccessful()){
                     List<Asset> assets = response.body();
-                    List<String> assetIds = new ArrayList<>();
                     for(Asset asset : assets){
                         if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
                             String id = asset.getId();
                             assetIds.add(id);
+                            Log.d("assetID",id);
                         }
                     }
                     getAssetInfo(access_token, assetIds.get(0));
+                    getAllWeatherAsset(assetIds,access_token);
                     Log.e("id0",assetIds.get(0));
 
                 }
