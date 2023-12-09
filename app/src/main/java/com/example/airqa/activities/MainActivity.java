@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private void setInformation(WeatherAsset weatherAsset, int id){
         TextView temperature, humidity, rainfall, windspeed,assetName,assetId;
         assetName = (TextView) findViewById(R.id.assetNameInfo);
-        assetId = (TextView) findViewById(R.id.assetId);
+        assetId = (TextView) findViewById(R.id.assetIdInfo);
         humidity = (TextView) findViewById(R.id.humidityVal);
         temperature = (TextView) findViewById(R.id.temp_number);
         rainfall = (TextView) findViewById(R.id.rainfallValue);
@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 setTextViewValue(rainfall,rainfallValue, "mm");
                 setTextViewValue(windspeed,windspeedValue, "km/h");
                 assetName.setText(weatherAsset.getName());
+                Log.d("idE", weatherAsset.getId());
                 assetId.setText(weatherAsset.getId());
                 break;
             }
