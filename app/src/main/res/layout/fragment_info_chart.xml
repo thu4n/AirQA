@@ -31,22 +31,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="28sp"
-                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textStyle="normal"
                 android:fontFamily="@font/inter"
                 android:text="cm"
-
+                android:layout_marginRight="8sp"
                 tools:ignore="HardcodedText" />
             <TextView
                 android:id="@+id/unitChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/inter"
                 android:text="cm"
                 tools:ignore="HardcodedText" />
+
         </LinearLayout>
     </RelativeLayout>
 

@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 app:boxStrokeWidthFocused="0sp"
                 app:boxStrokeWidth="0sp"
-                android:hint="Select"
+                android:hint="Asset Name"
                 android:layout_marginEnd="6dp"
                 app:boxBackgroundColor="@color/white"
                 android:id="@+id/inputAssetNameLayout"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 app:boxStrokeWidthFocused="0sp"
                 app:boxStrokeWidth="0sp"
-                android:hint="Select"
+                android:hint="Attribute"
                 android:layout_marginStart="6dp"
                 app:boxBackgroundColor="@color/white"
                 android:id="@+id/inputAssetTypeLayout"
@@ -149,6 +149,21 @@
                 android:layout_height="match_parent"
                 />
         </FrameLayout>
+
+        <!--Button Login-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/showBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SHOW CHART"
+            android:background="@color/white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText"/>
 
     </LinearLayout>
 
