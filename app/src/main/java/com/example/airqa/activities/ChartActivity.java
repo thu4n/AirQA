@@ -70,6 +70,7 @@ public class ChartActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.bottom_home) {
                 startActivity(new Intent(getApplicationContext(), MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
                 startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
@@ -77,7 +78,6 @@ public class ChartActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));

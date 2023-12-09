@@ -49,12 +49,11 @@
 
         <ImageView
             android:id="@+id/assetIdTempIcon"
-            android:layout_width="wrap_content"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/thermometer"/>
+            android:src="@drawable/thermometer" />
 
         <TextView
             android:id="@+id/assetIdTempText"
@@ -64,7 +63,7 @@
             android:textColor="@color/black"
             android:layout_toRightOf="@id/assetIdTempIcon"
             android:layout_marginStart="15dp"
-            android:textSize="16sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/assetIdTempValue"
@@ -74,7 +73,7 @@
             android:layout_centerInParent="true"
             android:text="12321323132"
             android:textColor="@color/primary"
-            android:textSize="16sp"/>
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -87,12 +86,11 @@
 
         <ImageView
             android:id="@+id/assetInfoHumidityIcon"
-            android:layout_width="wrap_content"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/humidity"/>
+            android:src="@drawable/humidity" />
 
         <TextView
             android:id="@+id/assetIdHumidText"
@@ -102,7 +100,7 @@
             android:textColor="@color/black"
             android:layout_toRightOf="@id/assetInfoHumidityIcon"
             android:layout_marginStart="15dp"
-            android:textSize="16sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/assetIdHumidValue"
@@ -112,7 +110,7 @@
             android:layout_centerInParent="true"
             android:text="12321323132"
             android:textColor="@color/primary"
-            android:textSize="16sp"/>
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -125,12 +123,11 @@
 
         <ImageView
             android:id="@+id/assetInfoRainfallIcon"
-            android:layout_width="wrap_content"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/baseline_forest_24"/>
+            android:src="@drawable/baseline_forest_24" />
 
         <TextView
             android:id="@+id/assetIdRainfallText"
@@ -140,7 +137,7 @@
             android:textColor="@color/black"
             android:layout_toRightOf="@id/assetInfoRainfallIcon"
             android:layout_marginStart="15dp"
-            android:textSize="16sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/assetIdRainfallValue"
@@ -150,9 +147,44 @@
             android:layout_centerInParent="true"
             android:text="12321323132"
             android:textColor="@color/primary"
-            android:textSize="16sp"/>
+            android:textSize="18sp" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layoutAssetInfoWindSpeed"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
 
+        <ImageView
+            android:id="@+id/assetInfoWindSpeedIcon"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/baseline_wind_power_24" />
+
+        <TextView
+            android:id="@+id/assetIdWindSpeedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wind Speed: "
+            android:textColor="@color/black"
+            android:layout_toRightOf="@id/assetInfoWindSpeedIcon"
+            android:layout_marginStart="15dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/assetIdWindSpeedValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:text="12321323132"
+            android:textColor="@color/primary"
+            android:textSize="18sp" />
+    </RelativeLayout>
     <Button
         android:id="@+id/showAllBtn"
         android:layout_width="wrap_content"
