@@ -1,22 +1,22 @@
 package com.example.airqa.models;
 
 public class DataPoint {
-    double x;
-    double y;
+    long x;
+    float y;
 
-    public double getX() {
+    public long getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(long x) {
         this.x = x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(float y) {
         this.y = y;
     }
 }
