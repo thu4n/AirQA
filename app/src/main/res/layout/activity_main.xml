@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="1dp"
-                            android:text="27°"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="60dp"
                             android:textStyle="bold"
@@ -148,8 +148,9 @@
                 android:paddingHorizontal="20dp"
                 android:orientation="vertical">
 
-                <!-- Row of a Stat -->
+                <!-- Humidity Row -->
                 <LinearLayout
+                    android:id="@+id/humidityRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -209,8 +210,73 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <!-- Row of a Stat -->
+
+                <!-- Rainfall Row -->
                 <LinearLayout
+                    android:id="@+id/rainfallRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <!-- Humid -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="175dp"
+                        android:background="@drawable/stat_container"
+                        android:layout_weight="1.0"
+                        android:gravity="center"
+                        >
+                        <!-- Icon -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="6dp"
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/humid_icon"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Humidity"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp"
+                                tools:ignore="HardcodedText"
+                                />
+                        </LinearLayout>
+                        <!-- Number -->
+                        <TextView
+                            android:id="@+id/rainfall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="82%"
+                            android:textColor="@color/white"
+                            android:textSize="54sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <!-- Avg -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avg of today: 84%"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Pollutant Row -->
+                <LinearLayout
+                    android:id="@+id/pollutantRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -336,8 +402,9 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <!-- Row of a Stat -->
+                <!-- AQI Row -->
                 <LinearLayout
+                    android:id="@+id/aqiRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

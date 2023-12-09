@@ -145,9 +145,9 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //intent.putExtra("weatherAsset", (CharSequence) weatherAsset);
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("weatherAsset", weatherAsset);
+                startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }

@@ -24,6 +24,9 @@ public class PM10 extends BaseInfo implements Parcelable {
         }
     };
 
+    public PM10() {
+    }
+
     public double getValue() {
         return value;
     }
