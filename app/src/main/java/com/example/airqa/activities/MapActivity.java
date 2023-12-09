@@ -191,14 +191,21 @@ public class MapActivity extends AppCompatActivity {
         }
     }
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onResume() {
+        super.onResume();
+        map.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        map.onPause();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        map.onDetach();
     }
 
     //get data in asset
