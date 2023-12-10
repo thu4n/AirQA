@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.airqa.R;
+import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FeatureActivity extends AppCompatActivity {
@@ -39,5 +41,59 @@ public class FeatureActivity extends AppCompatActivity {
                 return false;
             }
         });
+        setInformation();
+
+    }
+
+    private  void setInformation(){
+        int count = 1;
+        for(WeatherAsset weatherAsset : MapActivity.weatherAssets){
+            switch (count){
+                case 1:{
+                    TextView assetName = findViewById(R.id.assetName1);
+                    assetName.setText(weatherAsset.getName());
+                    if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
+                        TextView assetTempVal = findViewById(R.id.temp_number1);
+                        double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
+                        int roundedTempVal = (int) tempVal;
+                        assetTempVal.setText(roundedTempVal + "°C");
+                    }
+                    else{
+
+                    }
+                    break;
+                }
+                case 2:{
+                    TextView assetName = findViewById(R.id.assetName2);
+                    assetName.setText(weatherAsset.getName());
+                    if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
+                        TextView assetTempVal = findViewById(R.id.temp_number2);
+                        double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
+                        int roundedTempVal = (int) tempVal;
+                        assetTempVal.setText(roundedTempVal + "°C");
+                    }
+                    else{
+
+                    }
+                    break;
+                }
+                case 3:{
+                    TextView assetName = findViewById(R.id.assetName3);
+                    assetName.setText(weatherAsset.getName());
+                    if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
+                        TextView assetTempVal = findViewById(R.id.temp_number3);
+                        double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
+                        int roundedTempVal = (int) tempVal;
+                        assetTempVal.setText(roundedTempVal + "°C");
+                    }
+                    else{
+
+                    }
+                    break;
+                }
+
+            }
+            count++;
+        }
     }
 }

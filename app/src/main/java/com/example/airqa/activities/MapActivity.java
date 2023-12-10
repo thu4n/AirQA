@@ -74,6 +74,7 @@ public class MapActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.bottom_home) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
+                //Intent intent = new Intent(getApplicationContext(), FeatureActivity.class);
                 startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
