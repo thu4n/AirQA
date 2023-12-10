@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class AQI extends BaseInfo implements Parcelable {
-    private int value;
+    private Integer value;
 
     protected AQI(Parcel in) {
         super(in);
@@ -25,11 +25,11 @@ public class AQI extends BaseInfo implements Parcelable {
         }
     };
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 
