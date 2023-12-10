@@ -31,6 +31,7 @@
                     android:id="@+id/icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:tint="@color/white"
                     />
                 <TextView
                     android:id="@+id/title"

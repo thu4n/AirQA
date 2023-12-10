@@ -17,17 +17,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Asset List"
-            android:textSize="32sp"
-            android:fontFamily="@font/inter"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:layout_marginVertical="12dp"
-            android:gravity="center"/>
+            android:layout_marginVertical="12dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asset List"
+                android:textSize="32sp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:id="@+id/periodIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/baseline_wb_sunny_24"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                app:tint="@color/white" />
+        </RelativeLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_below="@+id/profile_container"
@@ -236,6 +253,7 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
