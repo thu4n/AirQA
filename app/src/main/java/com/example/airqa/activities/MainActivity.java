@@ -205,6 +205,40 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_rainfall, fragment)
                 .commit();
     }
+    private void setPollutantFragment(String pm10, String pm25, String co2){
+        String unit1 = "µg/m<sup>3</sup>";
+        String unit2 = "µg/m<sup>3</sup>";
+        String unit3 = "ppm";
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.pollu_icon);
+        AttributePolluContainerFragment fragment = AttributePolluContainerFragment.newInstance(
+                icon,
+                "Pollutants",
+                "PM10",
+                pm10,
+                unit1,
+                "PM25",
+                pm25,
+                unit2,
+                "CO2",
+                co2,
+                unit3
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_pollutant, fragment)
+                .commit();
+    }
+
+    private void setAqiFragment(String value){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.logo);
+        AttributeAQIContainerFragment fragment = AttributeAQIContainerFragment.newInstance(
+                icon,
+                "AQI",
+                value
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_pollutant, fragment)
+                .commit();
+    }
 
     private String getRoundedString(double value){
         String content;
@@ -268,50 +302,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-//    private void setInformation(WeatherAsset weatherAsset, int id){
-//        TextView temperature, humidity, rainfall, windspeed,assetName,assetId;
-//        assetName = (TextView) findViewById(R.id.assetNameInfo);
-//        assetId = (TextView) findViewById(R.id.assetIdInfo);
-////        humidity = (TextView) findViewById(R.id.humidityVal);
-//        temperature = (TextView) findViewById(R.id.temp_number);
-//        rainfall = (TextView) findViewById(R.id.rainfallValue);
-//        windspeed = (TextView) findViewById(R.id.windspeedVal);
-//        TextView timestamp = findViewById(R.id.timestampVal);
-//
-//        LinearLayout aqiRow = findViewById(R.id.aqiRow);
-//        LinearLayout pollutantRow = findViewById(R.id.pollutantRow);
-////        LinearLayout humidRow = findViewById(R.id.humidityRow);
-//        LinearLayout rainfallRow = findViewById(R.id.rainfallRow);
-//        LinearLayout windspeedRow = findViewById(R.id.windspeedRow);
-//
-//        switch (id){
-//            case 0:{
-//                aqiRow.setVisibility(View.INVISIBLE);
-//                pollutantRow.setVisibility(View.INVISIBLE);
-//
-//                double tempValue = weatherAsset.getAttributes().getTemperature().getValue();
-//                double humidValue = weatherAsset.getAttributes().getHumidity().getValue();
-//                double rainfallValue = weatherAsset.getAttributes().getRainfall().getValue();
-//                double windspeedValue = weatherAsset.getAttributes().getWindSpeed().getValue();
-//                long timestampVal = weatherAsset.getAttributes().getHumidity().getTimestamp();
-//                Instant instant = Instant.ofEpochMilli(timestampVal);
-//                Log.d("timestamp",timestampVal + "");
-//
-//                setTextViewValue(temperature, tempValue , "°C");
-////                setTextViewValue(humidity,humidValue, "%");
-//                setTextViewValue(rainfall,rainfallValue, "mm");
-//                setTextViewValue(windspeed,windspeedValue, "km/h");
-//                assetName.setText(weatherAsset.getName());
-//                timestamp.setText(instant.toString());
-//                Log.d("idE", weatherAsset.getId());
-//                assetId.setText(weatherAsset.getId());
-//                break;
-//            }
-//            case 1:
-//            {
-//
-//            }
-//        }
-//    }
 }
