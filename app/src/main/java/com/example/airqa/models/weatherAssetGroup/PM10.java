@@ -9,6 +9,7 @@ public class PM10 extends BaseInfo implements Parcelable {
     private double value;
 
     protected PM10(Parcel in) {
+        super(in);
         value = in.readDouble();
     }
 
@@ -42,6 +43,7 @@ public class PM10 extends BaseInfo implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        super.writeToParcel(parcel, i);
         parcel.writeDouble(value);
     }
 }

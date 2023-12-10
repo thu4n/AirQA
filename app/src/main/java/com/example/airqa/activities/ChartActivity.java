@@ -124,7 +124,6 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = (String) adapterView.getItemAtPosition(i);
-
                 assetAtrribute = selectedItem;
                 Log.d("attribute", assetAtrribute);
             }
@@ -140,17 +139,6 @@ public class ChartActivity extends AppCompatActivity {
                     Log.d("chart error",e.toString());
                     throw new RuntimeException(e);
                 }
-            }
-        });
-        inputEndDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         // DRAW CHART
@@ -215,10 +203,6 @@ public class ChartActivity extends AppCompatActivity {
         }*/
         String[] nameArray = {"temperature", "humidity", "rainfall", "windspeed"};
         inputAssetType.setSimpleItems(nameArray);
-    }
-    private void setEndDate(){
-        Date currentDate = (Date) Date.from(Instant.now());
-        inputEndDate.setText(currentDate.toString());
     }
 
     private long convertDateString (String dateString) throws ParseException {

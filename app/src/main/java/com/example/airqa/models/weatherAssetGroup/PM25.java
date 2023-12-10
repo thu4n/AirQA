@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 public class PM25 extends PM10 implements Parcelable {
 
     protected PM25(Parcel in) {
+        super(in);
     }
 
     public static final Creator<PM25> CREATOR = new Creator<PM25>() {
@@ -30,5 +31,6 @@ public class PM25 extends PM10 implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        super.writeToParcel(parcel, i);
     }
 }

@@ -6,8 +6,12 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.lang.reflect.Field;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import android.util.Log;
 import android.widget.TextView;
 import android.database.Cursor;
 
@@ -57,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Receive weather asset from the map activity
         WeatherAsset weatherAsset = getIntent().getParcelableExtra("weatherAsset");
-//        setInformation(weatherAsset,0);
+        setInformation(weatherAsset);
+        Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
+        Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getValue() + "");
 
         // loading database
         // Lấy dữ liệu từ cơ sở dữ liệu
@@ -95,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         //test.setText( calendar.getTime().toString());
 
-
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
         String title = "Title";
         String value = "123";
@@ -128,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 "Title",
                 "123"
         );
-        getSupportFragmentManager().beginTransaction()
+        /*getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_aqi, fragment3)
-                .commit();
+                .commit();*/
     }
 
     private void insertSampleData() {
@@ -150,18 +155,118 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(MainActivity.this, "Data inserted!", Toast.LENGTH_SHORT).show();
     }
 
-    private void setTextViewValue(TextView textView, double value, String unit){
+    private void setHumidityFragment(String value, String description, String avgValue){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
+        String title = "Humidity";
+        String unit = "%";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                title,
+                value,
+                unit,
+                description,
+                avgValue
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_humid, fragment)
+                .commit();
+    }
+
+    private void setWindSpeedFragment(String value, String description, String avgValue){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_wind_power_24);
+        String title = "Wind Speed";
+        String unit = "km/h";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                title,
+                value,
+                unit,
+                description,
+                avgValue
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_windspeed, fragment)
+                .commit();
+    }
+
+    private void setRainfallFragment(String value, String description, String avgValue){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
+        String title = "Rainfall";
+        String unit = "mm";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                title,
+                value,
+                unit,
+                description,
+                avgValue
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_rainfall, fragment)
+                .commit();
+    }
+
+    private String getRoundedString(double value){
         String content;
         if(value < 1)
         {
-            content = value +  unit;
+            content = value + "";
+            return content;
         }
         else
         {
             int roundedValue = (int) value;
-            content = roundedValue +  unit;
+            content = roundedValue +  "";
+            return  content;
         }
-        textView.setText(content);
+    }
+
+    private String epochToDate(long epoch){
+        Date date = new Date(epoch);
+        String format = "dd/MM/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String dateString = sdf.format(date);
+        return dateString;
+    }
+    private void setInformation(WeatherAsset asset){
+        TextView temperature, humidity, rainfall, windspeed,assetName,assetId, timestamp;
+
+        assetName = findViewById(R.id.assetNameInfo);
+        assetName.setText(asset.getName());
+        assetId = findViewById(R.id.assetIdInfo);
+        assetId.setText(asset.getId());
+
+        // Set the date for the most recent update
+        timestamp = findViewById(R.id.timestampVal);
+        long timestampVal = asset.getAttributes().getTemperature().getTimestamp();
+        Log.d("epochTimestamp",timestampVal + "");
+        String lastUpdated = epochToDate(timestampVal);
+        timestamp.setText(lastUpdated);
+
+        // Only the one on the map has this value as True
+        if(asset.isAccessPublicRead()){
+            temperature = findViewById(R.id.temp_number);
+            double tempValue = asset.getAttributes().getTemperature().getValue();
+            double humidValue = asset.getAttributes().getHumidity().getValue();
+            double rainfallValue = asset.getAttributes().getRainfall().getValue();
+            double windspeedValue = asset.getAttributes().getWindSpeed().getValue();
+
+            String tempString = getRoundedString(tempValue);
+            String humidString = getRoundedString(humidValue);
+            String rainfallString = getRoundedString(rainfallValue);
+            String windspeedString = getRoundedString(windspeedValue);
+
+            temperature.setText(tempString);
+            setHumidityFragment(humidString,"This is humidity", "N/A");
+            setRainfallFragment(rainfallString, "This is rainfall", "N/A");
+            setWindSpeedFragment(windspeedString, "This is wind speed", "N/A");
+            return;
+        } else if (asset.getAttributes().getPm10() != null) {
+
+        }
+        else{
+
+        }
     }
 
 //    private void setInformation(WeatherAsset weatherAsset, int id){

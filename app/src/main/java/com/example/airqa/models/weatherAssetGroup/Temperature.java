@@ -9,6 +9,7 @@ public class Temperature extends BaseInfo implements Parcelable {
     private double value;
 
     protected Temperature(Parcel in) {
+        super(in);
         value = in.readDouble();
     }
 
@@ -40,6 +41,7 @@ public class Temperature extends BaseInfo implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        super.writeToParcel(parcel, i);
         parcel.writeDouble(value);
     }
 }

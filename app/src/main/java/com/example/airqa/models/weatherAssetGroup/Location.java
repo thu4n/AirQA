@@ -11,6 +11,7 @@ public class Location extends BaseInfo implements Parcelable {
     private Value value;
 
     protected Location(Parcel in) {
+        super(in);
     }
 
     public static final Creator<Location> CREATOR = new Creator<Location>() {
@@ -40,5 +41,6 @@ public class Location extends BaseInfo implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        super.writeToParcel(parcel, i);
     }
 }

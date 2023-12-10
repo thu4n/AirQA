@@ -9,6 +9,7 @@ public class Humidity extends BaseInfo implements Parcelable {
     private int value;
 
     protected Humidity(Parcel in) {
+        super(in);
         value = in.readInt();
     }
 
@@ -40,6 +41,7 @@ public class Humidity extends BaseInfo implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        super.writeToParcel(parcel, i);
         parcel.writeInt(value);
     }
 }

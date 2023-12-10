@@ -9,6 +9,7 @@ public class AQI extends BaseInfo implements Parcelable {
     private int value;
 
     protected AQI(Parcel in) {
+        super(in);
         value = in.readInt();
     }
 
@@ -39,6 +40,7 @@ public class AQI extends BaseInfo implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        super.writeToParcel(parcel, i);
         parcel.writeInt(value);
     }
 }
