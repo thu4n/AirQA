@@ -6,7 +6,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.airqa.R;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
@@ -75,10 +78,18 @@ public class FeatureActivity extends AppCompatActivity {
                     long epoch = weatherAsset.getAttributes().getTemperature().getTimestamp();
                     String date = epochToDate(epoch);
                     assetLastUpdate.setText(date);
-                }
 
-                else{
-
+                    LinearLayout asset1 = findViewById(R.id.asset1);
+                    asset1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("weatherAsset", weatherAsset);
+                            startActivity(intent);
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                            finish();
+                        }
+                    });
                 }
 
             }else if ( Objects.equals(weatherAsset.getName(), "DHT11 Asset")) {
@@ -94,22 +105,34 @@ public class FeatureActivity extends AppCompatActivity {
                     long epoch = weatherAsset.getAttributes().getTemperature().getTimestamp();
                     String date = epochToDate(epoch);
                     assetLastUpdate.setText(date);
+
+                    LinearLayout asset2 = findViewById(R.id.asset2);
+                    asset2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("weatherAsset", weatherAsset);
+                            startActivity(intent);
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                            finish();
+                        }
+                    });
                 }
-            }
-            else if ( Objects.equals(weatherAsset.getName(), "WeatherAsset")) {
+            } else if ( Objects.equals(weatherAsset.getName(), "Weather Asset")) {
                 TextView assetName = findViewById(R.id.assetName3);
                 assetName.setText(weatherAsset.getName());
-                if ( weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0 ) {
-                    TextView assetTempVal = findViewById(R.id.temp_number3);
-                    double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
-                    int roundedTempVal = (int) tempVal;
-                    assetTempVal.setText(roundedTempVal + "°C");
-
-                    TextView assetLastUpdate = findViewById(R.id.date3);
-                    long epoch = weatherAsset.getAttributes().getTemperature().getTimestamp();
-                    String date = epochToDate(epoch);
-                    assetLastUpdate.setText(date);
-                }
+                LinearLayout asset3 = findViewById(R.id.asset3);
+                asset3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("ClickLayout3", weatherAsset.getAttributes().getCO2().getValue() + "");
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("weatherAsset", weatherAsset);
+                        startActivity(intent);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
+                    }
+                });
             }
         }
     }

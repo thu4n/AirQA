@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.lang.reflect.Field;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         //Receive weather asset from the map activity
         WeatherAsset weatherAsset = getIntent().getParcelableExtra("weatherAsset");
         setInformation(weatherAsset);
-        Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
-        Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getValue() + "");
+       // Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
+        //Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getValue() + "");
 
         // loading database
         // Lấy dữ liệu từ cơ sở dữ liệu
@@ -206,9 +205,9 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
     private void setPollutantFragment(String pm10, String pm25, String co2){
-        String unit1 = "µg/m<sup>3</sup>";
-        String unit2 = "µg/m<sup>3</sup>";
-        String unit3 = "ppm";
+        String unit1 = " µg/m3";
+        String unit2 = " µg/m3";
+        String unit3 = " ppm";
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.pollu_icon);
         AttributePolluContainerFragment fragment = AttributePolluContainerFragment.newInstance(
                 icon,
@@ -236,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 value
         );
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_pollutant, fragment)
+                .replace(R.id.fragment_container_aqi, fragment)
                 .commit();
     }
 
@@ -271,35 +270,53 @@ public class MainActivity extends AppCompatActivity {
         assetId.setText(asset.getId());
 
         // Set the date for the most recent update
-        timestamp = findViewById(R.id.timestampVal);
-        long timestampVal = asset.getAttributes().getTemperature().getTimestamp();
-        Log.d("epochTimestamp",timestampVal + "");
-        String lastUpdated = epochToDate(timestampVal);
-        timestamp.setText(lastUpdated);
+        if(asset.getAttributes().getTemperature() != null){
+            timestamp = findViewById(R.id.timestampVal);
+            long timestampVal = asset.getAttributes().getTemperature().getTimestamp();
+            Log.d("epochTimestamp",timestampVal + "");
+            String lastUpdated = epochToDate(timestampVal);
+            timestamp.setText(lastUpdated);
+            temperature = findViewById(R.id.temp_number);
+            double tempValue = asset.getAttributes().getTemperature().getValue();
+            String tempString = getRoundedString(tempValue);
+            temperature.setText(tempString);
+        }
 
         // Only the one on the map has this value as True
         if(asset.isAccessPublicRead()){
-            temperature = findViewById(R.id.temp_number);
-            double tempValue = asset.getAttributes().getTemperature().getValue();
+
             double humidValue = asset.getAttributes().getHumidity().getValue();
             double rainfallValue = asset.getAttributes().getRainfall().getValue();
             double windspeedValue = asset.getAttributes().getWindSpeed().getValue();
 
-            String tempString = getRoundedString(tempValue);
             String humidString = getRoundedString(humidValue);
             String rainfallString = getRoundedString(rainfallValue);
             String windspeedString = getRoundedString(windspeedValue);
 
-            temperature.setText(tempString);
+
             setHumidityFragment(humidString,"This is humidity", "N/A");
             setRainfallFragment(rainfallString, "This is rainfall", "N/A");
             setWindSpeedFragment(windspeedString, "This is wind speed", "N/A");
             return;
-        } else if (asset.getAttributes().getPm10() != null) {
+        } else if (asset.getAttributes().getPM10() != null) {
+            double pm10Value = asset.getAttributes().getPM10().getValue();
+            double pm25Value = asset.getAttributes().getPM25().getValue();
+            double co2Value = asset.getAttributes().getCO2().getValue();
+            Integer aqi = asset.getAttributes().getAQI().getValue();
 
+            String pm10String = pm10Value + "";
+            String pm25String = pm25Value + "";
+            String co2String = co2Value + "";
+            String aqiString = aqi + "";
+
+            setPollutantFragment(pm10String, pm25String, co2String);
+            setAqiFragment(aqiString);
         }
         else{
-
+            double humidValue = asset.getAttributes().getHumidity().getValue();
+            String humidString = getRoundedString(humidValue);
+            setHumidityFragment(humidString,"This is humidity", "N/A");
+            return;
         }
     }
 }

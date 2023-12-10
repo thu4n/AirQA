@@ -5,11 +5,12 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class CO2 implements Parcelable {
-    private int value;
+public class CO2 extends BaseInfo implements Parcelable {
+    private double value;
 
     protected CO2(Parcel in) {
-        value = in.readInt();
+        super(in);
+        value = in.readDouble();
     }
 
     public static final Creator<CO2> CREATOR = new Creator<CO2>() {
@@ -24,11 +25,11 @@ public class CO2 implements Parcelable {
         }
     };
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -39,6 +40,7 @@ public class CO2 implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeInt(value);
+        super.writeToParcel(parcel, i);
+        parcel.writeDouble(value);
     }
 }

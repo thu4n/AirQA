@@ -41,6 +41,7 @@
                 android:orientation="vertical">
 <!--                ASSET 1-->
                 <LinearLayout
+                    android:id="@+id/asset1"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
@@ -97,6 +98,7 @@
 
 <!--                ASSET 2-->
                 <LinearLayout
+                    android:id="@+id/asset2"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
@@ -154,6 +156,7 @@
 
 <!--                ASSET 3-->
                 <LinearLayout
+                    android:id="@+id/asset3"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
