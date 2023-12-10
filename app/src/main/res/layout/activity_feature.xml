@@ -74,18 +74,19 @@
                             android:layout_centerVertical="true"
                             tools:ignore="HardcodedText" />
                         <TextView
+                            android:id="@+id/date1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0/6/12/2023"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:layout_below="@id/lastUpdate1"/>
                         <TextView
                             android:id="@+id/temp_number1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="27°"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="50sp"
                             android:layout_alignParentEnd="true"
@@ -129,18 +130,19 @@
                             android:layout_centerVertical="true"
                             tools:ignore="HardcodedText" />
                         <TextView
+                            android:id="@+id/date2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0/6/12/2023"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:layout_below="@id/lastUpdate2"/>
                         <TextView
                             android:id="@+id/temp_number2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="27°"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="50sp"
                             android:layout_alignParentEnd="true"
@@ -185,12 +187,13 @@
                             android:layout_centerVertical="true"
                             tools:ignore="HardcodedText" />
                         <TextView
+                            android:id="@+id/date3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0/6/12/2023"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:layout_below="@id/lastUpdate3"/>
                         <TextView
                             android:id="@+id/temp_number3"

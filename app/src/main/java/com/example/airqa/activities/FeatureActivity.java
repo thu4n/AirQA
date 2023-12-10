@@ -2,13 +2,19 @@ package com.example.airqa.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.airqa.R;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class FeatureActivity extends AppCompatActivity {
 
@@ -45,55 +51,66 @@ public class FeatureActivity extends AppCompatActivity {
 
     }
 
+    private String epochToDate(long epoch){
+        Date date = new Date(epoch);
+        String format = "dd/MM/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String dateString = sdf.format(date);
+        return dateString;
+    }
+
     private  void setInformation(){
-        int count = 1;
         for(WeatherAsset weatherAsset : MapActivity.weatherAssets){
-            switch (count){
-                case 1:{
-                    TextView assetName = findViewById(R.id.assetName1);
-                    assetName.setText(weatherAsset.getName());
-                    if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
-                        TextView assetTempVal = findViewById(R.id.temp_number1);
-                        double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
-                        int roundedTempVal = (int) tempVal;
-                        assetTempVal.setText(roundedTempVal + "°C");
-                    }
-                    else{
+            if(Objects.equals(weatherAsset.getName(), "Default Weather")){
+                Log.d("AssetIDforFeatureList",weatherAsset.getId());
+                TextView assetName = findViewById(R.id.assetName1);
+                assetName.setText(weatherAsset.getName());
+                if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
+                    TextView assetTempVal = findViewById(R.id.temp_number1);
+                    double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
+                    int roundedTempVal = (int) tempVal;
+                    assetTempVal.setText(roundedTempVal + "°C");
 
-                    }
-                    break;
-                }
-                case 2:{
-                    TextView assetName = findViewById(R.id.assetName2);
-                    assetName.setText(weatherAsset.getName());
-                    if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
-                        TextView assetTempVal = findViewById(R.id.temp_number2);
-                        double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
-                        int roundedTempVal = (int) tempVal;
-                        assetTempVal.setText(roundedTempVal + "°C");
-                    }
-                    else{
-
-                    }
-                    break;
-                }
-                case 3:{
-                    TextView assetName = findViewById(R.id.assetName3);
-                    assetName.setText(weatherAsset.getName());
-                    if(weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0){
-                        TextView assetTempVal = findViewById(R.id.temp_number3);
-                        double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
-                        int roundedTempVal = (int) tempVal;
-                        assetTempVal.setText(roundedTempVal + "°C");
-                    }
-                    else{
-
-                    }
-                    break;
+                    TextView assetLastUpdate = findViewById(R.id.date1);
+                    long epoch = weatherAsset.getAttributes().getTemperature().getTimestamp();
+                    String date = epochToDate(epoch);
+                    assetLastUpdate.setText(date);
                 }
 
+                else{
+
+                }
+
+            }else if ( Objects.equals(weatherAsset.getName(), "DHT11 Asset")) {
+                TextView assetName = findViewById(R.id.assetName2);
+                assetName.setText(weatherAsset.getName());
+                if ( weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0 ) {
+                    TextView assetTempVal = findViewById(R.id.temp_number2);
+                    double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
+                    int roundedTempVal = (int) tempVal;
+                    assetTempVal.setText(roundedTempVal + "°C");
+
+                    TextView assetLastUpdate = findViewById(R.id.date2);
+                    long epoch = weatherAsset.getAttributes().getTemperature().getTimestamp();
+                    String date = epochToDate(epoch);
+                    assetLastUpdate.setText(date);
+                }
             }
-            count++;
+            else if ( Objects.equals(weatherAsset.getName(), "WeatherAsset")) {
+                TextView assetName = findViewById(R.id.assetName3);
+                assetName.setText(weatherAsset.getName());
+                if ( weatherAsset.getAttributes().getTemperature() != null && weatherAsset.getAttributes().getTemperature().getValue() > 0 ) {
+                    TextView assetTempVal = findViewById(R.id.temp_number3);
+                    double tempVal = weatherAsset.getAttributes().getTemperature().getValue();
+                    int roundedTempVal = (int) tempVal;
+                    assetTempVal.setText(roundedTempVal + "°C");
+
+                    TextView assetLastUpdate = findViewById(R.id.date3);
+                    long epoch = weatherAsset.getAttributes().getTemperature().getTimestamp();
+                    String date = epochToDate(epoch);
+                    assetLastUpdate.setText(date);
+                }
+            }
         }
     }
 }
