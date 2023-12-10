@@ -288,7 +288,6 @@ public class ChartActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DataPoint>> call, Throwable t) {
-
             }
         });
     }

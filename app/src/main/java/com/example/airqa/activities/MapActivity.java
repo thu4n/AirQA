@@ -123,6 +123,7 @@ public class MapActivity extends AppCompatActivity {
         TextView tempVal = dialog.findViewById(R.id.assetIdTempValue);
         TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue);
         TextView rainfallVal = dialog.findViewById(R.id.assetIdRainfallValue);
+        TextView windSpeedVal = dialog.findViewById(R.id.assetIdWindSpeedValue);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
         assetName.setText(weatherAsset.getName());
@@ -133,6 +134,9 @@ public class MapActivity extends AppCompatActivity {
         humidVal.setText(String.valueOf(humid));
         double rainfall = weatherAsset.getAttributes().getRainfall().getValue();
         rainfallVal.setText(String.valueOf(rainfall));
+        double windSpeed = weatherAsset.getAttributes().getWindSpeed().getValue();
+        windSpeedVal.setText(String.valueOf(windSpeed));
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,12 +222,10 @@ public class MapActivity extends AppCompatActivity {
             public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
                 if(response.isSuccessful()){
                     assert response.body() != null; // make sure the body isn't null
-                    WeatherAsset asset = response.body();
-                    Double x = asset.getAttributes().getLocation().getValue().getCoordinates().get(0);
-                    Double y = asset.getAttributes().getLocation().getValue().getCoordinates().get(1);
-                    Log.e("coor", x.toString() + " " + y.toString());
                     weatherAsset = response.body();
-                    Log.d("timestamp", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
+                    Double x = weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(0);
+                    Double y = weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(1);
+                    Log.e("coor", x.toString() + " " + y.toString());
                     setMap(x,y);
                 }
                 else {
