@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.database.Cursor;
 
@@ -21,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import com.example.airqa.MyDatabaseHelper;
 import com.example.airqa.R;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else {
                 return false;
+            }
+        });
+        FloatingActionButton fabButton = findViewById(R.id.fabBtn); // Replace R.id.fabButton with your FAB ID
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FutureGuessActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 

@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="90dp"
         android:padding="20dp">
 <!--        ROW ASSET-->
         <LinearLayout
@@ -48,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/inputAssetName"
                     android:inputType="none"
+                    android:textSize="14sp"
                     app:simpleItems="@array/asset_type_list" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,67 +67,76 @@
                 app:boxCornerRadiusTopEnd="10sp"
                 app:boxCornerRadiusBottomStart="10sp"
                 app:boxCornerRadiusBottomEnd="10sp">
-                >
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/inputAssetType"
                     android:inputType="none"
+                    android:textSize="14sp"
                     app:simpleItems="@array/asset_type_list" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeWidthFocused="0sp"
-            app:boxStrokeWidth="0sp"
-            android:hint="Start Date"
-            app:boxBackgroundColor="@color/white"
-            android:id="@+id/inputStartDateLayout"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_marginBottom="4dp"
-            app:boxCornerRadiusTopStart="10sp"
-            app:boxCornerRadiusTopEnd="10sp"
-            app:boxCornerRadiusBottomStart="10sp"
-            app:boxCornerRadiusBottomEnd="10sp">
-            >
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:layout_width="match_parent"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/inputStartDate"
-                android:inputType="none"
-                app:simpleItems="@array/asset_type_list" />
+                app:boxStrokeWidthFocused="0sp"
+                app:boxStrokeWidth="0sp"
+                android:hint="Start Date"
+                android:layout_marginEnd="6dp"
+                app:boxBackgroundColor="@color/white"
+                android:id="@+id/inputStartDateLayout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                app:boxCornerRadiusTopStart="10sp"
+                app:boxCornerRadiusTopEnd="10sp"
+                app:boxCornerRadiusBottomStart="10sp"
+                app:boxCornerRadiusBottomEnd="10sp">
+                >
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxStrokeWidthFocused="0sp"
-            app:boxStrokeWidth="0sp"
-            android:hint="End Date"
-            app:boxBackgroundColor="@color/white"
-            android:id="@+id/inputEndDateLayout"
-            android:backgroundTint="@color/white"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_marginTop="4dp"
-            app:boxCornerRadiusTopStart="10sp"
-            app:boxCornerRadiusTopEnd="10sp"
-            app:boxCornerRadiusBottomStart="10sp"
-            app:boxCornerRadiusBottomEnd="10sp">
-            >
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inputStartDate"
+                    android:textSize="14sp"
+                    android:inputType="none"
+                     />
 
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:layout_width="match_parent"
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/inputEndDate"
-                android:inputType="none"
-                />
+                app:boxStrokeWidthFocused="0sp"
+                app:boxStrokeWidth="0sp"
+                android:hint="End Date"
+                android:layout_marginStart="6dp"
+                app:boxBackgroundColor="@color/white"
+                android:id="@+id/inputEndDateLayout"
+                android:backgroundTint="@color/white"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                app:boxCornerRadiusTopStart="10sp"
+                app:boxCornerRadiusTopEnd="10sp"
+                app:boxCornerRadiusBottomStart="10sp"
+                app:boxCornerRadiusBottomEnd="10sp">
+                >
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inputEndDate"
+                    android:textSize="14sp"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
 
         <FrameLayout
@@ -138,7 +148,7 @@
             />
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="240dp"
             android:background="@drawable/stat_container"
             android:paddingHorizontal="12dp"
             android:paddingVertical="16dp">
@@ -150,21 +160,35 @@
                 />
         </FrameLayout>
 
-        <!--Button Login-->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/showBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SHOW CHART"
-            android:background="@color/white"
+            android:background="@drawable/custom_btn"
             app:backgroundTint="@null"
             android:fontFamily="@font/inter"
+            app:cornerRadius="24dp"
+            android:layout_marginTop="8dp"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColor="@color/primary"
             tools:ignore="HardcodedText"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/downloadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DOWNLOAD ASSET"
+            android:background="@drawable/custom_btn"
+            app:backgroundTint="@null"
+            app:cornerRadius="24dp"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"
+            tools:ignore="HardcodedText"/>
     </LinearLayout>
 
 
@@ -191,6 +215,7 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
