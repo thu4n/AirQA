@@ -5,15 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.view.View;
-=======
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> a8aa8ee7e20d205050d6898994ac5d979f75ef8d
 
 import com.example.airqa.R;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
@@ -55,8 +52,6 @@ public class FeatureActivity extends AppCompatActivity {
                 return false;
             }
         });
-<<<<<<< HEAD
-
         FloatingActionButton fabButton = findViewById(R.id.fabBtn); // Replace R.id.fabButton with your FAB ID
 
         fabButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +62,6 @@ public class FeatureActivity extends AppCompatActivity {
                 finish();
             }
         });
-=======
         setInformation();
 
     }
@@ -153,6 +147,5 @@ public class FeatureActivity extends AppCompatActivity {
                 });
             }
         }
->>>>>>> a8aa8ee7e20d205050d6898994ac5d979f75ef8d
     }
 }
