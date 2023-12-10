@@ -1,6 +1,7 @@
 package com.example.airqa.api;
 
 import com.example.airqa.models.AuthResponse;
+import com.example.airqa.models.DataPoint;
 import com.example.airqa.models.User;
 import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
@@ -62,4 +63,7 @@ public interface ApiService {
 
     @POST("api/master/asset/query")
     Call<List<Asset>> getAllAsset(@Header("Authorization") String token, @Body RequestBody rawJsonBody);
+
+    @POST("api/master/asset/datapoint/{assetId}/attribute/{attributeName}")
+    Call<List<DataPoint>> getDataPoint(@Header("Authorization") String token, @Body RequestBody rawJsonBody,@Path("assetId") String assetId,@Path("attributeName") String attributeName );
 }

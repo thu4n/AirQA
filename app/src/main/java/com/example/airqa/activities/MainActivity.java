@@ -1,46 +1,32 @@
 package com.example.airqa.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
-import android.graphics.Color;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.database.Cursor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.airqa.MyDatabaseHelper;
 import com.example.airqa.R;
-import com.example.airqa.api.ApiService;
-import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "preferences";
     MyDatabaseHelper dbHelper;
-    Button button;
-    TextView Humidity,Temp,test;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +59,21 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Humidity = (TextView) findViewById(R.id.humidity);
-        Temp = (TextView) findViewById(R.id.temp_number);
-        // get access token
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
-        String check = sharedPreferences.getString("access_token","");
-        // get all asset info
-        getAllAsset(check);
+        FloatingActionButton fabButton = findViewById(R.id.fabBtn); // Replace R.id.fabButton with your FAB ID
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FutureGuessActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
+
+        //Receive weather asset from the map activity
+        WeatherAsset weatherAsset = getIntent().getParcelableExtra("weatherAsset");
+        setInformation(weatherAsset);
+       // Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
+        //Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getValue() + "");
 
         // loading database
         // Lấy dữ liệu từ cơ sở dữ liệu
@@ -116,6 +110,42 @@ public class MainActivity extends AppCompatActivity {
         // Lấy ngày
         Calendar calendar = Calendar.getInstance();
         //test.setText( calendar.getTime().toString());
+
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
+        String title = "Title";
+        String value = "123";
+        String unit = "kg";
+        String description = "Description";
+        String avgValue = "100";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                "Title",
+                "123",
+                "kg",
+                "Description",
+                "100"
+        );
+        AttributePolluContainerFragment fragment2 = AttributePolluContainerFragment.newInstance(
+                icon,
+                "Title",
+                "123",
+                "123",
+                "123",
+                "123",
+                "123",
+                "123",
+                "123",
+                "123",
+                "123"
+        );
+        AttributeAQIContainerFragment fragment3 = AttributeAQIContainerFragment.newInstance(
+                icon,
+                "Title",
+                "123"
+        );
+        /*getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_aqi, fragment3)
+                .commit();*/
     }
 
     private void insertSampleData() {
@@ -134,102 +164,170 @@ public class MainActivity extends AppCompatActivity {
 
         //Toast.makeText(MainActivity.this, "Data inserted!", Toast.LENGTH_SHORT).show();
     }
-    //get data in asset
-    public  void getAssetInfo(String access_token, String id){
-        Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, id);
-        Log.e("ok2", access_token + "");
-        call.enqueue(new Callback<WeatherAsset>() {
-            @Override
-            public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
-                if(response.isSuccessful()){
-                    assert response.body() != null; // make sure the body isn't null
-                    int humid = response.body().getAttributes().getHumidity().getValue();
-                    Humidity.setText(String.valueOf(humid));
-                    double temp = response.body().getAttributes().getTemperature().getValue();
-                    Temp.setText(String.valueOf(Math.round(temp)));
-                }
-                else {
 
-                }
-            }
-            @Override
-            public void onFailure(Call<WeatherAsset> call, Throwable t) {
-
-                Log.e("ok1",t.toString());
-            }
-        });
+    private void setHumidityFragment(String value, String description, String avgValue){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
+        String title = "Humidity";
+        String unit = "%";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                title,
+                value,
+                unit,
+                description,
+                avgValue
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_humid, fragment)
+                .commit();
     }
 
-    public void getAllAsset(String access_token){
-        // Default value for the body, do not change this query
-        String rawJsonQuery = "{\n" +
-                "    \"realm\": {\n" +
-                "        \"name\": \"master\"\n" +
-                "    },\n" +
-                "    \"select\": {\n" +
-                "        \"attributes\": [\n" +
-                "            \"location\",\n" +
-                "            \"direction\"\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    \"attributes\": {\n" +
-                "        \"items\": [\n" +
-                "            {\n" +
-                "                \"name\": {\n" +
-                "                    \"predicateType\": \"string\",\n" +
-                "                    \"value\": \"location\"\n" +
-                "                },\n" +
-                "                \"meta\": [\n" +
-                "                    {\n" +
-                "                        \"name\": {\n" +
-                "                            \"predicateType\": \"string\",\n" +
-                "                            \"value\": \"showOnDashboard\"\n" +
-                "                        },\n" +
-                "                        \"negated\": true\n" +
-                "                    },\n" +
-                "                    {\n" +
-                "                        \"name\": {\n" +
-                "                            \"predicateType\": \"string\",\n" +
-                "                            \"value\": \"showOnDashboard\"\n" +
-                "                        },\n" +
-                "                        \"value\": {\n" +
-                "                            \"predicateType\": \"boolean\",\n" +
-                "                            \"value\": true\n" +
-                "                        }\n" +
-                "                    }\n" +
-                "                ]\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "}";
-        RequestBody rawJsonBody = RequestBody.create(MediaType.parse("application/json"), rawJsonQuery);
-        Call<List<Asset>> call = ApiService.apiService.getAllAsset("Bearer " + access_token, rawJsonBody);
+    private void setWindSpeedFragment(String value, String description, String avgValue){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_wind_power_24);
+        String title = "Wind Speed";
+        String unit = "km/h";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                title,
+                value,
+                unit,
+                description,
+                avgValue
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_windspeed, fragment)
+                .commit();
+    }
 
-        call.enqueue(new Callback<List<Asset>>() {
-            @Override
-            public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
-                if(response.isSuccessful()){
-                    List<Asset> assets = response.body();
-                    List<String> assetIds = new ArrayList<>();
-                    for(Asset asset : assets){
-                        if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
-                            String id = asset.getId();
-                            assetIds.add(id);
-                            Log.e("ok",id);
-                        }
-                    }
-                    getAssetInfo(access_token, assetIds.get(0));
+    private void setRainfallFragment(String value, String description, String avgValue){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
+        String title = "Rainfall";
+        String unit = "mm";
+        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
+                icon,
+                title,
+                value,
+                unit,
+                description,
+                avgValue
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_rainfall, fragment)
+                .commit();
+    }
+    private void setPollutantFragment(String pm10, String pm25, String co2){
+        String unit1 = " µg/m3";
+        String unit2 = " µg/m3";
+        String unit3 = " ppm";
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.pollu_icon);
+        AttributePolluContainerFragment fragment = AttributePolluContainerFragment.newInstance(
+                icon,
+                "Pollutants",
+                "PM10",
+                pm10,
+                unit1,
+                "PM25",
+                pm25,
+                unit2,
+                "CO2",
+                co2,
+                unit3
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_pollutant, fragment)
+                .commit();
+    }
 
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "You do not have permission!", Toast.LENGTH_SHORT).show();
-                }
-            }
+    private void setAqiFragment(String value){
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.logo);
+        AttributeAQIContainerFragment fragment = AttributeAQIContainerFragment.newInstance(
+                icon,
+                "AQI",
+                value
+        );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_aqi, fragment)
+                .commit();
+    }
 
-            @Override
-            public void onFailure(Call<List<Asset>> call, Throwable t) {
-                Log.e("failedCall",t.toString());
-            }
-        });
+    private String getRoundedString(double value){
+        String content;
+        if(value < 1)
+        {
+            content = value + "";
+            return content;
+        }
+        else
+        {
+            int roundedValue = (int) value;
+            content = roundedValue +  "";
+            return  content;
+        }
+    }
+
+    private String epochToDate(long epoch){
+        Date date = new Date(epoch);
+        String format = "dd/MM/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String dateString = sdf.format(date);
+        return dateString;
+    }
+    private void setInformation(WeatherAsset asset){
+        TextView temperature, humidity, rainfall, windspeed,assetName,assetId, timestamp;
+
+        assetName = findViewById(R.id.assetNameInfo);
+        assetName.setText(asset.getName());
+        assetId = findViewById(R.id.assetIdInfo);
+        assetId.setText(asset.getId());
+
+        // Set the date for the most recent update
+        if(asset.getAttributes().getTemperature() != null){
+            timestamp = findViewById(R.id.timestampVal);
+            long timestampVal = asset.getAttributes().getTemperature().getTimestamp();
+            Log.d("epochTimestamp",timestampVal + "");
+            String lastUpdated = epochToDate(timestampVal);
+            timestamp.setText(lastUpdated);
+            temperature = findViewById(R.id.temp_number);
+            double tempValue = asset.getAttributes().getTemperature().getValue();
+            String tempString = getRoundedString(tempValue);
+            temperature.setText(tempString);
+        }
+
+        // Only the one on the map has this value as True
+        if(asset.isAccessPublicRead()){
+
+            double humidValue = asset.getAttributes().getHumidity().getValue();
+            double rainfallValue = asset.getAttributes().getRainfall().getValue();
+            double windspeedValue = asset.getAttributes().getWindSpeed().getValue();
+
+            String humidString = getRoundedString(humidValue);
+            String rainfallString = getRoundedString(rainfallValue);
+            String windspeedString = getRoundedString(windspeedValue);
+
+
+            setHumidityFragment(humidString,"This is humidity", "N/A");
+            setRainfallFragment(rainfallString, "This is rainfall", "N/A");
+            setWindSpeedFragment(windspeedString, "This is wind speed", "N/A");
+            return;
+        } else if (asset.getAttributes().getPM10() != null) {
+            double pm10Value = asset.getAttributes().getPM10().getValue();
+            double pm25Value = asset.getAttributes().getPM25().getValue();
+            double co2Value = asset.getAttributes().getCO2().getValue();
+            Integer aqi = asset.getAttributes().getAQI().getValue();
+
+            String pm10String = pm10Value + "";
+            String pm25String = pm25Value + "";
+            String co2String = co2Value + "";
+            String aqiString = aqi + "";
+
+            setPollutantFragment(pm10String, pm25String, co2String);
+            setAqiFragment(aqiString);
+        }
+        else{
+            double humidValue = asset.getAttributes().getHumidity().getValue();
+            String humidString = getRoundedString(humidValue);
+            setHumidityFragment(humidString,"This is humidity", "N/A");
+            return;
+        }
     }
 }

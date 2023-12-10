@@ -41,12 +41,16 @@
 
     <PreferenceCategory
         android:title="Notification">
-        <ListPreference
+
+        <EditTextPreference
             android:key="number_preference"
             android:title="Warning temperature"
             android:summary="Current value: none"
             android:defaultValue="0"
-            android:entries="@array/option_entries"
-            android:entryValues="@array/option_values" />
+            android:inputType="number"
+            android:digits="0123456789"
+            android:selectAllOnFocus="true"
+            android:maxLength="1" />
     </PreferenceCategory>
+
 </PreferenceScreen>

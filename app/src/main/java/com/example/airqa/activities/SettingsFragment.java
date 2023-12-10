@@ -6,9 +6,13 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -57,5 +61,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (preference2 != null) {
             preference2.setOnPreferenceClickListener(preferenceClickListener);
         }
+
+        EditTextPreference numberPreference = findPreference("number_preference");
+        if (numberPreference != null) {
+            numberPreference.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+                @Override
+                public void onBindEditText(@NonNull EditText editText) {
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)}); // Limit to 3 characters
+                }
+            });
+        }
+
     }
 }

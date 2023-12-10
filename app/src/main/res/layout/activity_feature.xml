@@ -17,17 +17,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Asset List"
-            android:textSize="32sp"
-            android:fontFamily="@font/inter"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:layout_marginVertical="12dp"
-            android:gravity="center"/>
+            android:layout_marginVertical="12dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asset List"
+                android:textSize="32sp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:id="@+id/periodIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/baseline_wb_sunny_24"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                app:tint="@color/white" />
+        </RelativeLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_below="@+id/profile_container"
@@ -41,6 +58,7 @@
                 android:orientation="vertical">
 <!--                ASSET 1-->
                 <LinearLayout
+                    android:id="@+id/asset1"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
@@ -48,6 +66,7 @@
                     android:layout_marginBottom="12dp">
                     <!-- ASSET NAME -->
                     <TextView
+                        android:id="@+id/assetName1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ASSET NAME"
@@ -73,20 +92,21 @@
                             android:layout_centerVertical="true"
                             tools:ignore="HardcodedText" />
                         <TextView
+                            android:id="@+id/date1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0/6/12/2023"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:layout_below="@id/lastUpdate1"/>
                         <TextView
                             android:id="@+id/temp_number1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="27°"
+                            android:text="N/A"
                             android:textColor="@color/white"
-                            android:textSize="60sp"
+                            android:textSize="50sp"
                             android:layout_alignParentEnd="true"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -95,6 +115,7 @@
 
 <!--                ASSET 2-->
                 <LinearLayout
+                    android:id="@+id/asset2"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
@@ -102,6 +123,7 @@
                     android:layout_marginBottom="12dp">
                     <!-- ASSET NAME -->
                     <TextView
+                        android:id="@+id/assetName2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ASSET NAME"
@@ -127,20 +149,21 @@
                             android:layout_centerVertical="true"
                             tools:ignore="HardcodedText" />
                         <TextView
+                            android:id="@+id/date2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0/6/12/2023"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:layout_below="@id/lastUpdate2"/>
                         <TextView
                             android:id="@+id/temp_number2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="27°"
+                            android:text="N/A"
                             android:textColor="@color/white"
-                            android:textSize="60sp"
+                            android:textSize="50sp"
                             android:layout_alignParentEnd="true"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -150,6 +173,7 @@
 
 <!--                ASSET 3-->
                 <LinearLayout
+                    android:id="@+id/asset3"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
@@ -157,6 +181,7 @@
                     android:layout_marginBottom="12dp">
                     <!-- ASSET NAME -->
                     <TextView
+                        android:id="@+id/assetName3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ASSET NAME"
@@ -174,7 +199,7 @@
                             android:id="@+id/lastUpdate3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Avg of today: 84%"
+                            android:text="Last updated:"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -182,20 +207,21 @@
                             android:layout_centerVertical="true"
                             tools:ignore="HardcodedText" />
                         <TextView
+                            android:id="@+id/date3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0/6/12/2023"
+                            android:text="N/A"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:layout_below="@id/lastUpdate3"/>
                         <TextView
                             android:id="@+id/temp_number3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="27°"
+                            android:text="N/A"
                             android:textColor="@color/white"
-                            android:textSize="60sp"
+                            android:textSize="50sp"
                             android:layout_alignParentEnd="true"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -227,6 +253,7 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"

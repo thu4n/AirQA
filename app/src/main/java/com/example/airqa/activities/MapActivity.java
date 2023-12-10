@@ -5,6 +5,7 @@ import com.example.airqa.api.ApiService;
 import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -56,7 +57,11 @@ public class MapActivity extends AppCompatActivity {
     LinearLayout dynamicContent,bottomNavBar;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
+    public List<String> assetIds = new ArrayList<>();
+    public static List<WeatherAsset> weatherAssets = new ArrayList<>();
     public WeatherAsset weatherAsset;
+
+    //public static List<String> weatherAssetIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,7 @@ public class MapActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.bottom_home) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
+                //Intent intent = new Intent(getApplicationContext(), FeatureActivity.class);
                 startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
@@ -88,7 +94,16 @@ public class MapActivity extends AppCompatActivity {
                 return false;
             }
         });
+        FloatingActionButton fabButton = findViewById(R.id.fabBtn); // Replace R.id.fabButton with your FAB ID
 
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FutureGuessActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+            }
+        });
         Context ctx = this.getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
@@ -107,7 +122,6 @@ public class MapActivity extends AppCompatActivity {
         String access_token = sharedPreferences.getString("access_token","");
         Log.d("access",access_token);
         Context context = this;
-        List<String> assetIDs = ApiHandler.getAllAssetIDs(context,access_token);
         getAllAsset(access_token);
 
     }
@@ -120,6 +134,7 @@ public class MapActivity extends AppCompatActivity {
         TextView tempVal = dialog.findViewById(R.id.assetIdTempValue);
         TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue);
         TextView rainfallVal = dialog.findViewById(R.id.assetIdRainfallValue);
+        TextView windSpeedVal = dialog.findViewById(R.id.assetIdWindSpeedValue);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
         assetName.setText(weatherAsset.getName());
@@ -130,6 +145,9 @@ public class MapActivity extends AppCompatActivity {
         humidVal.setText(String.valueOf(humid));
         double rainfall = weatherAsset.getAttributes().getRainfall().getValue();
         rainfallVal.setText(String.valueOf(rainfall));
+        double windSpeed = weatherAsset.getAttributes().getWindSpeed().getValue();
+        windSpeedVal.setText(String.valueOf(windSpeed));
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,7 +161,9 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("weatherAsset", weatherAsset);
+                startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }
@@ -187,14 +207,21 @@ public class MapActivity extends AppCompatActivity {
         }
     }
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onResume() {
+        super.onResume();
+        map.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        map.onPause();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        map.onDetach();
     }
 
     //get data in asset
@@ -206,11 +233,10 @@ public class MapActivity extends AppCompatActivity {
             public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
                 if(response.isSuccessful()){
                     assert response.body() != null; // make sure the body isn't null
-                    WeatherAsset asset = response.body();
-                    Double x = asset.getAttributes().getLocation().getValue().getCoordinates().get(0);
-                    Double y = asset.getAttributes().getLocation().getValue().getCoordinates().get(1);
-                    Log.e("coor", x.toString() + " " + y.toString());
                     weatherAsset = response.body();
+                    Double x = weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(0);
+                    Double y = weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(1);
+                    Log.e("coor", x.toString() + " " + y.toString());
                     setMap(x,y);
                 }
                 else {
@@ -224,7 +250,33 @@ public class MapActivity extends AppCompatActivity {
             }
         });
     }
+    public void getAllWeatherAsset(List<String> assetIDs,String access_token){
+        if(weatherAssets.size() < 4){
+            for(String assetId : assetIDs){
+                Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, assetId);
+                call.enqueue(new Callback<WeatherAsset>() {
+                    @Override
+                    public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
+                        if(response.isSuccessful()){
+                            assert response.body() != null; // make sure the body isn't null
+                            weatherAssets.add(response.body());
+                            Log.d("epochWhen1stGet", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
+                        }
+                        else {
 
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<WeatherAsset> call, Throwable t) {
+
+                        Log.e("ok1",t.toString());
+                    }
+                });
+            }
+        }
+        else return;
+
+    }
     public void getAllAsset(String access_token){
         // Default value for the body, do not change this query
         String rawJsonQuery = "{\n" +
@@ -275,14 +327,15 @@ public class MapActivity extends AppCompatActivity {
             public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
                 if(response.isSuccessful()){
                     List<Asset> assets = response.body();
-                    List<String> assetIds = new ArrayList<>();
                     for(Asset asset : assets){
                         if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
                             String id = asset.getId();
                             assetIds.add(id);
+                            Log.d("assetID",id);
                         }
                     }
                     getAssetInfo(access_token, assetIds.get(0));
+                    getAllWeatherAsset(assetIds,access_token);
                     Log.e("id0",assetIds.get(0));
 
                 }
