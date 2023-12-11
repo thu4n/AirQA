@@ -61,6 +61,7 @@ public class MapActivity extends AppCompatActivity {
     public static List<WeatherAsset> weatherAssets = new ArrayList<>();
     public WeatherAsset weatherAsset;
 
+    BottomNavigationView bottomNavigationView;
     //public static List<String> weatherAssetIds;
 
     @Override
@@ -69,26 +70,23 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
                 //Intent intent = new Intent(getApplicationContext(), FeatureActivity.class);
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                startActivity(new Intent(MapActivity.this, FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                startActivity(new Intent(MapActivity.this, ChartActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(MapActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -208,6 +206,7 @@ public class MapActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         map.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
     }
 
     @Override

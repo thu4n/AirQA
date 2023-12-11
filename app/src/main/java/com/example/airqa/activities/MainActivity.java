@@ -37,33 +37,32 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "preferences";
     MyDatabaseHelper dbHelper;
+
+    BottomNavigationView bottomNavigationView;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                startActivity(new Intent(MainActivity.this, FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                startActivity(new Intent(MainActivity.this, ChartActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -357,4 +356,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.CENTER);
     };
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
