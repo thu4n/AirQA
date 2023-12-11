@@ -25,9 +25,9 @@
             android:padding="8dp"
             android:text="Predict Air Quality"
             android:textAlignment="viewStart"
-            android:textStyle="bold"
             android:textColor="@color/primary"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/cancelButton"
@@ -44,7 +44,8 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="15dp"
         android:textSize="18sp"
-        android:text="chao buoi sang"
+        android:textColor="@color/primary"
+        android:text="Default weather - 1 hour in advance"
         />
 
     <RelativeLayout
@@ -74,7 +75,7 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/assetIdTempValue"
+            android:id="@+id/assetIdTempValue1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -111,7 +112,7 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/assetIdHumidValue"
+            android:id="@+id/assetIdHumidValue1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -148,7 +149,7 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/assetIdWindSpeedValue"
+            android:id="@+id/assetIdWindSpeedValue1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
