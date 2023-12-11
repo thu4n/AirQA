@@ -1,5 +1,6 @@
 package com.example.airqa.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,6 +39,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,22 +55,25 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 public class ChartActivity extends AppCompatActivity {
     private LineChart lineChart;
     private List<String> xValues;
-
+    private List<String[]> data;
     public String assetId;
     public String assetAtrribute;
 
+    private static final int CREATE_FILE_REQUEST_CODE = 1;
     MaterialAutoCompleteTextView inputAssetName,inputAssetType, inputStartDate, inputEndDate;
-    MaterialButton materialButton;
+    MaterialButton materialButton,Downloadbtn;
     TextInputLayout inputAssetNameLayout,inputAssetTypeLayout, inputStartLayout, inputEndDateLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-
+        data = new ArrayList<>();
+        data.add(new String[]{"AsserID", "Attribute","Value","Timestamp"});
         // Handle navbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_chart);
@@ -106,6 +114,7 @@ public class ChartActivity extends AppCompatActivity {
         TextInputLayout inputAssetNameLayout = findViewById(R.id.inputAssetNameLayout);
         inputAssetName = findViewById(R.id.inputAssetName);
         materialButton = findViewById(R.id.showBtn);
+        Downloadbtn = findViewById(R.id.downloadBtn);
         TextInputLayout inputAssetTypeLayout = findViewById(R.id.inputAssetTypeLayout);
         inputAssetType = findViewById(R.id.inputAssetType);
         TextInputLayout inputStartDateLayout = findViewById(R.id.inputStartDateLayout);
@@ -179,6 +188,15 @@ public class ChartActivity extends AppCompatActivity {
                 // Do something when nothing is selected (optional)
             }
         });
+        Downloadbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.PREFS_NAME,MODE_PRIVATE);
+                String access_token = sharedPreferences.getString("access_token","");
+                createFile();
+
+            }
+        });
     }
     private void showDatePicker(MaterialAutoCompleteTextView inputTV) {
         Calendar calendar = Calendar.getInstance();
@@ -250,6 +268,8 @@ public class ChartActivity extends AppCompatActivity {
     }
 
     private void refreshChart(String access_token, String assetId, String attributeName) throws ParseException {
+        data.clear();
+        data.add(new String[]{"AsserID", "Attribute","Value","Timestamp"});
         String endDate = inputEndDate.getText().toString();
         long endEpoch = convertDateString(endDate);
         Log.d("epoch",endEpoch + "");
@@ -271,6 +291,7 @@ public class ChartActivity extends AppCompatActivity {
                     assert response.body() != null;
                     for(DataPoint dataPoint : response.body()){
                         entries.add(new Entry(dataPoint.getX(), dataPoint.getY()));
+                        data.add(new String[]{assetId,attributeName, String.valueOf(dataPoint.getY()),String.valueOf(dataPoint.getX())});
                     }
                     drawChart(entries);
 
@@ -304,4 +325,44 @@ public class ChartActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     };
+    private void saveDataAsCSV(List<String[]> data, Uri uri) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContentResolver().openOutputStream(uri));
+            CSVWriter csvWriter = new CSVWriter(outputStreamWriter);
+            csvWriter.writeAll(data);
+            csvWriter.close();
+            Toast.makeText(this, "Data saved as CSV file!", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error saving CSV file!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void SaveAsCSV(Uri uri) {
+        Uri fileUri = uri;
+        saveDataAsCSV(data, fileUri);
+    }
+    private void createFile() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TITLE, "text.csv");
+        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CREATE_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri uri = data.getData();
+                if (uri != null) {
+                    SaveAsCSV(uri);
+
+                }
+            }
+        }
+    }
+
 }
