@@ -36,7 +36,7 @@
     <string name="General">一般的な</string>
     <string name="ACCOUNT">アカウント</string>
     <string name="hello_blank_fragment">こんにちは、空白のフラグメント</string>
-    <string name="Notification">通知</string>
+    <string name="Logout">Kimochi, Iku Iku</string>
     <string name="Logout_setting">ログアウトしてもよろしいですか?</string>
     <string name="Predict_Title">大気品質を予測する</string>
     <string name="Predict_label">Default Weather - 1時間先</string>

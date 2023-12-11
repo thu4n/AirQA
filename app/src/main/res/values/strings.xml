@@ -36,7 +36,7 @@
     <string name="ACCOUNT">ACCOUNT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Notification">Notification</string>
+    <string name="Logout">Log out</string>
     <string name="Logout_setting">Are you sure you want to log out?</string>
     <string name="Predict_Title">Predict Air Quality</string>
     <string name="Predict_label">Default weather - 1 hour in advance</string>

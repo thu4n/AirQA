@@ -36,7 +36,7 @@
     <string name="General">TỔNG QUAN</string>
     <string name="ACCOUNT">TÀI KHOẢN</string>
     <string name="hello_blank_fragment">Xin chào mảnh trống</string>
-    <string name="Notification">" Thông báo"</string>
+    <string name="Logout">Đăng xuất</string>
     <string name="Logout_setting">Bạn có chắc chắn bạn muốn thoát?</string>
     <string name="Predict_Title">Dự đoán Chất lượng Không khí</string>
     <string name="Predict_label">Default Weather - 1 giờ sau</string>

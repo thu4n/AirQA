@@ -31,12 +31,6 @@
     <!--General category-->
     <PreferenceCategory
         android:title="@string/General">
-
-        <Preference
-            android:icon="@drawable/logout_icon"
-            android:title="@string/logout_pref"
-            android:key="logout"
-            android:summary="@string/logout_summary" />
         <ListPreference
             android:key="Language_key"
             android:title="@string/Select_language"
@@ -47,17 +41,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/Notification">
+        android:title="@string/Logout">
 
-        <EditTextPreference
-            android:key="number_preference"
-            android:title="Warning temperature"
-            android:summary="Current value: none"
-            android:defaultValue="0"
-            android:inputType="number"
-            android:digits="0123456789"
-            android:selectAllOnFocus="true"
-            android:maxLength="1" />
+        <Preference
+            android:icon="@drawable/logout_icon"
+            android:title="@string/logout_pref"
+            android:key="logout"
+            android:summary="@string/logout_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>
