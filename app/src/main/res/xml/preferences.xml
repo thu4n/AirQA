@@ -37,6 +37,13 @@
             android:title="@string/logout_pref"
             android:key="logout"
             android:summary="@string/logout_summary" />
+        <ListPreference
+            android:key="language"
+            android:title="Choose an language"
+            android:summary=""
+            android:entries="@array/language_entries"
+            android:entryValues="@array/language_values"
+            android:defaultValue="en" />
     </PreferenceCategory>
 
     <PreferenceCategory

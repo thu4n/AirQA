@@ -3,11 +3,13 @@
 
     <item
         android:id="@+id/bottom_home"
+        android:title=""
         android:icon="@drawable/baseline_home_24"
         />
 
     <item
         android:id="@+id/bottom_features"
+        android:title=""
         android:icon="@drawable/baseline_format_list_bulleted_24"/>
 
     <item
@@ -17,10 +19,12 @@
 
     <item
         android:id="@+id/bottom_chart"
+        android:title=""
         android:icon="@drawable/baseline_broken_image_24"/>
 
     <item
         android:id="@+id/bottom_settings"
-        android:icon="@drawable/baseline_settings_24"/>
+        android:icon="@drawable/baseline_settings_24"
+        android:title="" />
 
 </menu>
