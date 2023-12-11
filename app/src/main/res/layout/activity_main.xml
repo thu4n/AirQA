@@ -159,8 +159,8 @@
                 android:layout_below="@id/infoAssetContainer"
                 android:layout_marginTop="30dp"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:text="Generate Lorem Ipsum placeholder text. Select the number of characters, words, sentences or paragraphs, and hit generate!" />
+                android:textSize="20sp"
+                android:text="Sript text weather" />
         </RelativeLayout>
 
         <!-- Information-->

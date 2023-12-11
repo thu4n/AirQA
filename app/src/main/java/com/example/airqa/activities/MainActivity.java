@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import android.util.Log;
@@ -37,33 +38,32 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "preferences";
     MyDatabaseHelper dbHelper;
+
+    BottomNavigationView bottomNavigationView;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                startActivity(new Intent(MainActivity.this, FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                startActivity(new Intent(MainActivity.this, ChartActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         assetName.setText(asset.getName());
         assetId = findViewById(R.id.assetIdInfo);
         assetId.setText(asset.getId());
-
+        String tempString = "";
         // Set the date for the most recent update
         if(asset.getAttributes().getTemperature() != null){
             timestamp = findViewById(R.id.timestampVal);
@@ -298,8 +298,9 @@ public class MainActivity extends AppCompatActivity {
             timestamp.setText(lastUpdated);
             temperature = findViewById(R.id.temp_number);
             double tempValue = asset.getAttributes().getTemperature().getValue();
-            String tempString = getRoundedString(tempValue);
-            temperature.setText(tempString);
+            String temp = getRoundedString(tempValue);
+            temperature.setText(temp);
+            tempString = temp;
         }
 
         // Only the one on the map has this value as True
@@ -313,6 +314,33 @@ public class MainActivity extends AppCompatActivity {
             String rainfallString = getRoundedString(rainfallValue);
             String windspeedString = getRoundedString(windspeedValue);
 
+             // Script text info weather
+            TextView textView = findViewById(R.id.textInformation);
+            textView.setText("");
+            LocalTime currentTime = LocalTime.now();
+            int hour = currentTime.getHour();
+            String weatherText ="";
+            if (hour >= 5 && hour < 11) {
+                weatherText = "Good morning! The weather looks great for outdoor activities. It's " + tempString + "°C outside, humidity is " + humidString + "%, wind speed is about " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            } else if (hour >= 11 && hour < 15) {
+                weatherText = "Hello! It's noon. Temperature is " + tempString + "°C, humidity around " + humidString + "%, wind speed at " + windspeedString + " km/h, and rainfall " + rainfallString + "mm.";
+
+            } else if (hour >= 15 && hour < 18) {
+                weatherText = "Good afternoon! It's a perfect time to be outside. Temperature outside is " + tempString + "°C, humidity level about " + humidString + "%, wind speed currently at " + windspeedString + " km/h, and rainfall " + rainfallString + "mm.";
+
+            } else if (hour >= 18 && hour < 22) {
+                weatherText = "Good evening! It's getting dark, better not stay up too late. The temperature's at " + tempString + "°C, humidity at " + humidString + "%, wind speed approximately " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            } else if (hour >= 22 || hour < 5) {
+                weatherText = "Good night! It's late, get some rest. The temperature's at " + tempString + "°C, humidity at " + humidString + "%, wind speed approximately " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            } else {
+                weatherText = "Good dawn! It's early, get some sleep. Temperature currently at " + tempString + "°C, humidity is " + humidString + "%, wind speed around " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            }
+
+            textView.setText(weatherText);
 
             setHumidityFragment(humidString,"This is humidity", "N/A");
             setRainfallFragment(rainfallString, "This is rainfall", "N/A");
@@ -357,4 +385,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.CENTER);
     };
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
