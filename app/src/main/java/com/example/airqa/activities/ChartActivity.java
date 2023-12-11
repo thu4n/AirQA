@@ -107,8 +107,6 @@ public class ChartActivity extends AppCompatActivity {
             }
         });
 
-
-
         TextInputLayout inputAssetNameLayout = findViewById(R.id.inputAssetNameLayout);
         inputAssetName = findViewById(R.id.inputAssetName);
         materialButton = findViewById(R.id.showBtn);
@@ -128,7 +126,7 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = (String) adapterView.getItemAtPosition(i);
-                for(WeatherAsset weatherAsset: MapActivity.weatherAssets){
+                for(WeatherAsset weatherAsset: SplashScreen.weatherAssets){
                     if(Objects.equals(weatherAsset.getName(), selectedItem)){
                         Log.d("AssetIDforName",weatherAsset.getId());
                         assetId = weatherAsset.getId();
@@ -215,18 +213,13 @@ public class ChartActivity extends AppCompatActivity {
     private void setAssetName(){
         List<String> names = new ArrayList<>();
         // info chart
-        for(WeatherAsset asset : MapActivity.weatherAssets){
+        for(WeatherAsset asset : SplashScreen.weatherAssets){
             names.add(asset.getName());
         }
         String[] nameArray = names.toArray(new String[0]);
         inputAssetName.setSimpleItems(nameArray);
     }
     private void setAttributeName(){
-        /*List<String> names = new ArrayList<>();
-        // info chart
-        for(WeatherAsset asset : MapActivity.weatherAssets){
-            names.add(asset.g);
-        }*/
         String[] nameArray = {"temperature", "humidity", "rainfall", "windspeed"};
         inputAssetType.setSimpleItems(nameArray);
     }

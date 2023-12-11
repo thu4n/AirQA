@@ -139,9 +139,11 @@ public class MapActivity extends AppCompatActivity {
         // Get the access token and then from it, set the map center point
         SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.PREFS_NAME,MODE_PRIVATE);
         String access_token = sharedPreferences.getString("access_token","");
-        Log.d("access",access_token);
-        Context context = this;
-        getAllAsset(access_token);
+
+        Double x = SplashScreen.weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(0);
+        Double y = SplashScreen.weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(1);
+        setMap(x,y);
+
 
         modelH = null;
         modelT = null;
@@ -162,7 +164,7 @@ public class MapActivity extends AppCompatActivity {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        weatherAsset = getIntent().getParcelableExtra("weatherAsset");
+       // SplashScreen.weatherAsset = getIntent().getParcelableExtra("weatherAsset");
 
     }
     private void setLocale(MapActivity activity, String languages){
@@ -186,15 +188,15 @@ public class MapActivity extends AppCompatActivity {
         TextView windSpeedVal = dialog.findViewById(R.id.assetIdWindSpeedValue);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
-        assetName.setText(weatherAsset.getName());
-        double temp = weatherAsset.getAttributes().getTemperature().getValue();
+        assetName.setText(SplashScreen.weatherAsset.getName());
+        double temp =  SplashScreen.weatherAsset.getAttributes().getTemperature().getValue();
         Log.d("temp", String.valueOf(temp));
         tempVal.setText( String.valueOf(temp));
-        double humid = weatherAsset.getAttributes().getHumidity().getValue();
+        double humid =  SplashScreen.weatherAsset.getAttributes().getHumidity().getValue();
         humidVal.setText(String.valueOf(humid));
-        double rainfall = weatherAsset.getAttributes().getRainfall().getValue();
+        double rainfall =  SplashScreen.weatherAsset.getAttributes().getRainfall().getValue();
         rainfallVal.setText(String.valueOf(rainfall));
-        double windSpeed = weatherAsset.getAttributes().getWindSpeed().getValue();
+        double windSpeed =  SplashScreen.weatherAsset.getAttributes().getWindSpeed().getValue();
         windSpeedVal.setText(String.valueOf(windSpeed));
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +212,7 @@ public class MapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("weatherAsset", weatherAsset);
+                intent.putExtra("weatherAsset",  SplashScreen.weatherAsset);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
@@ -273,132 +275,6 @@ public class MapActivity extends AppCompatActivity {
         map.onDetach();
     }
 
-    //get data in asset
-    public void getAssetInfo(String access_token, String id){
-        Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, id);
-        Log.e("ok2", access_token + "");
-        call.enqueue(new Callback<WeatherAsset>() {
-            @Override
-            public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
-                if(response.isSuccessful()){
-                    assert response.body() != null; // make sure the body isn't null
-                    weatherAsset = response.body();
-                    Double x = weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(0);
-                    Double y = weatherAsset.getAttributes().getLocation().getValue().getCoordinates().get(1);
-                    Log.e("coor", x.toString() + " " + y.toString());
-                    setMap(x,y);
-                }
-                else {
-
-                }
-            }
-            @Override
-            public void onFailure(Call<WeatherAsset> call, Throwable t) {
-
-                Log.e("ok1",t.toString());
-            }
-        });
-    }
-    public void getAllWeatherAsset(List<String> assetIDs,String access_token){
-        if(weatherAssets.size() < 4){
-            for(String assetId : assetIDs){
-                Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, assetId);
-                call.enqueue(new Callback<WeatherAsset>() {
-                    @Override
-                    public void onResponse(Call<WeatherAsset> call, Response<WeatherAsset> response) {
-                        if(response.isSuccessful()){
-                            assert response.body() != null; // make sure the body isn't null
-                            weatherAssets.add(response.body());
-                            Log.d("epochWhen1stGet", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
-                        }
-                        else {
-
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<WeatherAsset> call, Throwable t) {
-
-                        Log.e("ok1",t.toString());
-                    }
-                });
-            }
-        }
-        else return;
-
-    }
-    public void getAllAsset(String access_token){
-        // Default value for the body, do not change this query
-        String rawJsonQuery = "{\n" +
-                "    \"realm\": {\n" +
-                "        \"name\": \"master\"\n" +
-                "    },\n" +
-                "    \"select\": {\n" +
-                "        \"attributes\": [\n" +
-                "            \"location\",\n" +
-                "            \"direction\"\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    \"attributes\": {\n" +
-                "        \"items\": [\n" +
-                "            {\n" +
-                "                \"name\": {\n" +
-                "                    \"predicateType\": \"string\",\n" +
-                "                    \"value\": \"location\"\n" +
-                "                },\n" +
-                "                \"meta\": [\n" +
-                "                    {\n" +
-                "                        \"name\": {\n" +
-                "                            \"predicateType\": \"string\",\n" +
-                "                            \"value\": \"showOnDashboard\"\n" +
-                "                        },\n" +
-                "                        \"negated\": true\n" +
-                "                    },\n" +
-                "                    {\n" +
-                "                        \"name\": {\n" +
-                "                            \"predicateType\": \"string\",\n" +
-                "                            \"value\": \"showOnDashboard\"\n" +
-                "                        },\n" +
-                "                        \"value\": {\n" +
-                "                            \"predicateType\": \"boolean\",\n" +
-                "                            \"value\": true\n" +
-                "                        }\n" +
-                "                    }\n" +
-                "                ]\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "}";
-        RequestBody rawJsonBody = RequestBody.create(MediaType.parse("application/json"), rawJsonQuery);
-        Call<List<Asset>> call = ApiService.apiService.getAllAsset("Bearer " + access_token, rawJsonBody);
-
-        call.enqueue(new Callback<List<Asset>>() {
-            @Override
-            public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
-                if(response.isSuccessful()){
-                    List<Asset> assets = response.body();
-                    for(Asset asset : assets){
-                        if(asset.getType().equals("WeatherAsset")){ // WeatherAsset is the one that contains temperature,humidity...
-                            String id = asset.getId();
-                            assetIds.add(id);
-                            Log.d("assetID",id);
-                        }
-                    }
-                    getAssetInfo(access_token, assetIds.get(0));
-                    getAllWeatherAsset(assetIds,access_token);
-                    Log.e("id0",assetIds.get(0));
-
-                }
-                else {
-                    Toast.makeText(MapActivity.this, "You do not have permission!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Asset>> call, Throwable t) {
-                Log.e("failedCall",t.toString());
-            }
-        });
-    }
     private void setMap(double x, double y){
         GeoPoint point = new GeoPoint(y , x);
         map.getController().setCenter(point);

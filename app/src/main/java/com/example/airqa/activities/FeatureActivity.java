@@ -90,7 +90,7 @@ public class FeatureActivity extends AppCompatActivity {
     }
 
     private  void setInformation(){
-        for(WeatherAsset weatherAsset : MapActivity.weatherAssets){
+        for(WeatherAsset weatherAsset : SplashScreen.weatherAssets){
             if(Objects.equals(weatherAsset.getName(), "Default Weather")){
                 Log.d("AssetIDforFeatureList",weatherAsset.getId());
                 TextView assetName = findViewById(R.id.assetName1);
