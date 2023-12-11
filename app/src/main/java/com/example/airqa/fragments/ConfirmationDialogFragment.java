@@ -1,4 +1,4 @@
-package com.example.airqa.activities;
+package com.example.airqa.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.airqa.R;
+import com.example.airqa.activities.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.

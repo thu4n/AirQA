@@ -25,9 +25,6 @@
             android:exported="true"></service>
 
         <activity
-            android:name=".activities.FutureGuessActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.FeatureActivity"
             android:exported="false" />
         <activity

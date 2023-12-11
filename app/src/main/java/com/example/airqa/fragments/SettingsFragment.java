@@ -1,4 +1,4 @@
-package com.example.airqa.activities;
+package com.example.airqa.fragments;
 
 import static com.example.airqa.activities.LoginActivity.activeUser;
 
@@ -17,6 +17,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.airqa.R;
+import com.example.airqa.fragments.ConfirmationDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
