@@ -1,13 +1,10 @@
 package com.example.airqa.activities;
 import com.example.airqa.R;
-import com.example.airqa.api.ApiHandler;
 import com.example.airqa.api.ApiService;
-import com.example.airqa.fragments.SettingsFragment;
 import com.example.airqa.ml.Humidity;
 import com.example.airqa.ml.Temperature;
 import com.example.airqa.ml.WindSpeed;
 import com.example.airqa.models.DataPoint;
-import com.example.airqa.models.assetGroup.Asset;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.github.mikephil.charting.data.Entry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -165,8 +162,6 @@ public class MapActivity extends AppCompatActivity {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-       // SplashScreen.weatherAsset = getIntent().getParcelableExtra("weatherAsset");
-
     }
 
     @Override
