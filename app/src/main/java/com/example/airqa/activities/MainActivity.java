@@ -39,6 +39,8 @@ import com.example.airqa.R;
 import com.example.airqa.models.weatherAssetGroup.WeatherAsset;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "preferences";
@@ -90,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
         //Receive weather asset from the map activity
         WeatherAsset weatherAsset = getIntent().getParcelableExtra("weatherAsset");
         setInformation(weatherAsset);
-       // Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
-        //Log.d("epochWhenReceive", weatherAsset.getAttributes().getTemperature().getValue() + "");
 
         // loading database
         // Lấy dữ liệu từ cơ sở dữ liệu
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 value,
                 unit,
                 description,
-                avgValue
+                avgValue + unit
         );
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_humid, fragment)
@@ -164,14 +164,14 @@ public class MainActivity extends AppCompatActivity {
     private void setWindSpeedFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_wind_power_24);
         String title = getResources().getString(R.string.WindSpeed);
-        String unit = "km/h";
+        String unit = " km/h";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
                 title,
                 value,
                 unit,
                 description,
-                avgValue
+                avgValue + unit
         );
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_windspeed, fragment)
@@ -181,14 +181,14 @@ public class MainActivity extends AppCompatActivity {
     private void setRainfallFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
         String title = getResources().getString(R.string.Rainfall);
-        String unit = "mm";
+        String unit = " mm";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
                 title,
                 value,
                 unit,
                 description,
-                avgValue
+                avgValue + unit
         );
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_rainfall, fragment)
@@ -219,10 +219,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setAqiFragment(String value){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.logo);
+        int intVal = Integer.parseInt(value);
+        int percent = (intVal * 100) / 100 ;
         AttributeAQIContainerFragment fragment = AttributeAQIContainerFragment.newInstance(
                 icon,
                 "AQI",
-                value
+                value,
+                percent
         );
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_aqi, fragment)
@@ -306,11 +309,13 @@ public class MainActivity extends AppCompatActivity {
 
             textView.setText(weatherText);
 
-            setHumidityFragment(humidString,"This is humidity", "N/A");
-            setRainfallFragment(rainfallString, "This is rainfall", "N/A");
-            setWindSpeedFragment(windspeedString, "This is wind speed", "N/A");
+            setHumidityFragment(humidString,"Actual value: ", humidValue + "");
+            setRainfallFragment(rainfallString, "Actual value: ", rainfallValue + "");
+            setWindSpeedFragment(windspeedString, "Actual value: ", windspeedValue + "");
             return;
         } else if (asset.getAttributes().getPM10() != null) {
+            temperature = findViewById(R.id.temp_number);
+            temperature.setText("N/A");
             double pm10Value = asset.getAttributes().getPM10().getValue();
             double pm25Value = asset.getAttributes().getPM25().getValue();
             double co2Value = asset.getAttributes().getCO2().getValue();
@@ -327,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             double humidValue = asset.getAttributes().getHumidity().getValue();
             String humidString = getRoundedString(humidValue);
-            setHumidityFragment(humidString,"This is humidity", "N/A");
+            setHumidityFragment(humidString,"Actual value: ", humidValue + "");
             return;
         }
     }

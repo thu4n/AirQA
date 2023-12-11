@@ -84,7 +84,7 @@
                     android:text="Avg of today: "
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:textStyle="normal"
                     tools:ignore="HardcodedText" />
                 <TextView
                     android:id="@+id/avg_value"
@@ -93,7 +93,7 @@
                     android:text="84%"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:textStyle="normal"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>

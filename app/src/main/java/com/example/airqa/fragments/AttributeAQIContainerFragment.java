@@ -17,11 +17,14 @@ public class AttributeAQIContainerFragment extends Fragment {
     private String title;
     private String currentValue;
 
-    public static AttributeAQIContainerFragment newInstance(Drawable icon, String title, String currentValue) {
+    private int percent;
+
+    public static AttributeAQIContainerFragment newInstance(Drawable icon, String title, String currentValue, int percent) {
         AttributeAQIContainerFragment fragment = new AttributeAQIContainerFragment();
         fragment.icon = icon;
         fragment.title = title;
         fragment.currentValue = currentValue;
+        fragment.percent = percent;
         return fragment;
     }
 
@@ -34,7 +37,8 @@ public class AttributeAQIContainerFragment extends Fragment {
         ImageView iconView = view.findViewById(R.id.icon);
         TextView titleView = view.findViewById(R.id.title);
         TextView valueView = view.findViewById(R.id.current_value);
-
+        me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setPercent(percent);
         // Set values to views
         iconView.setImageDrawable(icon);
         titleView.setText(title);
