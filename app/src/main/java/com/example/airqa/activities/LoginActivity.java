@@ -185,6 +185,7 @@ public class LoginActivity extends AppCompatActivity {
                   // move to splash screen
                     Intent intent = new Intent(LoginActivity.this, SplashScreen.class);
                     startActivity(intent);
+                    finish();
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
                 else if(response.code() == 401){

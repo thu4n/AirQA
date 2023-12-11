@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.database.Cursor;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -124,45 +125,6 @@ public class MainActivity extends AppCompatActivity {
         }
         cursor.close();
 
-        // Lấy ngày
-        Calendar calendar = Calendar.getInstance();
-        //test.setText( calendar.getTime().toString());
-
-        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
-        String title = "Title";
-        String value = "123";
-        String unit = "kg";
-        String description = "Description";
-        String avgValue = "100";
-        AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
-                icon,
-                "Title",
-                "123",
-                "kg",
-                "Description",
-                "100"
-        );
-        AttributePolluContainerFragment fragment2 = AttributePolluContainerFragment.newInstance(
-                icon,
-                "Title",
-                "123",
-                "123",
-                "123",
-                "123",
-                "123",
-                "123",
-                "123",
-                "123",
-                "123"
-        );
-        AttributeAQIContainerFragment fragment3 = AttributeAQIContainerFragment.newInstance(
-                icon,
-                "Title",
-                "123"
-        );
-        /*getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_aqi, fragment3)
-                .commit();*/
     }
 
     private void insertSampleData() {

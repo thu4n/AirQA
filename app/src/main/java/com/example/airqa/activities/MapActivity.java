@@ -13,6 +13,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -167,6 +168,18 @@ public class MapActivity extends AppCompatActivity {
        // SplashScreen.weatherAsset = getIntent().getParcelableExtra("weatherAsset");
 
     }
+
+    @Override
+    public void onBackPressed() {
+        // Show a dialog asking the user to confirm closing the app
+        new AlertDialog.Builder(this)
+                .setTitle("Exit App")
+                .setMessage("Are you sure you want to exit the app?")
+                .setPositiveButton("Yes", (dialog, which) -> finish())
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     private void setLocale(MapActivity activity, String languages){
         Locale locale = new Locale(languages);
         Locale.setDefault(locale);
