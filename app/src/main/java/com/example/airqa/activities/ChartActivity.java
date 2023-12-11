@@ -63,7 +63,7 @@ public class ChartActivity extends AppCompatActivity {
     private List<String[]> data;
     public String assetId;
     public String assetAtrribute;
-
+    BottomNavigationView bottomNavigationView;
     private static final int CREATE_FILE_REQUEST_CODE = 1;
     MaterialAutoCompleteTextView inputAssetName,inputAssetType, inputStartDate, inputEndDate;
     MaterialButton materialButton,Downloadbtn;
@@ -75,25 +75,22 @@ public class ChartActivity extends AppCompatActivity {
         data = new ArrayList<>();
         data.add(new String[]{"AsserID", "Attribute","Value","Timestamp"});
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_chart);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(ChartActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                startActivity(new Intent(ChartActivity.this, FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(ChartActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -364,5 +361,9 @@ public class ChartActivity extends AppCompatActivity {
             }
         }
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.bottom_chart);
+    }
 }

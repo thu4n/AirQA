@@ -29,31 +29,29 @@ import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class FeatureActivity extends AppCompatActivity {
-
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feature);
 
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_features);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(FeatureActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                startActivity(new Intent(FeatureActivity.this, ChartActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(FeatureActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -101,11 +99,10 @@ public class FeatureActivity extends AppCompatActivity {
                     asset1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(FeatureActivity.this, MainActivity.class);
                             intent.putExtra("weatherAsset", weatherAsset);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                            finish();
                         }
                     });
                 }
@@ -128,11 +125,10 @@ public class FeatureActivity extends AppCompatActivity {
                     asset2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(FeatureActivity.this, MainActivity.class);
                             intent.putExtra("weatherAsset", weatherAsset);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                            finish();
                         }
                     });
                 }
@@ -144,11 +140,10 @@ public class FeatureActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Log.d("ClickLayout3", weatherAsset.getAttributes().getCO2().getValue() + "");
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(FeatureActivity.this, MainActivity.class);
                         intent.putExtra("weatherAsset", weatherAsset);
                         startActivity(intent);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
                     }
                 });
             }
@@ -173,4 +168,9 @@ public class FeatureActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.CENTER);
     };
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.bottom_features);
+    }
 }
