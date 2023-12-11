@@ -355,6 +355,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setGravity(Gravity.CENTER);
     };
 }

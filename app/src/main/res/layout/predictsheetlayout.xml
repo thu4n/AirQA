@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:paddingVertical="15dp"
     android:paddingHorizontal="10dp"
-    android:background="@drawable/bottom_dialog_bg">
+    android:layout_marginHorizontal="20dp"
+    android:background="@drawable/center_dialog_bg">
 
 
     <RelativeLayout
