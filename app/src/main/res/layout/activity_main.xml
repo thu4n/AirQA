@@ -37,25 +37,26 @@
             android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
             android:layout_marginBottom="10dp"
             android:paddingHorizontal="20dp">
 
             <LinearLayout
+                android:id="@+id/infoAssetContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:orientation="horizontal">
                 <!-- Room Image -->
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="left">
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/assetNameInfo"
                         android:layout_width="wrap_content"
@@ -64,8 +65,8 @@
                         android:textColor="@color/white"
                         android:textSize="18dp"
                         android:textStyle="bold"
-                        tools:ignore="HardcodedText" >
-                    </TextView>
+                        tools:ignore="HardcodedText"></TextView>
+
                     <TextView
                         android:id="@+id/assetIdInfo"
                         android:layout_width="wrap_content"
@@ -74,8 +75,8 @@
                         android:textColor="@color/white"
                         android:textSize="12dp"
                         android:textStyle="normal"
-                        tools:ignore="HardcodedText" >
-                    </TextView>
+                        tools:ignore="HardcodedText"></TextView>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -83,8 +84,8 @@
                         android:textColor="@color/white"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        tools:ignore="HardcodedText" >
-                    </TextView>
+                        tools:ignore="HardcodedText"></TextView>
+
                     <TextView
                         android:id="@+id/timestampVal"
                         android:layout_width="wrap_content"
@@ -93,15 +94,14 @@
                         android:textColor="@color/white"
                         android:textSize="16dp"
                         android:textStyle="normal"
-                        tools:ignore="HardcodedText" >
-                    </TextView>
+                        tools:ignore="HardcodedText"></TextView>
                 </LinearLayout>
                 <!-- Room Information -->
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <!-- Room Name-->
@@ -151,6 +151,16 @@
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/infoAssetContainer"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="Generate Lorem Ipsum placeholder text. Select the number of characters, words, sentences or paragraphs, and hit generate!" />
         </RelativeLayout>
 
         <!-- Information-->
