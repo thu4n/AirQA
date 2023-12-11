@@ -99,9 +99,7 @@ public class MapActivity extends AppCompatActivity {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FutureGuessActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
+                showPredictDialog();
             }
         });
         Context ctx = this.getApplicationContext();
@@ -125,6 +123,7 @@ public class MapActivity extends AppCompatActivity {
         getAllAsset(access_token);
 
     }
+
     private void showBottomDialog() {
 
         final Dialog dialog = new Dialog(this);
@@ -152,7 +151,6 @@ public class MapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
             }
         });
 
@@ -368,4 +366,22 @@ public class MapActivity extends AppCompatActivity {
             }
         });
     }
+    private void showPredictDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.predictsheetlayout);
+        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Log.d("click predict", "show dialog");
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    };
 }

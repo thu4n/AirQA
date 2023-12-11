@@ -1,9 +1,15 @@
 package com.example.airqa.activities;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import com.example.airqa.fragments.AttributeAQIContainerFragment;
+import com.example.airqa.fragments.AttributeContainerFragment;
+import com.example.airqa.fragments.AttributePolluContainerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Date;
@@ -11,7 +17,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.database.Cursor;
 
@@ -64,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FutureGuessActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                showPredictDialog();
             }
         });
 
@@ -330,4 +339,22 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
     }
+    private void showPredictDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.predictsheetlayout);
+        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Log.d("click predict", "show dialog");
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    };
 }

@@ -1,4 +1,4 @@
-package com.example.airqa.activities;
+package com.example.airqa.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
