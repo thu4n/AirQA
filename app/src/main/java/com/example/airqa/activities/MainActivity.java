@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import android.util.Log;
@@ -287,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         assetName.setText(asset.getName());
         assetId = findViewById(R.id.assetIdInfo);
         assetId.setText(asset.getId());
-
+        String tempString = "";
         // Set the date for the most recent update
         if(asset.getAttributes().getTemperature() != null){
             timestamp = findViewById(R.id.timestampVal);
@@ -297,8 +298,9 @@ public class MainActivity extends AppCompatActivity {
             timestamp.setText(lastUpdated);
             temperature = findViewById(R.id.temp_number);
             double tempValue = asset.getAttributes().getTemperature().getValue();
-            String tempString = getRoundedString(tempValue);
-            temperature.setText(tempString);
+            String temp = getRoundedString(tempValue);
+            temperature.setText(temp);
+            tempString = temp;
         }
 
         // Only the one on the map has this value as True
@@ -312,6 +314,33 @@ public class MainActivity extends AppCompatActivity {
             String rainfallString = getRoundedString(rainfallValue);
             String windspeedString = getRoundedString(windspeedValue);
 
+             // Script text info weather
+            TextView textView = findViewById(R.id.textInformation);
+            textView.setText("");
+            LocalTime currentTime = LocalTime.now();
+            int hour = currentTime.getHour();
+            String weatherText ="";
+            if (hour >= 5 && hour < 11) {
+                weatherText = "Good morning! The weather looks great for outdoor activities. It's " + tempString + "°C outside, humidity is " + humidString + "%, wind speed is about " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            } else if (hour >= 11 && hour < 15) {
+                weatherText = "Hello! It's noon. Temperature is " + tempString + "°C, humidity around " + humidString + "%, wind speed at " + windspeedString + " km/h, and rainfall " + rainfallString + "mm.";
+
+            } else if (hour >= 15 && hour < 18) {
+                weatherText = "Good afternoon! It's a perfect time to be outside. Temperature outside is " + tempString + "°C, humidity level about " + humidString + "%, wind speed currently at " + windspeedString + " km/h, and rainfall " + rainfallString + "mm.";
+
+            } else if (hour >= 18 && hour < 22) {
+                weatherText = "Good evening! It's getting dark, better not stay up too late. The temperature's at " + tempString + "°C, humidity at " + humidString + "%, wind speed approximately " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            } else if (hour >= 22 || hour < 5) {
+                weatherText = "Good night! It's late, get some rest. The temperature's at " + tempString + "°C, humidity at " + humidString + "%, wind speed approximately " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            } else {
+                weatherText = "Good dawn! It's early, get some sleep. Temperature currently at " + tempString + "°C, humidity is " + humidString + "%, wind speed around " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
+
+            }
+
+            textView.setText(weatherText);
 
             setHumidityFragment(humidString,"This is humidity", "N/A");
             setRainfallFragment(rainfallString, "This is rainfall", "N/A");
