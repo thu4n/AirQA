@@ -39,6 +39,7 @@
             android:summary="@string/logout_summary" />
         <ListPreference
             android:key="Language_key"
+            android:icon="@drawable/language"
             android:title="@string/Select_language"
             android:summary=""
             android:entries="@array/language_entries"
