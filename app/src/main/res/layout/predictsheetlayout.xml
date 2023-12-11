@@ -23,11 +23,11 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:padding="8dp"
-            android:text="Predict Air Quality"
+            android:text="@string/Predict_Title"
             android:textAlignment="viewStart"
-            android:textStyle="bold"
             android:textColor="@color/primary"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/cancelButton"
@@ -44,7 +44,8 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="15dp"
         android:textSize="18sp"
-        android:text="chao buoi sang"
+        android:textColor="@color/primary"
+        android:text="@string/Predict_label"
         />
 
     <RelativeLayout
@@ -67,14 +68,14 @@
             android:id="@+id/assetIdTempText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temperature: "
+            android:text="@string/Temperature"
             android:textColor="@color/black"
             android:layout_toRightOf="@id/assetIdTempIcon"
             android:layout_marginStart="15dp"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/assetIdTempValue"
+            android:id="@+id/assetIdTempValue1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -104,14 +105,14 @@
             android:id="@+id/assetIdHumidText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hudmidity: "
+            android:text="@string/Humidity"
             android:textColor="@color/black"
             android:layout_toRightOf="@id/assetInfoHumidityIcon"
             android:layout_marginStart="15dp"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/assetIdHumidValue"
+            android:id="@+id/assetIdHumidValue1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -141,14 +142,14 @@
             android:id="@+id/assetIdWindSpeedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wind Speed: "
+            android:text="@string/WindSpeed"
             android:textColor="@color/black"
             android:layout_toRightOf="@id/assetInfoWindSpeedIcon"
             android:layout_marginStart="15dp"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/assetIdWindSpeedValue"
+            android:id="@+id/assetIdWindSpeedValue1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

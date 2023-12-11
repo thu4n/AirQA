@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,34 +27,33 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class FeatureActivity extends AppCompatActivity {
-
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feature);
 
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_features);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(FeatureActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                startActivity(new Intent(FeatureActivity.this, ChartActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(FeatureActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -69,7 +69,16 @@ public class FeatureActivity extends AppCompatActivity {
         });
 
         setInformation();
+        // set day night UI
+        Calendar calendar = Calendar.getInstance();
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
+        ImageView periodIcon = findViewById(R.id.periodIcon);
+        if (hourOfDay >= 5 && hourOfDay < 17) {
+            periodIcon.setImageResource(R.drawable.sun);
+        } else {
+            periodIcon.setImageResource(R.drawable.moon);
+        }
     }
 
     private String epochToDate(long epoch){
@@ -101,11 +110,10 @@ public class FeatureActivity extends AppCompatActivity {
                     asset1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(FeatureActivity.this, MainActivity.class);
                             intent.putExtra("weatherAsset", weatherAsset);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                            finish();
                         }
                     });
                 }
@@ -128,11 +136,10 @@ public class FeatureActivity extends AppCompatActivity {
                     asset2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(FeatureActivity.this, MainActivity.class);
                             intent.putExtra("weatherAsset", weatherAsset);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                            finish();
                         }
                     });
                 }
@@ -144,11 +151,10 @@ public class FeatureActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Log.d("ClickLayout3", weatherAsset.getAttributes().getCO2().getValue() + "");
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(FeatureActivity.this, MainActivity.class);
                         intent.putExtra("weatherAsset", weatherAsset);
                         startActivity(intent);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
                     }
                 });
             }
@@ -159,6 +165,18 @@ public class FeatureActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.predictsheetlayout);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        TextView tempVal = dialog.findViewById(R.id.assetIdTempValue1);
+        TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue1);
+        TextView windSpeedVal = dialog.findViewById(R.id.assetIdWindSpeedValue1);
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        String T = sharedPreferences.getString("PredTemperature", "");
+        String H = sharedPreferences.getString("PredHumidity", "");
+        String W = sharedPreferences.getString("PredWindSpeed", "");
+
+        tempVal.setText( String.valueOf(T));
+        humidVal.setText(String.valueOf(H));
+        windSpeedVal.setText(String.valueOf(W));
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,4 +191,9 @@ public class FeatureActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.CENTER);
     };
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.bottom_features);
+    }
 }

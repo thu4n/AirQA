@@ -21,28 +21,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Asset List"
-                android:textSize="32sp"
-                android:fontFamily="@font/inter"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:layout_marginStart="24dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                />
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/inter"
+                android:padding="8dp"
+                android:text="@string/Asset_List"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
             <ImageView
                 android:id="@+id/periodIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="24dp"
-                android:src="@drawable/baseline_wb_sunny_24"
+                android:src="@drawable/sun"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                app:tint="@color/white" />
+                 />
         </RelativeLayout>
 
         <ScrollView
@@ -84,7 +84,7 @@
                             android:id="@+id/lastUpdate1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Last updated:"
+                            android:text="@string/Last_updated"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -141,7 +141,7 @@
                             android:id="@+id/lastUpdate2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Last Updated:"
+                            android:text="@string/Last_updated"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -199,7 +199,7 @@
                             android:id="@+id/lastUpdate3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Last updated:"
+                            android:text="@string/Last_updated"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"

@@ -2,6 +2,8 @@ package com.example.airqa.activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,11 +12,14 @@ import android.os.Bundle;
 import com.example.airqa.fragments.AttributeAQIContainerFragment;
 import com.example.airqa.fragments.AttributeContainerFragment;
 import com.example.airqa.fragments.AttributePolluContainerFragment;
+import com.example.airqa.models.weatherAssetGroup.Humidity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -37,33 +42,36 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "preferences";
     MyDatabaseHelper dbHelper;
+
+    BottomNavigationView bottomNavigationView;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // set language
+        SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
+        String savedLanguage = sharedPreferences1.getString("language", "");
+        setLocale(MainActivity.this,savedLanguage);
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                startActivity(new Intent(MainActivity.this, FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                startActivity(new Intent(MainActivity.this, ChartActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -176,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setHumidityFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
-        String title = "Humidity";
+        String title = getResources().getString(R.string.Humidity);
         String unit = "%";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
@@ -193,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setWindSpeedFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_wind_power_24);
-        String title = "Wind Speed";
+        String title = getResources().getString(R.string.WindSpeed);
         String unit = "km/h";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
@@ -210,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setRainfallFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
-        String title = "Rainfall";
+        String title = getResources().getString(R.string.Rainfall);
         String unit = "mm";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
@@ -288,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
         assetName.setText(asset.getName());
         assetId = findViewById(R.id.assetIdInfo);
         assetId.setText(asset.getId());
-
+        String tempString = "";
         // Set the date for the most recent update
         if(asset.getAttributes().getTemperature() != null){
             timestamp = findViewById(R.id.timestampVal);
@@ -298,8 +306,9 @@ public class MainActivity extends AppCompatActivity {
             timestamp.setText(lastUpdated);
             temperature = findViewById(R.id.temp_number);
             double tempValue = asset.getAttributes().getTemperature().getValue();
-            String tempString = getRoundedString(tempValue);
-            temperature.setText(tempString);
+            String temp = getRoundedString(tempValue);
+            temperature.setText(temp);
+            tempString = temp;
         }
 
         // Only the one on the map has this value as True
@@ -313,6 +322,27 @@ public class MainActivity extends AppCompatActivity {
             String rainfallString = getRoundedString(rainfallValue);
             String windspeedString = getRoundedString(windspeedValue);
 
+             // Script text info weather
+            TextView textView = findViewById(R.id.textInformation);
+            textView.setText("");
+            LocalTime currentTime = LocalTime.now();
+            int hour = currentTime.getHour();
+            String weatherText ="";
+            if (hour >= 5 && hour < 11) {
+                weatherText = getString(R.string.morning_weather, tempString, humidString, windspeedString, rainfallString);
+            } else if (hour >= 11 && hour < 15) {
+                weatherText = getString(R.string.noon_weather, tempString, humidString, windspeedString, rainfallString);
+            } else if (hour >= 15 && hour < 18) {
+                weatherText = getString(R.string.afternoon_weather, tempString, humidString, windspeedString, rainfallString);
+            } else if (hour >= 18 && hour < 22) {
+                weatherText = getString(R.string.evening_weather, tempString, humidString, windspeedString, rainfallString);
+            } else if (hour >= 22 || hour < 5) {
+                weatherText = getString(R.string.night_weather, tempString, humidString, windspeedString, rainfallString);
+            } else {
+                weatherText = getString(R.string.dawn_weather, tempString, humidString, windspeedString, rainfallString);
+            }
+
+            textView.setText(weatherText);
 
             setHumidityFragment(humidString,"This is humidity", "N/A");
             setRainfallFragment(rainfallString, "This is rainfall", "N/A");
@@ -357,4 +387,17 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.CENTER);
     };
+    private void setLocale(MainActivity activity, String languages){
+        Locale locale = new Locale(languages);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        android.content.res.Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

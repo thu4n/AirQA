@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.airqa.R;
@@ -63,7 +64,7 @@ public class ChartActivity extends AppCompatActivity {
     private List<String[]> data;
     public String assetId;
     public String assetAtrribute;
-
+    BottomNavigationView bottomNavigationView;
     private static final int CREATE_FILE_REQUEST_CODE = 1;
     MaterialAutoCompleteTextView inputAssetName,inputAssetType, inputStartDate, inputEndDate;
     MaterialButton materialButton,Downloadbtn;
@@ -75,25 +76,22 @@ public class ChartActivity extends AppCompatActivity {
         data = new ArrayList<>();
         data.add(new String[]{"AsserID", "Attribute","Value","Timestamp"});
         // Handle navbar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_chart);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                startActivity(new Intent(ChartActivity.this, MapActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_features) {
-                startActivity(new Intent(getApplicationContext(), FeatureActivity.class));
+                startActivity(new Intent(ChartActivity.this, FeatureActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else if (item.getItemId() == R.id.bottom_chart) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(ChartActivity.this, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
             } else {
                 return false;
@@ -312,6 +310,19 @@ public class ChartActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.predictsheetlayout);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        TextView tempVal = dialog.findViewById(R.id.assetIdTempValue1);
+        TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue1);
+        TextView windSpeedVal = dialog.findViewById(R.id.assetIdWindSpeedValue1);
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        String T = sharedPreferences.getString("PredTemperature", "");
+        String H = sharedPreferences.getString("PredHumidity", "");
+        String W = sharedPreferences.getString("PredWindSpeed", "");
+
+
+        tempVal.setText( String.valueOf(T));
+        humidVal.setText(String.valueOf(H));
+        windSpeedVal.setText(String.valueOf(W));
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,5 +375,9 @@ public class ChartActivity extends AppCompatActivity {
             }
         }
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.bottom_chart);
+    }
 }

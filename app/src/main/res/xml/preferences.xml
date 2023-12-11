@@ -4,7 +4,7 @@
 
     <!--Account category-->
     <PreferenceCategory
-        android:title="ACCOUNT"
+        android:title="@string/ACCOUNT"
         >
         <Preference
             android:icon="@drawable/baseline_email_24"
@@ -17,11 +17,11 @@
 
         <Preference
             android:icon="@drawable/baseline_person_24"
-            android:title="Username"
+            android:title="@string/Username"
             android:key="username"/>
         <Preference
             android:icon="@drawable/baseline_calendar_month_24"
-            android:title="Created On"
+            android:title="@string/Created_On"
             android:key="createdOn"/>
         <Preference
             android:icon="@drawable/baseline_broken_image_24"
@@ -30,7 +30,7 @@
     </PreferenceCategory>
     <!--General category-->
     <PreferenceCategory
-        android:title="GENERAL">
+        android:title="@string/General">
 
         <Preference
             android:icon="@drawable/logout_icon"
@@ -38,8 +38,8 @@
             android:key="logout"
             android:summary="@string/logout_summary" />
         <ListPreference
-            android:key="language"
-            android:title="Choose an language"
+            android:key="Language_key"
+            android:title="@string/Select_language"
             android:summary=""
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values"
@@ -47,7 +47,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Notification">
+        android:title="@string/Notification">
 
         <EditTextPreference
             android:key="number_preference"
