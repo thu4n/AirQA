@@ -220,7 +220,7 @@ public class ChartActivity extends AppCompatActivity {
         inputAssetName.setSimpleItems(nameArray);
     }
     private void setAttributeName(){
-        String[] nameArray = {"temperature", "humidity", "rainfall", "windspeed"};
+        String[] nameArray = {"temperature", "humidity", "rainfall", "windspeed", "PM10", "PM25", "CO2"};
         inputAssetType.setSimpleItems(nameArray);
     }
 
@@ -273,7 +273,8 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<DataPoint>> call, Response<List<DataPoint>> response) {
                 if(response.isSuccessful()){
-                    if(response.body().size() <= 0){
+                    if( response.body().size() == 0 ){
+                        lineChart.clear();
                         Toast.makeText(ChartActivity.this, "No data to be shown!", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -288,7 +289,8 @@ public class ChartActivity extends AppCompatActivity {
 
                 }
                 else {
-                    Toast.makeText(ChartActivity.this, "You do not have permission!", Toast.LENGTH_SHORT).show();
+                    lineChart.clear();
+                    Toast.makeText(ChartActivity.this, "Error, make sure that the asset do have this attribute", Toast.LENGTH_LONG).show();
                 }
             }
 
