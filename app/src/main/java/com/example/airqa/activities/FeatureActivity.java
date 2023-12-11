@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class FeatureActivity extends AppCompatActivity {
@@ -68,7 +69,16 @@ public class FeatureActivity extends AppCompatActivity {
         });
 
         setInformation();
+        // set day night UI
+        Calendar calendar = Calendar.getInstance();
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
+        ImageView periodIcon = findViewById(R.id.periodIcon);
+        if (hourOfDay >= 5 && hourOfDay < 17) {
+            periodIcon.setImageResource(R.drawable.sun);
+        } else {
+            periodIcon.setImageResource(R.drawable.moon);
+        }
     }
 
     private String epochToDate(long epoch){

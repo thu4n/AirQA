@@ -1,6 +1,7 @@
 package com.example.airqa.activities;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SettingsActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (savedInstanceState != null) {
                 return;
             }
+
             // below line is to inflate our fragment.
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.idFrameLayout, new SettingsFragment())

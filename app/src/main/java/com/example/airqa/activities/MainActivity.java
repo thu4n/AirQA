@@ -2,6 +2,8 @@ package com.example.airqa.activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,12 +12,14 @@ import android.os.Bundle;
 import com.example.airqa.fragments.AttributeAQIContainerFragment;
 import com.example.airqa.fragments.AttributeContainerFragment;
 import com.example.airqa.fragments.AttributePolluContainerFragment;
+import com.example.airqa.models.weatherAssetGroup.Humidity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -45,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // set language
+        SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
+        String savedLanguage = sharedPreferences1.getString("language", "");
+        setLocale(MainActivity.this,savedLanguage);
         // Handle navbar
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -176,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setHumidityFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.humid_icon);
-        String title = "Humidity";
+        String title = getResources().getString(R.string.Humidity);
         String unit = "%";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
@@ -193,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setWindSpeedFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_wind_power_24);
-        String title = "Wind Speed";
+        String title = getResources().getString(R.string.WindSpeed);
         String unit = "km/h";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
@@ -210,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setRainfallFragment(String value, String description, String avgValue){
         Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
-        String title = "Rainfall";
+        String title = getResources().getString(R.string.Rainfall);
         String unit = "mm";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
                 icon,
@@ -321,23 +329,17 @@ public class MainActivity extends AppCompatActivity {
             int hour = currentTime.getHour();
             String weatherText ="";
             if (hour >= 5 && hour < 11) {
-                weatherText = "Good morning! The weather looks great for outdoor activities. It's " + tempString + "°C outside, humidity is " + humidString + "%, wind speed is about " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
-
+                weatherText = getString(R.string.morning_weather, tempString, humidString, windspeedString, rainfallString);
             } else if (hour >= 11 && hour < 15) {
-                weatherText = "Hello! It's noon. Temperature is " + tempString + "°C, humidity around " + humidString + "%, wind speed at " + windspeedString + " km/h, and rainfall " + rainfallString + "mm.";
-
+                weatherText = getString(R.string.noon_weather, tempString, humidString, windspeedString, rainfallString);
             } else if (hour >= 15 && hour < 18) {
-                weatherText = "Good afternoon! It's a perfect time to be outside. Temperature outside is " + tempString + "°C, humidity level about " + humidString + "%, wind speed currently at " + windspeedString + " km/h, and rainfall " + rainfallString + "mm.";
-
+                weatherText = getString(R.string.afternoon_weather, tempString, humidString, windspeedString, rainfallString);
             } else if (hour >= 18 && hour < 22) {
-                weatherText = "Good evening! It's getting dark, better not stay up too late. The temperature's at " + tempString + "°C, humidity at " + humidString + "%, wind speed approximately " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
-
+                weatherText = getString(R.string.evening_weather, tempString, humidString, windspeedString, rainfallString);
             } else if (hour >= 22 || hour < 5) {
-                weatherText = "Good night! It's late, get some rest. The temperature's at " + tempString + "°C, humidity at " + humidString + "%, wind speed approximately " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
-
+                weatherText = getString(R.string.night_weather, tempString, humidString, windspeedString, rainfallString);
             } else {
-                weatherText = "Good dawn! It's early, get some sleep. Temperature currently at " + tempString + "°C, humidity is " + humidString + "%, wind speed around " + windspeedString + " km/h, and there's a bit of rainfall, " + rainfallString + "mm.";
-
+                weatherText = getString(R.string.dawn_weather, tempString, humidString, windspeedString, rainfallString);
             }
 
             textView.setText(weatherText);
@@ -385,6 +387,15 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Material3_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.CENTER);
     };
+    private void setLocale(MainActivity activity, String languages){
+        Locale locale = new Locale(languages);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        android.content.res.Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+
+    }
     @Override
     protected void onResume() {
         super.onResume();

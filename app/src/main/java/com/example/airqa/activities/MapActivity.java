@@ -2,6 +2,7 @@ package com.example.airqa.activities;
 import com.example.airqa.R;
 import com.example.airqa.api.ApiHandler;
 import com.example.airqa.api.ApiService;
+import com.example.airqa.fragments.SettingsFragment;
 import com.example.airqa.ml.Humidity;
 import com.example.airqa.ml.Temperature;
 import com.example.airqa.ml.WindSpeed;
@@ -22,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -55,6 +57,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -85,7 +88,10 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        // Save language
+        SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
+        String savedLanguage = sharedPreferences1.getString("language", "");
+        setLocale(MapActivity.this,savedLanguage);
         // Handle navbar
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
@@ -159,7 +165,15 @@ public class MapActivity extends AppCompatActivity {
         weatherAsset = getIntent().getParcelableExtra("weatherAsset");
 
     }
+    private void setLocale(MapActivity activity, String languages){
+        Locale locale = new Locale(languages);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        android.content.res.Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
 
+    }
     private void showBottomDialog() {
 
         final Dialog dialog = new Dialog(this);

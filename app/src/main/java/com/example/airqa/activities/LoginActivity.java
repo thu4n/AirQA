@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.CheckBox;
@@ -21,6 +22,8 @@ import com.example.airqa.models.AuthResponse;
 import com.example.airqa.models.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +64,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        // Save language
+        SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
+        String savedLanguage = sharedPreferences1.getString("language", "");
+        setLocale(LoginActivity.this,savedLanguage);
         // by ID we can use each component which id is assign in xml
         // file use findViewById() to get the both Button and textview
         MaterialButton login_button = (MaterialButton) findViewById(R.id.login_button);
@@ -262,6 +268,15 @@ public class LoginActivity extends AppCompatActivity {
         if(check.equals("true")) {
             loadPreferences();
         }
+    }
+    private void setLocale(LoginActivity activity, String languages){
+        Locale locale = new Locale(languages);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        android.content.res.Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+
     }
 
 }
