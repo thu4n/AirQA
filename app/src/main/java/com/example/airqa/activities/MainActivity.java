@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setWindSpeedFragment(String value, String description, String avgValue){
-        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.windspeed);
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_wind_power_24);
         String title = getResources().getString(R.string.WindSpeed);
         String unit = " km/h";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
