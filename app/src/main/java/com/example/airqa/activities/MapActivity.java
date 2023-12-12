@@ -22,8 +22,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
@@ -128,6 +131,8 @@ public class MapActivity extends AppCompatActivity {
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         map.getController().setZoom(19.0);
+        map.setMinZoomLevel(15.0);
+        map.setMinZoomLevel(23.0);
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
         requestPermissionsIfNecessary(new String[]{
@@ -289,6 +294,13 @@ public class MapActivity extends AppCompatActivity {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(point);
         startMarker.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_TOP);
+
+        Drawable newIconDrawable = getResources().getDrawable(R.drawable.marker);
+        Bitmap newIconBitmap = ((BitmapDrawable) newIconDrawable).getBitmap();
+
+        Bitmap scaledIconBitmap = Bitmap.createScaledBitmap(newIconBitmap, 100, 100, false);
+        startMarker.setIcon(new BitmapDrawable(getResources(), scaledIconBitmap));
+
         map.getOverlays().add(startMarker);
         startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
             @Override
