@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         if(!after_signup){
             checkBox();
-            getUserInfo(access_token);
+            //getUserInfo(access_token);
         }
     }
 
