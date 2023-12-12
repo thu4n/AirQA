@@ -38,8 +38,10 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -47,6 +49,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
@@ -130,9 +133,12 @@ public class MapActivity extends AppCompatActivity {
         map = (MapView) findViewById(R.id.map);
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
-        map.getController().setZoom(19.0);
-        map.setMinZoomLevel(15.0);
-        map.setMinZoomLevel(23.0);
+        map.getController().setZoom(20.0);
+        map.setMinZoomLevel(12.0);
+        map.setMaxZoomLevel(22.0);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
         requestPermissionsIfNecessary(new String[]{

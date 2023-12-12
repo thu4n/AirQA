@@ -12,7 +12,8 @@
         android:id="@+id/idFrameLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="35dp"
+        android:paddingBottom="35dp"
         />
 
     <com.google.android.material.bottomappbar.BottomAppBar
