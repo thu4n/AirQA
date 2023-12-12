@@ -309,7 +309,6 @@ public class MapActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             assert response.body() != null; // make sure the body isn't null
                             weatherAssets.add(response.body());
-                            Log.d("epochWhen1stGet", weatherAsset.getAttributes().getTemperature().getTimestamp() + "");
                         }
                         else {
 

@@ -127,7 +127,7 @@ public class ChartActivity extends AppCompatActivity {
         });
         inputEndDate.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                showDatePicker(inputStartDate);
+                showDatePicker(inputEndDate);
             }
         });
 
