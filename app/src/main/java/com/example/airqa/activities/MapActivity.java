@@ -131,6 +131,8 @@ public class MapActivity extends AppCompatActivity {
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         map.getController().setZoom(19.0);
+        map.setMinZoomLevel(15.0);
+        map.setMinZoomLevel(23.0);
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
         requestPermissionsIfNecessary(new String[]{
@@ -296,7 +298,7 @@ public class MapActivity extends AppCompatActivity {
         Drawable newIconDrawable = getResources().getDrawable(R.drawable.marker);
         Bitmap newIconBitmap = ((BitmapDrawable) newIconDrawable).getBitmap();
 
-        Bitmap scaledIconBitmap = Bitmap.createScaledBitmap(newIconBitmap, 150, 150, false);
+        Bitmap scaledIconBitmap = Bitmap.createScaledBitmap(newIconBitmap, 100, 100, false);
         startMarker.setIcon(new BitmapDrawable(getResources(), scaledIconBitmap));
 
         map.getOverlays().add(startMarker);
