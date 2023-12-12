@@ -58,4 +58,13 @@
     <string name="evening_weather">Good evening! It\'s getting dark, better not stay up too late. The temperature\'s at %1$s°C, humidity at %2$s%%, wind speed approximately %3$s km/h, and there\'s a bit of rainfall, %4$smm.</string>
     <string name="night_weather">Good night! It\'s late, get some rest. The temperature\'s at %1$s°C, humidity at %2$s%%, wind speed approximately %3$s km/h, and there\'s a bit of rainfall, %4$smm.</string>
     <string name="dawn_weather">Good dawn! It\'s early, get some sleep. Temperature currently at %1$s°C, humidity is %2$s%%, wind speed around %3$s km/h, and there\'s a bit of rainfall, %4$smm.</string>
+    <string name="Loading_data">Loading data, this will take a bit...</string>
+    <string name="Getting_assets_information">Getting assets information</string>
+    <string name="Failed_to_get_an_asset">Failed to get an asset</string>
+    <string name="Something_went_wrong">Something went wrong!</string>
+    <string name="Sign_up_successful">Sign up successful, now you can log in!</string>
+    <string name="Wrong_username_password.">Wrong username or password.</string>
+    <string name="An_error_has_occurred">An error has occurred, please try again.</string>
+    <string name="Logged_in_with">Logged in with</string>
+    <string name="Requesting_new_token">Requesting new token...</string>
 </resources>

@@ -117,6 +117,7 @@ public class ChartActivity extends AppCompatActivity {
         inputStartDate = findViewById(R.id.inputStartDate);
         TextInputLayout inputEndDateLayout = findViewById(R.id.inputEndDateLayout);
 
+        inputStartDate.setOnClickListener(v -> showDatePicker(inputStartDate));
         inputEndDate.setOnClickListener(v -> showDatePicker(inputEndDate));
         inputStartDate.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {

@@ -58,4 +58,8 @@
     <string name="evening_weather">こんばんは！暗くなってきましたね、あまり遅くまで起きていない方がいいです。気温は%1$s°C、湿度は%2$s%%、風速は約%3$s km/h、そして少し雨が降っています、%4$smm。</string>
     <string name="night_weather">おやすみなさい！もう遅いですね、休んでください。気温は%1$s°C、湿度は%2$s%%、風速は約%3$s km/h、そして少し雨が降っています、%4$smm。</string>
     <string name="dawn_weather">おはようございます！まだ早いですね、眠りましょう。現在の気温は%1$s°C、湿度は%2$s%%、風速は約%3$s km/h、そして少し雨が降っています、%4$smm。</string>
+    <string name="Loading_data">データを読み込。少々お待ちください...</string>
+    <string name="Getting_assets_information">アセット情報を取得</string>
+    <string name="Failed_to_get_an_asset">アセットを取得できませんでした</string>
+    <string name="Something_went_wrong">問題が発生しました！</string>
 </resources>

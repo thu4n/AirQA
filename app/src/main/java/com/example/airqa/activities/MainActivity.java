@@ -43,7 +43,6 @@ import me.bastanfar.semicirclearcprogressbar.SemiCircleArcProgressBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String PREFS_NAME = "preferences";
     MyDatabaseHelper dbHelper;
 
     BottomNavigationView bottomNavigationView;
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRainfallFragment(String value, String description, String avgValue){
-        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.rain_svgrepo_com);
         String title = getResources().getString(R.string.Rainfall);
         String unit = " mm";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
@@ -341,6 +340,18 @@ public class MainActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.predictsheetlayout);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        TextView tempVal = dialog.findViewById(R.id.assetIdTempValue1);
+        TextView humidVal = dialog.findViewById(R.id.assetIdHumidValue1);
+        TextView windSpeedVal = dialog.findViewById(R.id.assetIdWindSpeedValue1);
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        String T = sharedPreferences.getString("PredTemperature", "");
+        String H = sharedPreferences.getString("PredHumidity", "");
+        String W = sharedPreferences.getString("PredWindSpeed", "");
+
+        tempVal.setText( String.valueOf(T));
+        humidVal.setText(String.valueOf(H));
+        windSpeedVal.setText(String.valueOf(W));
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

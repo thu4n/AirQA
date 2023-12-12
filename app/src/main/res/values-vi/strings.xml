@@ -58,4 +58,8 @@
     <string name="evening_weather">Buổi tối tốt lành! Đang trở nên tối, tốt hơn không thức khuya quá muộn. Nhiệt độ là %1$s°C, độ ẩm là %2$s%%, tốc độ gió khoảng %3$s km/h, và có một ít mưa nhẹ, %4$smm.</string>
     <string name="night_weather">Đêm tốt lành! Đã khuya rồi, hãy nghỉ ngơi. Nhiệt độ là %1$s°C, độ ẩm là %2$s%%, tốc độ gió khoảng %3$s km/h, và có một ít mưa nhẹ, %4$smm.</string>
     <string name="dawn_weather">Bình minh đã đến! Sớm quá, hãy đi ngủ. Nhiệt độ hiện tại là %1$s°C, độ ẩm là %2$s%%, tốc độ gió khoảng %3$s km/h, và có một ít mưa nhẹ, %4$smm.</string>
+    <string name="Loading_data">Đang tải dữ liệu, sẽ mất 1 chút thời gian.</string>
+    <string name="Getting_assets_information">Đang lấy thông tin Asset</string>
+    <string name="Failed_to_get_an_asset">"Không thể lấy asset "</string>
+    <string name="Something_went_wrong">Đã xảy ra sự cố!</string>
 </resources>

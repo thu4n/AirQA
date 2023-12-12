@@ -6,6 +6,7 @@ import static com.example.airqa.activities.LoginActivity.activeUser;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.airqa.R;
+import com.example.airqa.activities.MapActivity;
 import com.example.airqa.fragments.ConfirmationDialogFragment;
 
 import java.text.SimpleDateFormat;
@@ -81,12 +83,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         setLocale(SettingsFragment.this,"ja");
 
                     }
-
+                    Intent intent = new Intent(getContext(), MapActivity.class);
+                    startActivity(intent);
                     // Return true để cập nhật giá trị preference
                     return true;
                 }
                 return false;
+
             }
+
         });
         Preference preference = findPreference("logout");
         if (preference != null) {
@@ -117,7 +122,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         android.content.res.Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
-
     }
     // Lưu trạng thái ngôn ngữ
     private void saveLanguage(String language) {
