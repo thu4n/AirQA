@@ -133,15 +133,11 @@ public class MapActivity extends AppCompatActivity {
         map = (MapView) findViewById(R.id.map);
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
-        map.getController().setZoom(19.0);
-        map.setMinZoomLevel(10.0);
-        map.setMaxZoomLevel(30.0);
+        map.getController().setZoom(20.0);
+        map.setMinZoomLevel(12.0);
+        map.setMaxZoomLevel(22.0);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
-
-        CompassOverlay compassOverlay = new CompassOverlay(this, map);
-        compassOverlay.enableCompass();
-        map.getOverlays().add(compassOverlay);
 
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
