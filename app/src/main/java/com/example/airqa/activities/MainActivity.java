@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         // set language
         SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
         String savedLanguage = sharedPreferences1.getString("language", "");
         setLocale(MainActivity.this,savedLanguage);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         // Handle navbar
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -308,9 +308,9 @@ public class MainActivity extends AppCompatActivity {
 
             textView.setText(weatherText);
 
-            setHumidityFragment(humidString,"Actual value: ", humidValue + "");
-            setRainfallFragment(rainfallString, "Actual value: ", rainfallValue + "");
-            setWindSpeedFragment(windspeedString, "Actual value: ", windspeedValue + "");
+            setHumidityFragment(humidString,getResources().getString(R.string.Actual_value), humidValue + "");
+            setRainfallFragment(rainfallString, getResources().getString(R.string.Actual_value), rainfallValue + "");
+            setWindSpeedFragment(windspeedString, getResources().getString(R.string.Actual_value), windspeedValue + "");
             return;
         } else if (asset.getAttributes().getPM10() != null) {
             temperature = findViewById(R.id.temp_number);
@@ -324,14 +324,53 @@ public class MainActivity extends AppCompatActivity {
             String pm25String = pm25Value + "";
             String co2String = co2Value + "";
             String aqiString = aqi + "";
+            // set script
+            TextView textView = findViewById(R.id.textInformation);
+            textView.setText("");
+            LocalTime currentTime = LocalTime.now();
+            int hour = currentTime.getHour();
+            String weatherText ="";
+            if (hour >= 5 && hour < 11) {
+                weatherText = getString(R.string.morning_weather2, pm10String, pm25String, co2String, aqiString);
+            } else if (hour >= 11 && hour < 15) {
+                weatherText = getString(R.string.noon_weather2, pm10String, pm25String,co2String,aqiString);
+            } else if (hour >= 15 && hour < 18) {
+                weatherText = getString(R.string.afternoon_weather2, pm10String, pm25String,co2String,aqiString);
+            } else if (hour >= 18 && hour < 22) {
+                weatherText = getString(R.string.evening_weather2, pm10String, pm25String,co2String,aqiString);
+            } else if (hour >= 22 || hour < 5) {
+                weatherText = getString(R.string.night_weather2, pm10String, pm25String,co2String,aqiString);
+            } else {
+                weatherText = getString(R.string.dawn_weather2, pm10String, pm25String,co2String,aqiString);
+            }
 
+            textView.setText(weatherText);
             setPollutantFragment(pm10String, pm25String, co2String);
             setAqiFragment(aqiString);
         }
         else{
             double humidValue = asset.getAttributes().getHumidity().getValue();
             String humidString = getRoundedString(humidValue);
-            setHumidityFragment(humidString,"Actual value: ", humidValue + "");
+            setHumidityFragment(humidString,getResources().getString(R.string.Actual_value), humidValue + "");
+            TextView textView = findViewById(R.id.textInformation);
+            textView.setText("");
+            LocalTime currentTime = LocalTime.now();
+            int hour = currentTime.getHour();
+            String weatherText ="";
+            if (hour >= 5 && hour < 11) {
+                weatherText = getString(R.string.good_morning1, tempString, humidString);
+            } else if (hour >= 11 && hour < 15) {
+                weatherText = getString(R.string.hello_noon1, tempString, humidString);
+            } else if (hour >= 15 && hour < 18) {
+                weatherText = getString(R.string.good_afternoon1, tempString, humidString);
+            } else if (hour >= 18 && hour < 22) {
+                weatherText = getString(R.string.good_evening1, tempString, humidString);
+            } else if (hour >= 22 || hour < 5) {
+                weatherText = getString(R.string.good_night1, tempString, humidString);
+            } else {
+                weatherText = getString(R.string.good_dawn1, tempString, humidString);
+            }
+            textView.setText(weatherText);
             return;
         }
     }

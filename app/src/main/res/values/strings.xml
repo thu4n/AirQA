@@ -67,4 +67,21 @@
     <string name="An_error_has_occurred">An error has occurred, please try again.</string>
     <string name="Logged_in_with">Logged in with</string>
     <string name="Requesting_new_token">Requesting new token...</string>
+    <string name="New_token">New token:</string>
+    <string name="Token_expired">Token expired</string>
+    <string name="Token_expired_info">Token expired, please log in manually</string>
+    <string name="invalid_email_or_username">invalid email or username</string>
+    <string name="good_morning1">Good morning! Temperature: %s°C, Humidity: %s%%</string>
+    <string name="hello_noon1">Hello! Noon temperature: %s°C, Humidity: %s%%</string>
+    <string name="good_afternoon1">Good afternoon! Temperature: %s°C, Humidity: %s%%</string>
+    <string name="good_evening1">Good evening! Temperature: %s°C, Humidity: %s%%</string>
+    <string name="good_night1">Good night! Temperature: %s°C, Humidity: %s%%</string>
+    <string name="good_dawn1">Good dawn! Temperature: %s°C, Humidity: %s%%</string>
+    <string name="Actual_value">Actual value:</string>
+    <string name="morning_weather2">Good morning! The weather looks great for outdoor activities. PM10: %1$s outside, PM25: is %2$s, CO2: is about %3$s km/h, and AQI:, %4$s.</string>
+    <string name="noon_weather2">Good noon! PM10: %1$s outside, PM25: is %2$s, CO2: is about %3$s km/h, and AQI:, %4$s.</string>
+    <string name="afternoon_weather2">Good afternoon! PM10: %1$s outside, PM25: is %2$s, CO2: is about %3$s km/h, and AQI:, %4$s.</string>
+    <string name="evening_weather2">Good evening! PM10: %1$s outside, PM25: is %2$s, CO2: is about %3$s km/h, and AQI:, %4$s.</string>
+    <string name="night_weather2">Good night! PM10: %1$s outside, PM25: is %2$s, CO2: is about %3$s km/h, and AQI:, %4$s.</string>
+    <string name="dawn_weather2">Good dawn! PM10: %1$s outside, PM25: is %2$s, CO2: is about %3$s km/h, and AQI:, %4$s.</string>
 </resources>

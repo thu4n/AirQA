@@ -62,4 +62,26 @@
     <string name="Getting_assets_information">Đang lấy thông tin Asset</string>
     <string name="Failed_to_get_an_asset">"Không thể lấy asset "</string>
     <string name="Something_went_wrong">Đã xảy ra sự cố!</string>
+    <string name="Sign_up_successful">Đăng ký thành công, có thể đăng nhập!</string>
+    <string name="Wrong_username_password.">Tên người dùng hoặc mật khẩu sai.</string>
+    <string name="An_error_has_occurred">Đã xảy ra lỗi, vui lòng thử lại.</string>
+    <string name="Logged_in_with">Đã đăng nhập với</string>
+    <string name="Requesting_new_token">Đang yêu cầu token mới...</string>
+    <string name="New_token">Mã thông báo mới:</string>
+    <string name="Token_expired">Mã thông báo hết hạn</string>
+    <string name="Token_expired_info">Mã thông báo hết hạn, vui lòng đăng nhập bằng tay</string>
+    <string name="invalid_email_or_username">Email hoặc tên người dùng không hợp lệ</string>
+    <string name="good_morning1">Buổi sáng tốt lành! Nhiệt độ: %s°C, Độ ẩm: %s%%</string>
+    <string name="hello_noon1">Xin chào! Nhiệt độ trưa: %s°C, Độ ẩm: %s%%</string>
+    <string name="good_afternoon1">Buổi chiều tốt lành! Nhiệt độ: %s°C, Độ ẩm: %s%%</string>
+    <string name="good_evening1">Buổi tối tốt lành! Nhiệt độ: %s°C, Độ ẩm: %s%%</string>
+    <string name="good_night1">Đêm tốt lành! Nhiệt độ: %s°C, Độ ẩm: %s%%</string>
+    <string name="good_dawn1">Bình minh tốt lành! Nhiệt độ: %s°C, Độ ẩm: %s%%</string>
+    <string name="Actual_value">Giá trị thực:</string>
+    <string name="morning_weather2">Buổi sáng tốt lành! Thời tiết trông rất tuyệt để thực hiện các hoạt động ngoài trời. PM10: %1$s bên ngoài, PM25: là %2$s, CO2: khoảng %3$s km/h, và AQI: %4$s.</string>
+    <string name="noon_weather2">Buổi trưa tốt lành! PM10: %1$s bên ngoài, PM25: là %2$s, CO2: khoảng %3$s km/h, và AQI: %4$s.</string>
+    <string name="afternoon_weather2">Buổi chiều tốt lành!  PM10: %1$s bên ngoài, PM25: là %2$s, CO2: khoảng %3$s km/h, và AQI: %4$s.</string>
+    <string name="evening_weather2">Buổi tối tốt lành!  PM10: %1$s bên ngoài, PM25: là %2$s, CO2: khoảng %3$s km/h, và AQI: %4$s.</string>
+    <string name="night_weather2">Buổi đêm tốt lành!  PM10: %1$s bên ngoài, PM25: là %2$s, CO2: khoảng %3$s km/h, và AQI: %4$s.</string>
+    <string name="dawn_weather2">Bình minh tốt lành!  PM10: %1$s bên ngoài, PM25: là %2$s, CO2: khoảng %3$s km/h, và AQI: %4$s.</string>
 </resources>

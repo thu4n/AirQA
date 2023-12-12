@@ -62,4 +62,26 @@
     <string name="Getting_assets_information">アセット情報を取得</string>
     <string name="Failed_to_get_an_asset">アセットを取得できませんでした</string>
     <string name="Something_went_wrong">問題が発生しました！</string>
+    <string name="Sign_up_successful">サインアップに成功しました。今すぐログインできます！</string>
+    <string name="Wrong_username_password.">ユーザー名またはパスワードが間違っています。</string>
+    <string name="An_error_has_occurred">エラーが発生しました。もう一度お試しください。</string>
+    <string name="Logged_in_with">でログインしました</string>
+    <string name="Requesting_new_token">新しいトークンをリクエストしています...</string>
+    <string name="New_token">新しいトークン：</string>
+    <string name="Token_expired">トークンの有効期限が切れました</string>
+    <string name="Token_expired_info">トークンの有効期限が切れました。手動でログインしてください</string>
+    <string name="invalid_email_or_username">無効なメールアドレスまたはユーザー名</string>
+    <string name="good_morning1">おはようございます！気温：%s°C、湿度：%s%%</string>
+    <string name="hello_noon1">こんにちは！昼の気温：%s°C、湿度：%s%%</string>
+    <string name="good_afternoon1">こんにちは！昼の気温：%s°C、湿度：%s%%</string>
+    <string name="good_evening1">こんばんは！気温：%s°C、湿度：%s%%</string>
+    <string name="good_night1">おやすみなさい！気温：%s°C、湿度：%s%%</string>
+    <string name="good_dawn1">おはようございます！気温：%s°C、湿度：%s%%</string>
+    <string name="Actual_value">" 実価："</string>
+    <string name="morning_weather2">良い朝です！屋外活動にはとても良い天気です。PM10: %1$s、PM25: %2$s、CO2: 約 %3$s km/h、AQI: %4$s。</string>
+    <string name="noon_weather2">良い昼です！PM10: %1$s、PM25: %2$s、CO2: 約 %3$s km/h、AQI: %4$s。</string>
+    <string name="afternoon_weather2">良い午後です！PM10: %1$s、PM25: %2$s、CO2: 約 %3$s km/h、AQI: %4$s。</string>
+    <string name="evening_weather2">良い夕方です！PM10: %1$s、PM25: %2$s、CO2: 約 %3$s km/h、AQI: %4$s。</string>
+    <string name="night_weather2">良い夜です！PM10: %1$s、PM25: %2$s、CO2: 約 %3$s km/h、AQI: %4$s。</string>
+    <string name="dawn_weather2">良い夜明けです！PM10: %1$s、PM25: %2$s、CO2: 約 %3$s km/h、AQI: %4$s。</string>
 </resources>

@@ -62,12 +62,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        // Save language
         SharedPreferences sharedPreferences1 = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String savedLanguage = sharedPreferences1.getString("language", "");
         setLocale(LoginActivity.this,savedLanguage);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        // Save language
         // by ID we can use each component which id is assign in xml
         // file use findViewById() to get the both Button and textview
         MaterialButton login_button = (MaterialButton) findViewById(R.id.login_button);
@@ -208,12 +208,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if(response.isSuccessful()){
-                    Log.e("ok",  "New token: " + response.body().getAccess_token());
+                    Log.e("ok",  getResources().getString(R.string.New_token) + response.body().getAccess_token());
                     getUserInfo(response.body().getAccess_token());
                 }
                 else if(response.code() == 401){
-                    Log.e("not_ok",  "Token expired");
-                    Toast.makeText(LoginActivity.this, "Token expired, please log in manually", Toast.LENGTH_SHORT).show();
+                    Log.e("not_ok",  getResources().getString(R.string.Token_expired));
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.Token_expired_info), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -277,7 +277,6 @@ public class LoginActivity extends AppCompatActivity {
         android.content.res.Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
-
     }
 
 }
