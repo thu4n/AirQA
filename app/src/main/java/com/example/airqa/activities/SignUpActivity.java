@@ -32,12 +32,12 @@ public class SignUpActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
         // Save language
         SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
         String savedLanguage = sharedPreferences1.getString("language", "");
         setLocale(SignUpActivity.this,savedLanguage);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
         // by ID we can use each component which id is assign in xml
         // file use findViewById() to get the Button and textview.
         signup_button = (MaterialButton) findViewById(R.id.signup_button);
