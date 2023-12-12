@@ -32,12 +32,12 @@ public class SignUpActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
         // Save language
         SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
         String savedLanguage = sharedPreferences1.getString("language", "");
         setLocale(SignUpActivity.this,savedLanguage);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
         // by ID we can use each component which id is assign in xml
         // file use findViewById() to get the Button and textview.
         signup_button = (MaterialButton) findViewById(R.id.signup_button);
@@ -111,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
                             else if(url.startsWith("https://uiot.ixxc.dev/auth/realms/master/login-actions/registration")){
                                 //Toast.makeText(SignUpActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
                                 // Catching sign up errors event like invalid username or email,etc..
-                                Toast.makeText(SignUpActivity.this,  "invalid email or username", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this,  getResources().getString(R.string.invalid_email_or_username), Toast.LENGTH_SHORT).show();
 
                             }
                             // If you want the WebView to load the URL, return false

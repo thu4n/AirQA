@@ -90,12 +90,12 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
         // Save language
         SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
         String savedLanguage = sharedPreferences1.getString("language", "");
         setLocale(MapActivity.this,savedLanguage);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
         // Handle navbar
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);

@@ -55,7 +55,7 @@ public class SplashScreen extends AppCompatActivity {
     }
     public void getAllWeatherAsset(List<String> assetIDs, String access_token){
         if(weatherAssets.size() < 4){ // to make sure it doesn't add more duplicates to this list upon re-creating
-            Toast.makeText(SplashScreen.this, "Getting assets information", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SplashScreen.this, getResources().getString(R.string.Getting_assets_information), Toast.LENGTH_SHORT).show();
             for(String assetId : assetIDs){
                 Call<WeatherAsset> call = ApiService.apiService.getAssetInfo("Bearer " + access_token, assetId);
                 call.enqueue(new Callback<WeatherAsset>() {
@@ -72,7 +72,7 @@ public class SplashScreen extends AppCompatActivity {
                             }
                         }
                         else {
-                            Toast.makeText(SplashScreen.this, "Failed to get an asset", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SplashScreen.this, getResources().getString(R.string.Failed_to_get_an_asset), Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
@@ -147,7 +147,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 }
                 else {
-                    Toast.makeText(SplashScreen.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SplashScreen.this, getResources().getString(R.string.Something_went_wrong), Toast.LENGTH_SHORT).show();
                 }
             }
 

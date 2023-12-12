@@ -62,12 +62,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences1 = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String savedLanguage = sharedPreferences1.getString("language", "");
+        setLocale(LoginActivity.this,savedLanguage);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Save language
-        SharedPreferences sharedPreferences1 = getSharedPreferences("preferences", MODE_PRIVATE);
-        String savedLanguage = sharedPreferences1.getString("language", "");
-        setLocale(LoginActivity.this,savedLanguage);
         // by ID we can use each component which id is assign in xml
         // file use findViewById() to get the both Button and textview
         MaterialButton login_button = (MaterialButton) findViewById(R.id.login_button);
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
             username.setText(get_username);
             password.setText(get_password);
             after_signup = true;
-            Toast.makeText(LoginActivity.this, "Sign up successful, now you can log in!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, getResources().getString(R.string.Sign_up_successful), Toast.LENGTH_SHORT).show();
         }
 
         login_button.setOnClickListener(view -> logIn(username.getText().toString(),password.getText().toString()));
@@ -161,13 +161,13 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("ok", response.body().getAccess_token() + "");
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Wrong username or password.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.Wrong_username_password_), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "An error has occurred, please try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getResources().getString(R.string.An_error_has_occurred), Toast.LENGTH_SHORT).show();
                 Log.e("fail", t.getMessage() + "");
             }
         });
@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Logged in with " + response.body().getEmail(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.Logged_in_with) + response.body().getEmail(), Toast.LENGTH_SHORT).show();
                     Log.e("ok", response.body().getEmail() + "");
                     activeUser = response.body();
                   // move to splash screen
@@ -202,18 +202,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void refreshToken(String refresh_token){
-        Toast.makeText(LoginActivity.this, "Requesting new token...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, getResources().getString(R.string.Requesting_new_token), Toast.LENGTH_SHORT).show();
         Call<AuthResponse> call = ApiService.apiService.refreshToken("openremote",refresh_token,"refresh_token");
         call.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if(response.isSuccessful()){
-                    Log.e("ok",  "New token: " + response.body().getAccess_token());
+                    Log.e("ok",  getResources().getString(R.string.New_token) + response.body().getAccess_token());
                     getUserInfo(response.body().getAccess_token());
                 }
                 else if(response.code() == 401){
-                    Log.e("not_ok",  "Token expired");
-                    Toast.makeText(LoginActivity.this, "Token expired, please log in manually", Toast.LENGTH_SHORT).show();
+                    Log.e("not_ok",  getResources().getString(R.string.Token_expired));
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.Token_expired_info), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -277,7 +277,6 @@ public class LoginActivity extends AppCompatActivity {
         android.content.res.Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
-
     }
 
 }
