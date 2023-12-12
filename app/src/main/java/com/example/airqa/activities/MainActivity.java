@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRainfallFragment(String value, String description, String avgValue){
-        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.baseline_forest_24);
+        Drawable icon = ContextCompat.getDrawable(getBaseContext(), R.drawable.rainfall);
         String title = getResources().getString(R.string.Rainfall);
         String unit = " mm";
         AttributeContainerFragment fragment = AttributeContainerFragment.newInstance(
