@@ -83,7 +83,9 @@ public class SplashScreen extends AppCompatActivity {
                 });
             }
         }
-        else return;
+        else {
+            pendingTransition();
+        }
     }
     public void getAllAsset(String access_token){
         // Default value for the body, do not change this query

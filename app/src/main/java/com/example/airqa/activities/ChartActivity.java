@@ -178,10 +178,10 @@ public class ChartActivity extends AppCompatActivity {
                 // Show a Toast message with the selected entry's value
                 long x = (long) e.getX();
                 Date date = new Date(x);
-                String format = "dd/MM/yyyy";
+                String format = "dd/MM/yyyy HH:mm";
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(format);
                 String dateString = sdf.format(date);
-                InfoChartFragment fragment = InfoChartFragment.newInstance(assetAtrribute, dateString, Float.toString(e.getY()));
+                InfoChartFragment fragment = InfoChartFragment.newInstance(assetAtrribute, Float.toString(e.getY()) ,dateString);
 
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -285,6 +285,7 @@ public class ChartActivity extends AppCompatActivity {
             public void onResponse(Call<List<DataPoint>> call, Response<List<DataPoint>> response) {
                 if(response.isSuccessful()){
                     if( response.body().size() == 0 ){
+                        data.clear();
                         lineChart.clear();
                         Toast.makeText(ChartActivity.this, "No data to be shown!", Toast.LENGTH_SHORT).show();
                         return;
@@ -362,8 +363,8 @@ public class ChartActivity extends AppCompatActivity {
     private void createFile() {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TITLE, "text.csv");
+        intent.setType("text/csv");
+        intent.putExtra(Intent.EXTRA_TITLE, "text");
         startActivityForResult(intent, CREATE_FILE_REQUEST_CODE);
     }
 

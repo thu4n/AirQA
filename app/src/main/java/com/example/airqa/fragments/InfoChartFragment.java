@@ -14,22 +14,21 @@ public class InfoChartFragment extends Fragment {
 
     private static final String ARG_VALUE = "arg_value";
     private static final String ARG_TYPE = "arg_type";
-    private static final String ARG_UNIT = "arg_unit";
-
+    private static final String ARG_TIME = "arg_time";
     private String valueType;
     private String value;
-    private String unit;
+    private String time;
 
     public InfoChartFragment() {
         // Required empty public constructor
     }
 
-    public static InfoChartFragment newInstance(String type, String value, String unit) {
+    public static InfoChartFragment newInstance(String type, String value, String time) {
         InfoChartFragment fragment = new InfoChartFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TYPE, type);
         args.putString(ARG_VALUE, value);
-        args.putString(ARG_UNIT, unit);
+        args.putString(ARG_TIME, time);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,7 +39,7 @@ public class InfoChartFragment extends Fragment {
         if (getArguments() != null) {
             value = getArguments().getString(ARG_VALUE);
             valueType = getArguments().getString(ARG_TYPE);
-            unit = getArguments().getString(ARG_UNIT);
+            time = getArguments().getString(ARG_TIME);
         }
     }
 
@@ -49,12 +48,11 @@ public class InfoChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info_chart, container, false);
         TextView typeTextView = view.findViewById(R.id.typeChart);
         TextView valueTextView = view.findViewById(R.id.valueChart);
-        TextView unitTextView = view.findViewById(R.id.unitChart); // Add TextView for unit
-
+        TextView timeTextView = view.findViewById(R.id.timeChart);
         // Display the received type, value, and unit in the TextViews
         typeTextView.setText(valueType);
         valueTextView.setText(value);
-        unitTextView.setText(unit); // Set the unit value in the TextView
+        timeTextView.setText(time);
 
         return view;
     }
