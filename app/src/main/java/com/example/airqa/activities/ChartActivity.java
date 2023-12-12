@@ -181,7 +181,7 @@ public class ChartActivity extends AppCompatActivity {
                 String format = "dd/MM/yyyy HH:mm";
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(format);
                 String dateString = sdf.format(date);
-                InfoChartFragment fragment = InfoChartFragment.newInstance(assetAtrribute, dateString, Float.toString(e.getY()));
+                InfoChartFragment fragment = InfoChartFragment.newInstance(assetAtrribute, Float.toString(e.getY()) ,dateString);
 
                 getSupportFragmentManager()
                         .beginTransaction()
