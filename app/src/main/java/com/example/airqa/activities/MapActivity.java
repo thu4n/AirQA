@@ -22,8 +22,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
@@ -35,8 +38,10 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -44,6 +49,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
@@ -127,7 +133,12 @@ public class MapActivity extends AppCompatActivity {
         map = (MapView) findViewById(R.id.map);
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
-        map.getController().setZoom(19.0);
+        map.getController().setZoom(20.0);
+        map.setMinZoomLevel(12.0);
+        map.setMaxZoomLevel(22.0);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
         requestPermissionsIfNecessary(new String[]{
@@ -289,6 +300,13 @@ public class MapActivity extends AppCompatActivity {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(point);
         startMarker.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_TOP);
+
+        Drawable newIconDrawable = getResources().getDrawable(R.drawable.marker);
+        Bitmap newIconBitmap = ((BitmapDrawable) newIconDrawable).getBitmap();
+
+        Bitmap scaledIconBitmap = Bitmap.createScaledBitmap(newIconBitmap, 100, 100, false);
+        startMarker.setIcon(new BitmapDrawable(getResources(), scaledIconBitmap));
+
         map.getOverlays().add(startMarker);
         startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
             @Override

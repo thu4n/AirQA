@@ -155,7 +155,8 @@
             android:layout_width="match_parent"
             android:layout_below="@+id/profile_container"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="35dp"
+            android:paddingBottom="35dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"

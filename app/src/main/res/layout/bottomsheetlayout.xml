@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/windspeed" />
+            android:src="@drawable/baseline_wind_power_24" />
 
         <TextView
             android:id="@+id/assetIdWindSpeedText"
