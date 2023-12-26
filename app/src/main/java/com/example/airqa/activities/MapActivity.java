@@ -49,6 +49,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.util.BoundingBox;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
@@ -134,7 +135,7 @@ public class MapActivity extends AppCompatActivity {
         fragmentContainer = findViewById(R.id.fragment_container);
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         map.getController().setZoom(20.0);
-        map.setMinZoomLevel(12.0);
+        map.setMinZoomLevel(15.0);
         map.setMaxZoomLevel(22.0);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
@@ -300,6 +301,13 @@ public class MapActivity extends AppCompatActivity {
         Marker startMarker = new Marker(map);
         startMarker.setPosition(point);
         startMarker.setAnchor(Marker.ANCHOR_TOP, Marker.ANCHOR_TOP);
+
+        BoundingBox boundingBox = new BoundingBox();
+        boundingBox.setLatNorth(10.90);
+        boundingBox.setLatSouth(10.835);
+        boundingBox.setLonEast(106.83);
+        boundingBox.setLonWest(106.78);
+        map.setScrollableAreaLimitDouble(boundingBox);
 
         Drawable newIconDrawable = getResources().getDrawable(R.drawable.marker);
         Bitmap newIconBitmap = ((BitmapDrawable) newIconDrawable).getBitmap();
