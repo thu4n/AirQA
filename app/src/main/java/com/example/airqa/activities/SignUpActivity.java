@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
@@ -66,28 +68,29 @@ public class SignUpActivity extends AppCompatActivity {
 
         signup_button.setOnClickListener(v ->
                 {
-                    Intent intent = new Intent(SignUpActivity.this, LoadingScreen.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(SignUpActivity.this, LoadingScreen.class);
+                    startActivity(intent);*/
                     myWebView.setWebViewClient(new WebViewClient(){
                         boolean buttonClicked = false;
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             if(!buttonClicked){
+                                Log.d("button",username.getText().toString());
                                 myWebView.loadUrl("javascript:document.querySelector('a[class=\\\"btn waves-effect waves-light\\\"]').click()");
                                 buttonClicked = true;
+                            }
+                            else{
                                 String fillFormJS = "javascript:(function() {" +
                                         "var form = document.getElementById('kc-register-form');" +
                                         "var username = form.elements['username'];" +
                                         "var email = form.elements['email'];" +
                                         "var password = form.elements['password'];" +
                                         "var password_conf = form.elements['password-confirm'];" +
-                                        "if (form) {" +
                                         "   username.value = '" + username.getText().toString() + "';" +
                                         "   email.value = '" + email.getText().toString() + "';" +
                                         "   password.value = '" + password.getText().toString() + "';" +
                                         "   password_conf.value = '" + password_conf.getText().toString() + "';" +
                                         " form.submit();" +
-                                        "}" +
                                         "})()";
                                 myWebView.loadUrl(fillFormJS);
                             }
@@ -108,18 +111,13 @@ public class SignUpActivity extends AppCompatActivity {
                                 cookieManager.removeAllCookies(null);
                                 return true;
                             }
-                            else if(url.startsWith("https://uiot.ixxc.dev/auth/realms/master/login-actions/registration")){
-                                //Toast.makeText(SignUpActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
-                                // Catching sign up errors event like invalid username or email,etc..
-                                Toast.makeText(SignUpActivity.this,  getResources().getString(R.string.invalid_email_or_username), Toast.LENGTH_SHORT).show();
-
-                            }
                             // If you want the WebView to load the URL, return false
                             return false;
                         }
                     });
                     myWebView.loadUrl("https://uiot.ixxc.dev/auth/realms/master/account");
                     myWebView.bringToFront();
+                    //myWebView.setVisibility(View.VISIBLE);
                 }
         );
 
